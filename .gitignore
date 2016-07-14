@@ -1,0 +1,3 @@
+bin/*.ipynb
+src/obj/*.o
+examples/1-EBI/results/*.nc

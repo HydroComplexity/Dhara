@@ -1,50 +1,27 @@
+# [Start Bootstrap](http://startbootstrap.com/) - [Agency](http://startbootstrap.com/template-overviews/agency/)
 
-<p align="center">
-<img src="http://hydrocomplexity.net/images/dharaD.png" width="150px" hspace=5 /> <br/>
-</p>
-
-
-
-**DHARA** is an open source software for distributed hydrology and river analysis. We designed it to be optimal for hybrid CPU-GPU parallel computing. 
-
-This project aims to provide a consistent framework for scientists to use and futher develop  modules for their modeling purposes. By participating, you are expected to uphold this code and contribute your model to the community.
-
-Visit [http://hydrocomplexity.github.io/Dhara](http://hydrocomplexity.github.io/Dhara) to learn more.
+[Agency](http://startbootstrap.com/template-overviews/agency/) is a one page agency portfolio theme for [Bootstrap](http://getbootstrap.com/) created by [Start Bootstrap](http://startbootstrap.com/). This theme features several content sections, a responsive portfolio grid with hover effects, full page portfolio item modals, a responsive timeline, and a working PHP contact form.
 
 ## Getting Started
 
-### Prerequisites
+To begin using this template, choose one of the following options to get started:
+* [Download the latest release on Start Bootstrap](http://startbootstrap.com/template-overviews/agency/)
+* Clone the repo: `git clone https://github.com/BlackrockDigital/startbootstrap-agency.git`
+* Fork the repo
 
-The following packages are required to compile and run DHARA
-```
-* mpich or openmpi
-* CUDA (5.0 or later)
-* netcdf4
-```
+## Bugs and Issues
 
+Have a bug or an issue with this template? [Open a new issue](https://github.com/BlackrockDigital/startbootstrap-agency/issues) here on GitHub or leave a comment on the [template overview page at Start Bootstrap](http://startbootstrap.com/template-overviews/agency/).
 
-### Download
+## Creator
 
-Go to the folder you where you want to download Dhara, do:
-```
-$ git clone git@github.com:HydroComplexity/Dhara.git
-```
+Start Bootstrap was created by and is maintained by **[David Miller](http://davidmiller.io/)**, Owner of [Blackrock Digital](http://blackrockdigital.io/).
 
-### Installation
-```
-$ cd Dhara
-$ make
-```
+* https://twitter.com/davidmillerskt
+* https://github.com/davidtmiller
 
-## Documentation
+Start Bootstrap is based on the [Bootstrap](http://getbootstrap.com/) framework created by [Mark Otto](https://twitter.com/mdo) and [Jacob Thorton](https://twitter.com/fat).
 
-See our tutorial [here]() to learn about DHARA and run examples.
+## Copyright and License
 
-
-## License
-This software is freeware and is released under LGPL. See LICENSE file for more information. 
-
-
-## Contact Authors
-* Phong Le: <mailto:levuvietphong@gmail.com>
-* Praveen Kumar: <mailto:kumar1@illinois.edu>
+Copyright 2013-2016 Blackrock Digital LLC. Code released under the [MIT](https://github.com/BlackrockDigital/startbootstrap-agency/blob/gh-pages/LICENSE) license.
