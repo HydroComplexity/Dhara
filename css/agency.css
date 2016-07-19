@@ -199,8 +199,8 @@ fieldset[disabled] .btn-xl.active {
 }
 @media (min-width: 768px) {
   .navbar-default {
-    background-color: transparent;
-    padding: 25px 0;
+    background-color: rgba(0, 0, 0, 0.6);;
+    padding: 15px 0;
     -webkit-transition: padding 0.3s;
     -moz-transition: padding 0.3s;
     transition: padding 0.3s;
@@ -225,7 +225,8 @@ fieldset[disabled] .btn-xl.active {
 }
 header {  
   background:#261c3e;
-  background-image: url('../img/intro.svg');
+  /* background-image: url('../img/intro.svg'); */
+  background-image: url('../img/wallup-195151.jpg');
   background-repeat: none;
   background-attachment: scroll;
   background-position: center center;
