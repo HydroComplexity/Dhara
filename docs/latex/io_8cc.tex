@@ -1,0 +1,576 @@
+\hypertarget{io_8cc}{}\section{src/io.cc File Reference}
+\label{io_8cc}\index{src/io.\+cc@{src/io.\+cc}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}../include/main.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../include/parser.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename type $>$ }\\void \hyperlink{io_8cc_ab52595c7230b8869a956e745c3992242}{Save\+Output1D} (const char $\ast$file, const char $\ast$dataname, type $\ast$data, nc\+\_\+type nctype, int Nx, int write)
+\item 
+void \hyperlink{io_8cc_a44833dce92422d5aba84dfc6c9ebe0f3}{Print\+Usage} (const char $\ast$app\+Name)
+\item 
+void \hyperlink{io_8cc_a1fae5968f70747445d63f63065fb7ef3}{Print\+Version} ()
+\item 
+int \hyperlink{io_8cc_aed17259f5bd71174ccfc20ed91316e3d}{Check\+Argument} (const char $\ast$arg\+Name, int argc, char $\ast$$\ast$argv)
+\item 
+int \hyperlink{io_8cc_afb342eaf94dc0d169ac6731cde547f0d}{Extract\+Number} (int arg\+Idx, int argc, char $\ast$$\ast$argv)
+\item 
+void \hyperlink{io_8cc_a1fb8e2a162c61a792a4f6784ae7ceae2}{Load\+Config\+M\+L\+Can\+Model} (\hyperlink{class_project_class}{Project\+Class} $\ast$project, \hyperlink{class_file_name_class}{File\+Name\+Class} $\ast$files, \hyperlink{class_switch_class}{Switch\+Class} $\ast$switches, \hyperlink{class_constant_class}{Constant\+Class} $\ast$constants, \hyperlink{class_canopy_class}{Canopy\+Class} $\ast$canopies, \hyperlink{class_soil_class}{Soil\+Class} $\ast$soils, \hyperlink{class_radiation_class}{Radiation\+Class} $\ast$radiation, \hyperlink{class_photosynthesis_class}{Photosynthesis\+Class} $\ast$photosynthesis, \hyperlink{class_respiration_class}{Respiration\+Class} $\ast$respiration, \hyperlink{class_stoma_conduct_class}{Stoma\+Conduct\+Class} $\ast$stomaconduct, \hyperlink{class_micro_environment_class}{Micro\+Environment\+Class} $\ast$microenviron)
+\begin{DoxyCompactList}\small\item\em Loads user configurations to M\+L\+Canmodel. \end{DoxyCompactList}\item 
+void \hyperlink{io_8cc_a94d1be3f7a08fb71cc9a747e8bc9c597}{Load\+Flow\+Model\+Config} (\hyperlink{class_project_class}{Project\+Class} $\ast$project, \hyperlink{class_file_name_class}{File\+Name\+Class} $\ast$files, \hyperlink{class_overland_flow_class}{Overland\+Flow\+Class} $\ast$overland, \hyperlink{class_subsurface_flow_class}{Subsurface\+Flow\+Class} $\ast$subsurface)
+\begin{DoxyCompactList}\small\item\em Loads user configurations to flow model. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Type $>$ }\\void \hyperlink{io_8cc_a51a72364bba641ebdd8d5dfce24b3e13}{Load\+File\+Net\+C\+DF} (const char $\ast$file\+\_\+name, const char $\ast$var\+\_\+name, Type $\ast$data)
+\begin{DoxyCompactList}\small\item\em Load Net\+C\+DF file format. \end{DoxyCompactList}\item 
+void \hyperlink{io_8cc_a582f178161d87441eb604256d4da3d17}{Get\+File\+Info} (const char $\ast$file\+\_\+name, const char $\ast$var\+\_\+name, int ndims, int $\ast$dim)
+\begin{DoxyCompactList}\small\item\em To extract information and dimension of Net\+C\+DF files. \end{DoxyCompactList}\item 
+void \hyperlink{io_8cc_aa5d43bf4e37ab8cd5eebd603b72ea5f9}{Parsing\+Commands\+And\+Configurations} (int argc, char $\ast$$\ast$argv, const char $\ast$\&file\+\_\+config, int rank, int procsize, \hyperlink{class_project_class}{Project\+Class} $\ast$\&project, \hyperlink{class_file_name_class}{File\+Name\+Class} $\ast$\&files, \hyperlink{classmpi_class}{mpi\+Class} $\ast$\&mpiobj)
+\begin{DoxyCompactList}\small\item\em Parse command line arguments and read configuration file. \end{DoxyCompactList}\item 
+void \hyperlink{io_8cc_a60d0bb17a56ea141fe870e514ef122f0}{Load\+Forcing\+Data} (\hyperlink{class_file_name_class}{File\+Name\+Class} $\ast$files, \hyperlink{class_canopy_class}{Canopy\+Class} $\ast$canopies, \hyperlink{class_time_forcing_class}{Time\+Forcing\+Class} $\ast$timeforcings, int rank, int procsize, int num\+\_\+steps)
+\begin{DoxyCompactList}\small\item\em load forcing data from Net\+C\+DF file. \end{DoxyCompactList}\item 
+void \hyperlink{io_8cc_aa916afa39225dd0fa219a35bef364027}{Load\+Topography} (\hyperlink{class_file_name_class}{File\+Name\+Class} $\ast$files, \hyperlink{class_overland_flow_class}{Overland\+Flow\+Class} $\ast$overland, int rank, int procsize)
+\begin{DoxyCompactList}\small\item\em To load topography info from Net\+C\+DF file. Topography is only used for flow modling in G\+PU device through master process. \end{DoxyCompactList}\item 
+void \hyperlink{io_8cc_a14463c5e17e08421310090a1352452dc}{Set\+Canopy\+Grid} (\hyperlink{class_canopy_class}{Canopy\+Class} $\ast$canopies, \hyperlink{class_vertical_canopy_class}{Vertical\+Canopy\+Class} $\ast$vertcanopies)
+\begin{DoxyCompactList}\small\item\em Set up canopy grid for simulation. Grid is constructed based on canopy height and the number of canopy layers specified by users. Uniform canopy grid is used. \end{DoxyCompactList}\item 
+void \hyperlink{io_8cc_a4d65faa4a43f499ccb15284cbe190027}{Set\+Soil\+Grid} (\hyperlink{class_project_class}{Project\+Class} $\ast$project, \hyperlink{class_soil_class}{Soil\+Class} $\ast$soils, \hyperlink{class_vertical_soil_class}{Vertical\+Soil\+Class} $\ast$vertsoils)
+\item 
+void \hyperlink{io_8cc_ae4e7123ba69ff3d9bbd373c5f9611b3e}{Load\+Canopy\+Root\+Distributions} (\hyperlink{class_project_class}{Project\+Class} $\ast$project, \hyperlink{class_canopy_class}{Canopy\+Class} $\ast$canopies, \hyperlink{class_vertical_canopy_class}{Vertical\+Canopy\+Class} $\ast$vertcanopies, \hyperlink{class_soil_class}{Soil\+Class} $\ast$soils, \hyperlink{class_vertical_soil_class}{Vertical\+Soil\+Class} $\ast$vertsoils)
+\begin{DoxyCompactList}\small\item\em Load canopy and root distribution from text files specified in configuration file. If more than one vegetation, distributions for each species must be provided. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename type $>$ }\\void \hyperlink{io_8cc_a9a3d44a1e7febaf3752ec753855e1de6}{Save\+Output3D} (const char $\ast$file, const char $\ast$dataname, type $\ast$data, nc\+\_\+type nctype, int3 globsize, int write)
+\begin{DoxyCompactList}\small\item\em Save 3D outputs to Net\+C\+DF files in double format. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename type $>$ }\\void \hyperlink{io_8cc_ae69102f2601de3410e4598bf76acb389}{Save\+Output2D} (const char $\ast$file, const char $\ast$dataname, type $\ast$data, nc\+\_\+type nctype, int My, int Nx, int write)
+\begin{DoxyCompactList}\small\item\em Save 2D outputs to Net\+C\+DF files in double format. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename type $>$ }\\void \hyperlink{io_8cc_aeb89d4afa6631f9265921329cb7f71fe}{Save\+Output1D} (const char $\ast$file, const char $\ast$dataname, type $\ast$data, nc\+\_\+type nctype, const char $\ast$dimname, int Nx, int write)
+\begin{DoxyCompactList}\small\item\em Saves one-\/dimensional variables into a Net\+C\+DF file. \end{DoxyCompactList}\item 
+void \hyperlink{io_8cc_ae64065afa343bdb3a9b5020b27995c4d}{Save\+Model\+Results} (\hyperlink{class_project_class}{Project\+Class} $\ast$project, \hyperlink{class_overland_flow_class}{Overland\+Flow\+Class} $\ast$overland\+\_\+host, \hyperlink{class_overland_flow_class}{Overland\+Flow\+Class} $\ast$overland\+\_\+dev, \hyperlink{class_subsurface_flow_class}{Subsurface\+Flow\+Class} $\ast$subsurface\+\_\+host, \hyperlink{class_subsurface_flow_class}{Subsurface\+Flow\+Class} $\ast$subsurface\+\_\+dev, int3 globsize, int timestep)
+\begin{DoxyCompactList}\small\item\em Copy to host and save 2D and 3D results to netcdf. \end{DoxyCompactList}\item 
+void \hyperlink{io_8cc_a3c37b53ca5ead19edf630f1071285572}{Save\+M\+L\+Can\+Results} (\hyperlink{class_project_class}{Project\+Class} $\ast$project, \hyperlink{class_output_class}{Output\+Class} $\ast$outmlcan, \hyperlink{class_canopy_class}{Canopy\+Class} $\ast$canopies, int num\+\_\+steps, int rank, int procsize)
+\begin{DoxyCompactList}\small\item\em Save M\+L\+Can results to net\+C\+DF for all processes. \end{DoxyCompactList}\item 
+void \hyperlink{io_8cc_a106808d5ba55a54cef12059a6af7f2cc}{Save\+Result\+Entire\+Period} (\hyperlink{class_project_class}{Project\+Class} $\ast$project, \hyperlink{class_canopy_class}{Canopy\+Class} $\ast$canopies, \hyperlink{class_subsurface_flow_class}{Subsurface\+Flow\+Class} $\ast$subsurface\+\_\+host, \hyperlink{class_output_class}{Output\+Class} $\ast$outmlcan, int rank, int procsize, int3 globsize, M\+P\+I\+\_\+\+Comm $\ast$cart\+Comm)
+\begin{DoxyCompactList}\small\item\em Save mean results for entire simulation period. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{io.\+cc@{io.\+cc}!Check\+Argument@{Check\+Argument}}
+\index{Check\+Argument@{Check\+Argument}!io.\+cc@{io.\+cc}}
+\subsubsection[{\texorpdfstring{Check\+Argument(const char $\ast$arg\+Name, int argc, char $\ast$$\ast$argv)}{CheckArgument(const char *argName, int argc, char **argv)}}]{\setlength{\rightskip}{0pt plus 5cm}int Check\+Argument (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{arg\+Name, }
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}\hypertarget{io_8cc_aed17259f5bd71174ccfc20ed91316e3d}{}\label{io_8cc_aed17259f5bd71174ccfc20ed91316e3d}
+\index{io.\+cc@{io.\+cc}!Extract\+Number@{Extract\+Number}}
+\index{Extract\+Number@{Extract\+Number}!io.\+cc@{io.\+cc}}
+\subsubsection[{\texorpdfstring{Extract\+Number(int arg\+Idx, int argc, char $\ast$$\ast$argv)}{ExtractNumber(int argIdx, int argc, char **argv)}}]{\setlength{\rightskip}{0pt plus 5cm}int Extract\+Number (
+\begin{DoxyParamCaption}
+\item[{int}]{arg\+Idx, }
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}\hypertarget{io_8cc_afb342eaf94dc0d169ac6731cde547f0d}{}\label{io_8cc_afb342eaf94dc0d169ac6731cde547f0d}
+Extract a number given as a command-\/line argument
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em arg\+Idx} & Argument index in command line \\
+\hline
+\mbox{\tt in}  & {\em argc} & The number of input arguments \\
+\hline
+\mbox{\tt in}  & {\em argv} & The input arguments \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Value of the the argument 
+\end{DoxyReturn}
+\index{io.\+cc@{io.\+cc}!Get\+File\+Info@{Get\+File\+Info}}
+\index{Get\+File\+Info@{Get\+File\+Info}!io.\+cc@{io.\+cc}}
+\subsubsection[{\texorpdfstring{Get\+File\+Info(const char $\ast$file\+\_\+name, const char $\ast$var\+\_\+name, int ndims, int $\ast$dim)}{GetFileInfo(const char *file_name, const char *var_name, int ndims, int *dim)}}]{\setlength{\rightskip}{0pt plus 5cm}void Get\+File\+Info (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{file\+\_\+name, }
+\item[{const char $\ast$}]{var\+\_\+name, }
+\item[{int}]{ndims, }
+\item[{int $\ast$}]{dim}
+\end{DoxyParamCaption}
+)}\hypertarget{io_8cc_a582f178161d87441eb604256d4da3d17}{}\label{io_8cc_a582f178161d87441eb604256d4da3d17}
+
+
+To extract information and dimension of Net\+C\+DF files. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em file\+\_\+name} & Net\+C\+DF file \\
+\hline
+\mbox{\tt in}  & {\em var\+\_\+name} & Variable inspecting \\
+\hline
+\mbox{\tt in}  & {\em ndims} & Number of dimension of the vars \\
+\hline
+ & {\em dim} & Dimension of the vars \\
+\hline
+\end{DoxyParams}
+\index{io.\+cc@{io.\+cc}!Load\+Canopy\+Root\+Distributions@{Load\+Canopy\+Root\+Distributions}}
+\index{Load\+Canopy\+Root\+Distributions@{Load\+Canopy\+Root\+Distributions}!io.\+cc@{io.\+cc}}
+\subsubsection[{\texorpdfstring{Load\+Canopy\+Root\+Distributions(\+Project\+Class $\ast$project, Canopy\+Class $\ast$canopies, Vertical\+Canopy\+Class $\ast$vertcanopies, Soil\+Class $\ast$soils, Vertical\+Soil\+Class $\ast$vertsoils)}{LoadCanopyRootDistributions(ProjectClass *project, CanopyClass *canopies, VerticalCanopyClass *vertcanopies, SoilClass *soils, VerticalSoilClass *vertsoils)}}]{\setlength{\rightskip}{0pt plus 5cm}void Load\+Canopy\+Root\+Distributions (
+\begin{DoxyParamCaption}
+\item[{{\bf Project\+Class} $\ast$}]{project, }
+\item[{{\bf Canopy\+Class} $\ast$}]{canopies, }
+\item[{{\bf Vertical\+Canopy\+Class} $\ast$}]{vertcanopies, }
+\item[{{\bf Soil\+Class} $\ast$}]{soils, }
+\item[{{\bf Vertical\+Soil\+Class} $\ast$}]{vertsoils}
+\end{DoxyParamCaption}
+)}\hypertarget{io_8cc_ae4e7123ba69ff3d9bbd373c5f9611b3e}{}\label{io_8cc_ae4e7123ba69ff3d9bbd373c5f9611b3e}
+
+
+Load canopy and root distribution from text files specified in configuration file. If more than one vegetation, distributions for each species must be provided. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em canopies} & Class including variables in canopy \\
+\hline
+{\em vertcanopies} & Canopy classes including vertical variables \\
+\hline
+{\em soils} & Class including variables in soil \\
+\hline
+{\em vertsoils} & Soil classes including vertical variables \\
+\hline
+\end{DoxyParams}
+\index{io.\+cc@{io.\+cc}!Load\+Config\+M\+L\+Can\+Model@{Load\+Config\+M\+L\+Can\+Model}}
+\index{Load\+Config\+M\+L\+Can\+Model@{Load\+Config\+M\+L\+Can\+Model}!io.\+cc@{io.\+cc}}
+\subsubsection[{\texorpdfstring{Load\+Config\+M\+L\+Can\+Model(\+Project\+Class $\ast$project, File\+Name\+Class $\ast$files, Switch\+Class $\ast$switches, Constant\+Class $\ast$constants, Canopy\+Class $\ast$canopies, Soil\+Class $\ast$soils, Radiation\+Class $\ast$radiation, Photosynthesis\+Class $\ast$photosynthesis, Respiration\+Class $\ast$respiration, Stoma\+Conduct\+Class $\ast$stomaconduct, Micro\+Environment\+Class $\ast$microenviron)}{LoadConfigMLCanModel(ProjectClass *project, FileNameClass *files, SwitchClass *switches, ConstantClass *constants, CanopyClass *canopies, SoilClass *soils, RadiationClass *radiation, PhotosynthesisClass *photosynthesis, RespirationClass *respiration, StomaConductClass *stomaconduct, MicroEnvironmentClass *microenviron)}}]{\setlength{\rightskip}{0pt plus 5cm}void Load\+Config\+M\+L\+Can\+Model (
+\begin{DoxyParamCaption}
+\item[{{\bf Project\+Class} $\ast$}]{project, }
+\item[{{\bf File\+Name\+Class} $\ast$}]{files, }
+\item[{{\bf Switch\+Class} $\ast$}]{switches, }
+\item[{{\bf Constant\+Class} $\ast$}]{constants, }
+\item[{{\bf Canopy\+Class} $\ast$}]{canopies, }
+\item[{{\bf Soil\+Class} $\ast$}]{soils, }
+\item[{{\bf Radiation\+Class} $\ast$}]{radiation, }
+\item[{{\bf Photosynthesis\+Class} $\ast$}]{photosynthesis, }
+\item[{{\bf Respiration\+Class} $\ast$}]{respiration, }
+\item[{{\bf Stoma\+Conduct\+Class} $\ast$}]{stomaconduct, }
+\item[{{\bf Micro\+Environment\+Class} $\ast$}]{microenviron}
+\end{DoxyParamCaption}
+)}\hypertarget{io_8cc_a1fb8e2a162c61a792a4f6784ae7ceae2}{}\label{io_8cc_a1fb8e2a162c61a792a4f6784ae7ceae2}
+
+
+Loads user configurations to M\+L\+Canmodel. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em project} & Class including project info \\
+\hline
+{\em files} & Class including filename info \\
+\hline
+{\em switches} & Class including switch info \\
+\hline
+{\em constants} & Class including constant info \\
+\hline
+{\em canopies} & Class including canopy variables \\
+\hline
+{\em soils} & Class including soil variables \\
+\hline
+{\em radiation} & Class including radiation variables \\
+\hline
+{\em photosynthesis} & Class including photosynthesis variables \\
+\hline
+{\em respiration} & Class including respiration variables \\
+\hline
+{\em stomaconduct} & Class including stomaconductance variables \\
+\hline
+{\em microenviron} & Class including microenrivonment variables \\
+\hline
+\end{DoxyParams}
+\index{io.\+cc@{io.\+cc}!Load\+File\+Net\+C\+DF@{Load\+File\+Net\+C\+DF}}
+\index{Load\+File\+Net\+C\+DF@{Load\+File\+Net\+C\+DF}!io.\+cc@{io.\+cc}}
+\subsubsection[{\texorpdfstring{Load\+File\+Net\+C\+D\+F(const char $\ast$file\+\_\+name, const char $\ast$var\+\_\+name, Type $\ast$data)}{LoadFileNetCDF(const char *file_name, const char *var_name, Type *data)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Type $>$ void Load\+File\+Net\+C\+DF (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{file\+\_\+name, }
+\item[{const char $\ast$}]{var\+\_\+name, }
+\item[{Type $\ast$}]{data}
+\end{DoxyParamCaption}
+)}\hypertarget{io_8cc_a51a72364bba641ebdd8d5dfce24b3e13}{}\label{io_8cc_a51a72364bba641ebdd8d5dfce24b3e13}
+
+
+Load Net\+C\+DF file format. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em file\+\_\+name} & Net\+C\+DF file name \\
+\hline
+\mbox{\tt in}  & {\em var\+\_\+name} & Variable name \\
+\hline
+ & {\em data} & Data assigned \\
+\hline
+\end{DoxyParams}
+\index{io.\+cc@{io.\+cc}!Load\+Flow\+Model\+Config@{Load\+Flow\+Model\+Config}}
+\index{Load\+Flow\+Model\+Config@{Load\+Flow\+Model\+Config}!io.\+cc@{io.\+cc}}
+\subsubsection[{\texorpdfstring{Load\+Flow\+Model\+Config(\+Project\+Class $\ast$project, File\+Name\+Class $\ast$files, Overland\+Flow\+Class $\ast$overland, Subsurface\+Flow\+Class $\ast$subsurface)}{LoadFlowModelConfig(ProjectClass *project, FileNameClass *files, OverlandFlowClass *overland, SubsurfaceFlowClass *subsurface)}}]{\setlength{\rightskip}{0pt plus 5cm}void Load\+Flow\+Model\+Config (
+\begin{DoxyParamCaption}
+\item[{{\bf Project\+Class} $\ast$}]{project, }
+\item[{{\bf File\+Name\+Class} $\ast$}]{files, }
+\item[{{\bf Overland\+Flow\+Class} $\ast$}]{overland, }
+\item[{{\bf Subsurface\+Flow\+Class} $\ast$}]{subsurface}
+\end{DoxyParamCaption}
+)}\hypertarget{io_8cc_a94d1be3f7a08fb71cc9a747e8bc9c597}{}\label{io_8cc_a94d1be3f7a08fb71cc9a747e8bc9c597}
+
+
+Loads user configurations to flow model. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em project} & Class including project info \\
+\hline
+{\em files} & Class including filename info \\
+\hline
+{\em overland} & Overland flow class \\
+\hline
+{\em subsurface} & Subsurface flow class \\
+\hline
+\end{DoxyParams}
+\index{io.\+cc@{io.\+cc}!Load\+Forcing\+Data@{Load\+Forcing\+Data}}
+\index{Load\+Forcing\+Data@{Load\+Forcing\+Data}!io.\+cc@{io.\+cc}}
+\subsubsection[{\texorpdfstring{Load\+Forcing\+Data(\+File\+Name\+Class $\ast$files, Canopy\+Class $\ast$canopies, Time\+Forcing\+Class $\ast$timeforcings, int rank, int procsize, int num\+\_\+steps)}{LoadForcingData(FileNameClass *files, CanopyClass *canopies, TimeForcingClass *timeforcings, int rank, int procsize, int num_steps)}}]{\setlength{\rightskip}{0pt plus 5cm}void Load\+Forcing\+Data (
+\begin{DoxyParamCaption}
+\item[{{\bf File\+Name\+Class} $\ast$}]{files, }
+\item[{{\bf Canopy\+Class} $\ast$}]{canopies, }
+\item[{{\bf Time\+Forcing\+Class} $\ast$}]{timeforcings, }
+\item[{int}]{rank, }
+\item[{int}]{procsize, }
+\item[{int}]{num\+\_\+steps}
+\end{DoxyParamCaption}
+)}\hypertarget{io_8cc_a60d0bb17a56ea141fe870e514ef122f0}{}\label{io_8cc_a60d0bb17a56ea141fe870e514ef122f0}
+
+
+load forcing data from Net\+C\+DF file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em files} & Net\+C\+DF file \\
+\hline
+ & {\em canopies} & The canopies \\
+\hline
+ & {\em timeforcings} & Forcings time class \\
+\hline
+\mbox{\tt in}  & {\em rank} & Global rank of the current M\+PI process \\
+\hline
+\mbox{\tt in}  & {\em procsize} & Total number of M\+PI processes available \\
+\hline
+\mbox{\tt in}  & {\em num\+\_\+steps} & The number of timesteps \\
+\hline
+\end{DoxyParams}
+\index{io.\+cc@{io.\+cc}!Load\+Topography@{Load\+Topography}}
+\index{Load\+Topography@{Load\+Topography}!io.\+cc@{io.\+cc}}
+\subsubsection[{\texorpdfstring{Load\+Topography(\+File\+Name\+Class $\ast$files, Overland\+Flow\+Class $\ast$overland, int rank, int procsize)}{LoadTopography(FileNameClass *files, OverlandFlowClass *overland, int rank, int procsize)}}]{\setlength{\rightskip}{0pt plus 5cm}void Load\+Topography (
+\begin{DoxyParamCaption}
+\item[{{\bf File\+Name\+Class} $\ast$}]{files, }
+\item[{{\bf Overland\+Flow\+Class} $\ast$}]{overland, }
+\item[{int}]{rank, }
+\item[{int}]{procsize}
+\end{DoxyParamCaption}
+)}\hypertarget{io_8cc_aa916afa39225dd0fa219a35bef364027}{}\label{io_8cc_aa916afa39225dd0fa219a35bef364027}
+
+
+To load topography info from Net\+C\+DF file. Topography is only used for flow modling in G\+PU device through master process. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em files} & Net\+C\+DF file \\
+\hline
+ & {\em overland} & Overland flow class \\
+\hline
+\mbox{\tt in}  & {\em rank} & Global rank of the current M\+PI process \\
+\hline
+\mbox{\tt in}  & {\em procsize} & Total number of M\+PI processes available \\
+\hline
+\end{DoxyParams}
+\index{io.\+cc@{io.\+cc}!Parsing\+Commands\+And\+Configurations@{Parsing\+Commands\+And\+Configurations}}
+\index{Parsing\+Commands\+And\+Configurations@{Parsing\+Commands\+And\+Configurations}!io.\+cc@{io.\+cc}}
+\subsubsection[{\texorpdfstring{Parsing\+Commands\+And\+Configurations(int argc, char $\ast$$\ast$argv, const char $\ast$\&file\+\_\+config, int rank, int procsize, Project\+Class $\ast$\&project, File\+Name\+Class $\ast$\&files, mpi\+Class $\ast$\&mpiobj)}{ParsingCommandsAndConfigurations(int argc, char **argv, const char *&file_config, int rank, int procsize, ProjectClass *&project, FileNameClass *&files, mpiClass *&mpiobj)}}]{\setlength{\rightskip}{0pt plus 5cm}void Parsing\+Commands\+And\+Configurations (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv, }
+\item[{const char $\ast$\&}]{file\+\_\+config, }
+\item[{int}]{rank, }
+\item[{int}]{procsize, }
+\item[{{\bf Project\+Class} $\ast$\&}]{project, }
+\item[{{\bf File\+Name\+Class} $\ast$\&}]{files, }
+\item[{{\bf mpi\+Class} $\ast$\&}]{mpiobj}
+\end{DoxyParamCaption}
+)}\hypertarget{io_8cc_aa5d43bf4e37ab8cd5eebd603b72ea5f9}{}\label{io_8cc_aa5d43bf4e37ab8cd5eebd603b72ea5f9}
+
+
+Parse command line arguments and read configuration file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em rank} & Global rank of the current M\+PI process \\
+\hline
+\mbox{\tt in}  & {\em size} & The total number of M\+PI processes available \\
+\hline
+ & {\em globsize} & Size of the entire domain \\
+\hline
+ & {\em domsize} & Size of local domain in each M\+PI \\
+\hline
+ & {\em topolsize} & The desired topology size of M\+PI \\
+\hline
+\end{DoxyParams}
+\index{io.\+cc@{io.\+cc}!Print\+Usage@{Print\+Usage}}
+\index{Print\+Usage@{Print\+Usage}!io.\+cc@{io.\+cc}}
+\subsubsection[{\texorpdfstring{Print\+Usage(const char $\ast$app\+Name)}{PrintUsage(const char *appName)}}]{\setlength{\rightskip}{0pt plus 5cm}void Print\+Usage (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{app\+Name}
+\end{DoxyParamCaption}
+)}\hypertarget{io_8cc_a44833dce92422d5aba84dfc6c9ebe0f3}{}\label{io_8cc_a44833dce92422d5aba84dfc6c9ebe0f3}
+\index{io.\+cc@{io.\+cc}!Print\+Version@{Print\+Version}}
+\index{Print\+Version@{Print\+Version}!io.\+cc@{io.\+cc}}
+\subsubsection[{\texorpdfstring{Print\+Version()}{PrintVersion()}}]{\setlength{\rightskip}{0pt plus 5cm}void Print\+Version (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{io_8cc_a1fae5968f70747445d63f63065fb7ef3}{}\label{io_8cc_a1fae5968f70747445d63f63065fb7ef3}
+\index{io.\+cc@{io.\+cc}!Save\+M\+L\+Can\+Results@{Save\+M\+L\+Can\+Results}}
+\index{Save\+M\+L\+Can\+Results@{Save\+M\+L\+Can\+Results}!io.\+cc@{io.\+cc}}
+\subsubsection[{\texorpdfstring{Save\+M\+L\+Can\+Results(\+Project\+Class $\ast$project, Output\+Class $\ast$outmlcan, Canopy\+Class $\ast$canopies, int num\+\_\+steps, int rank, int procsize)}{SaveMLCanResults(ProjectClass *project, OutputClass *outmlcan, CanopyClass *canopies, int num_steps, int rank, int procsize)}}]{\setlength{\rightskip}{0pt plus 5cm}void Save\+M\+L\+Can\+Results (
+\begin{DoxyParamCaption}
+\item[{{\bf Project\+Class} $\ast$}]{project, }
+\item[{{\bf Output\+Class} $\ast$}]{outmlcan, }
+\item[{{\bf Canopy\+Class} $\ast$}]{canopies, }
+\item[{int}]{num\+\_\+steps, }
+\item[{int}]{rank, }
+\item[{int}]{procsize}
+\end{DoxyParamCaption}
+)}\hypertarget{io_8cc_a3c37b53ca5ead19edf630f1071285572}{}\label{io_8cc_a3c37b53ca5ead19edf630f1071285572}
+
+
+Save M\+L\+Can results to net\+C\+DF for all processes. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em project} & Class including project info \\
+\hline
+ & {\em outmlcan} & Class including output for M\+L\+Can model \\
+\hline
+ & {\em canopies} & Class including canopy variables \\
+\hline
+\mbox{\tt in}  & {\em num\+\_\+steps} & The number of timesteps for simulation \\
+\hline
+\mbox{\tt in}  & {\em rank} & Global rank of the current M\+PI process \\
+\hline
+\mbox{\tt in}  & {\em procsize} & Total number of M\+PI processes available \\
+\hline
+\end{DoxyParams}
+\index{io.\+cc@{io.\+cc}!Save\+Model\+Results@{Save\+Model\+Results}}
+\index{Save\+Model\+Results@{Save\+Model\+Results}!io.\+cc@{io.\+cc}}
+\subsubsection[{\texorpdfstring{Save\+Model\+Results(\+Project\+Class $\ast$project, Overland\+Flow\+Class $\ast$overland\+\_\+host, Overland\+Flow\+Class $\ast$overland\+\_\+dev, Subsurface\+Flow\+Class $\ast$subsurface\+\_\+host, Subsurface\+Flow\+Class $\ast$subsurface\+\_\+dev, int3 globsize, int timestep)}{SaveModelResults(ProjectClass *project, OverlandFlowClass *overland_host, OverlandFlowClass *overland_dev, SubsurfaceFlowClass *subsurface_host, SubsurfaceFlowClass *subsurface_dev, int3 globsize, int timestep)}}]{\setlength{\rightskip}{0pt plus 5cm}void Save\+Model\+Results (
+\begin{DoxyParamCaption}
+\item[{{\bf Project\+Class} $\ast$}]{project, }
+\item[{{\bf Overland\+Flow\+Class} $\ast$}]{overland\+\_\+host, }
+\item[{{\bf Overland\+Flow\+Class} $\ast$}]{overland\+\_\+dev, }
+\item[{{\bf Subsurface\+Flow\+Class} $\ast$}]{subsurface\+\_\+host, }
+\item[{{\bf Subsurface\+Flow\+Class} $\ast$}]{subsurface\+\_\+dev, }
+\item[{int3}]{globsize, }
+\item[{int}]{timestep}
+\end{DoxyParamCaption}
+)}\hypertarget{io_8cc_ae64065afa343bdb3a9b5020b27995c4d}{}\label{io_8cc_ae64065afa343bdb3a9b5020b27995c4d}
+
+
+Copy to host and save 2D and 3D results to netcdf. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em project} & Class including project info \\
+\hline
+ & {\em overland\+\_\+host} & Overland flow class in host memory \\
+\hline
+ & {\em overland\+\_\+dev} & Overland flow class in device memory \\
+\hline
+ & {\em subsurface\+\_\+host} & Subsurface flow class in host memory \\
+\hline
+ & {\em subsurface\+\_\+dev} & Subsurface flow class in device memory \\
+\hline
+\mbox{\tt in}  & {\em globsize} & Size of the global domain \\
+\hline
+\mbox{\tt in}  & {\em timestep} & Current time step \\
+\hline
+\end{DoxyParams}
+\index{io.\+cc@{io.\+cc}!Save\+Output1D@{Save\+Output1D}}
+\index{Save\+Output1D@{Save\+Output1D}!io.\+cc@{io.\+cc}}
+\subsubsection[{\texorpdfstring{Save\+Output1\+D(const char $\ast$file, const char $\ast$dataname, type $\ast$data, nc\+\_\+type nctype, int Nx, int write)}{SaveOutput1D(const char *file, const char *dataname, type *data, nc_type nctype, int Nx, int write)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename type $>$ void Save\+Output1D (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{file, }
+\item[{const char $\ast$}]{dataname, }
+\item[{type $\ast$}]{data, }
+\item[{nc\+\_\+type}]{nctype, }
+\item[{int}]{Nx, }
+\item[{int}]{write}
+\end{DoxyParamCaption}
+)}\hypertarget{io_8cc_ab52595c7230b8869a956e745c3992242}{}\label{io_8cc_ab52595c7230b8869a956e745c3992242}
+\index{io.\+cc@{io.\+cc}!Save\+Output1D@{Save\+Output1D}}
+\index{Save\+Output1D@{Save\+Output1D}!io.\+cc@{io.\+cc}}
+\subsubsection[{\texorpdfstring{Save\+Output1\+D(const char $\ast$file, const char $\ast$dataname, type $\ast$data, nc\+\_\+type nctype, const char $\ast$dimname, int Nx, int write)}{SaveOutput1D(const char *file, const char *dataname, type *data, nc_type nctype, const char *dimname, int Nx, int write)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename type $>$ void Save\+Output1D (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{file, }
+\item[{const char $\ast$}]{dataname, }
+\item[{type $\ast$}]{data, }
+\item[{nc\+\_\+type}]{nctype, }
+\item[{const char $\ast$}]{dimname, }
+\item[{int}]{Nx, }
+\item[{int}]{write}
+\end{DoxyParamCaption}
+)}\hypertarget{io_8cc_aeb89d4afa6631f9265921329cb7f71fe}{}\label{io_8cc_aeb89d4afa6631f9265921329cb7f71fe}
+
+
+Saves one-\/dimensional variables into a Net\+C\+DF file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em file} & File will be saved in Net\+C\+DF format \\
+\hline
+\mbox{\tt in}  & {\em dataname} & Variable name saved \\
+\hline
+ & {\em data} & The dataset \\
+\hline
+\mbox{\tt in}  & {\em nctype} & Net\+C\+DF data type used \\
+\hline
+\mbox{\tt in}  & {\em dimname} & Name of dimension in netcdf \\
+\hline
+\mbox{\tt in}  & {\em Nx} & The length data \\
+\hline
+\mbox{\tt in}  & {\em write} & Option to decide write new or append\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em type} & \{ description \} \\
+\hline
+\end{DoxyTemplParams}
+\index{io.\+cc@{io.\+cc}!Save\+Output2D@{Save\+Output2D}}
+\index{Save\+Output2D@{Save\+Output2D}!io.\+cc@{io.\+cc}}
+\subsubsection[{\texorpdfstring{Save\+Output2\+D(const char $\ast$file, const char $\ast$dataname, type $\ast$data, nc\+\_\+type nctype, int My, int Nx, int write)}{SaveOutput2D(const char *file, const char *dataname, type *data, nc_type nctype, int My, int Nx, int write)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename type $>$ void Save\+Output2D (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{file, }
+\item[{const char $\ast$}]{dataname, }
+\item[{type $\ast$}]{data, }
+\item[{nc\+\_\+type}]{nctype, }
+\item[{int}]{My, }
+\item[{int}]{Nx, }
+\item[{int}]{write}
+\end{DoxyParamCaption}
+)}\hypertarget{io_8cc_ae69102f2601de3410e4598bf76acb389}{}\label{io_8cc_ae69102f2601de3410e4598bf76acb389}
+
+
+Save 2D outputs to Net\+C\+DF files in double format. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em file} & File will be saved in Net\+C\+DF format \\
+\hline
+\mbox{\tt in}  & {\em dataname} & Variable name saved \\
+\hline
+ & {\em data} & The dataset \\
+\hline
+\mbox{\tt in}  & {\em nctype} & Net\+C\+DF data type used \\
+\hline
+\mbox{\tt in}  & {\em My} & Data dimension in y \\
+\hline
+\mbox{\tt in}  & {\em Nx} & Data dimension in x \\
+\hline
+\mbox{\tt in}  & {\em write} & Option to decide write new or append \\
+\hline
+\end{DoxyParams}
+\index{io.\+cc@{io.\+cc}!Save\+Output3D@{Save\+Output3D}}
+\index{Save\+Output3D@{Save\+Output3D}!io.\+cc@{io.\+cc}}
+\subsubsection[{\texorpdfstring{Save\+Output3\+D(const char $\ast$file, const char $\ast$dataname, type $\ast$data, nc\+\_\+type nctype, int3 globsize, int write)}{SaveOutput3D(const char *file, const char *dataname, type *data, nc_type nctype, int3 globsize, int write)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename type $>$ void Save\+Output3D (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{file, }
+\item[{const char $\ast$}]{dataname, }
+\item[{type $\ast$}]{data, }
+\item[{nc\+\_\+type}]{nctype, }
+\item[{int3}]{globsize, }
+\item[{int}]{write}
+\end{DoxyParamCaption}
+)}\hypertarget{io_8cc_a9a3d44a1e7febaf3752ec753855e1de6}{}\label{io_8cc_a9a3d44a1e7febaf3752ec753855e1de6}
+
+
+Save 3D outputs to Net\+C\+DF files in double format. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em file} & File will be saved in Net\+C\+DF format \\
+\hline
+\mbox{\tt in}  & {\em dataname} & Variable name saved \\
+\hline
+ & {\em data} & The dataset \\
+\hline
+\mbox{\tt in}  & {\em globsize} & Size of global computational domain \\
+\hline
+\mbox{\tt in}  & {\em write} & Option to decide write new or append \\
+\hline
+\end{DoxyParams}
+\index{io.\+cc@{io.\+cc}!Save\+Result\+Entire\+Period@{Save\+Result\+Entire\+Period}}
+\index{Save\+Result\+Entire\+Period@{Save\+Result\+Entire\+Period}!io.\+cc@{io.\+cc}}
+\subsubsection[{\texorpdfstring{Save\+Result\+Entire\+Period(\+Project\+Class $\ast$project, Canopy\+Class $\ast$canopies, Subsurface\+Flow\+Class $\ast$subsurface\+\_\+host, Output\+Class $\ast$outmlcan, int rank, int procsize, int3 globsize, M\+P\+I\+\_\+\+Comm $\ast$cart\+Comm)}{SaveResultEntirePeriod(ProjectClass *project, CanopyClass *canopies, SubsurfaceFlowClass *subsurface_host, OutputClass *outmlcan, int rank, int procsize, int3 globsize, MPI_Comm *cartComm)}}]{\setlength{\rightskip}{0pt plus 5cm}void Save\+Result\+Entire\+Period (
+\begin{DoxyParamCaption}
+\item[{{\bf Project\+Class} $\ast$}]{project, }
+\item[{{\bf Canopy\+Class} $\ast$}]{canopies, }
+\item[{{\bf Subsurface\+Flow\+Class} $\ast$}]{subsurface\+\_\+host, }
+\item[{{\bf Output\+Class} $\ast$}]{outmlcan, }
+\item[{int}]{rank, }
+\item[{int}]{procsize, }
+\item[{int3}]{globsize, }
+\item[{M\+P\+I\+\_\+\+Comm $\ast$}]{cart\+Comm}
+\end{DoxyParamCaption}
+)}\hypertarget{io_8cc_a106808d5ba55a54cef12059a6af7f2cc}{}\label{io_8cc_a106808d5ba55a54cef12059a6af7f2cc}
+
+
+Save mean results for entire simulation period. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em project} & Class including project info \\
+\hline
+ & {\em canopies} & Class including canopy variables \\
+\hline
+ & {\em subsurface\+\_\+host} & Subsurface flow class in host memory \\
+\hline
+ & {\em outmlcan} & Class including output for M\+L\+Can model \\
+\hline
+\mbox{\tt in}  & {\em rank} & Global rank of the current M\+PI process \\
+\hline
+\mbox{\tt in}  & {\em procsize} & Total number of M\+PI processes available \\
+\hline
+\mbox{\tt in}  & {\em globsize} & Size of the global domain \\
+\hline
+ & {\em cart\+Comm} & The cartesian communications \\
+\hline
+\end{DoxyParams}
+\index{io.\+cc@{io.\+cc}!Set\+Canopy\+Grid@{Set\+Canopy\+Grid}}
+\index{Set\+Canopy\+Grid@{Set\+Canopy\+Grid}!io.\+cc@{io.\+cc}}
+\subsubsection[{\texorpdfstring{Set\+Canopy\+Grid(\+Canopy\+Class $\ast$canopies, Vertical\+Canopy\+Class $\ast$vertcanopies)}{SetCanopyGrid(CanopyClass *canopies, VerticalCanopyClass *vertcanopies)}}]{\setlength{\rightskip}{0pt plus 5cm}void Set\+Canopy\+Grid (
+\begin{DoxyParamCaption}
+\item[{{\bf Canopy\+Class} $\ast$}]{canopies, }
+\item[{{\bf Vertical\+Canopy\+Class} $\ast$}]{vertcanopies}
+\end{DoxyParamCaption}
+)}\hypertarget{io_8cc_a14463c5e17e08421310090a1352452dc}{}\label{io_8cc_a14463c5e17e08421310090a1352452dc}
+
+
+Set up canopy grid for simulation. Grid is constructed based on canopy height and the number of canopy layers specified by users. Uniform canopy grid is used. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em canopies} & Class including variables in canopy \\
+\hline
+{\em vertcanopies} & Canopy classes including vertical variables \\
+\hline
+\end{DoxyParams}
+\index{io.\+cc@{io.\+cc}!Set\+Soil\+Grid@{Set\+Soil\+Grid}}
+\index{Set\+Soil\+Grid@{Set\+Soil\+Grid}!io.\+cc@{io.\+cc}}
+\subsubsection[{\texorpdfstring{Set\+Soil\+Grid(\+Project\+Class $\ast$project, Soil\+Class $\ast$soils, Vertical\+Soil\+Class $\ast$vertsoils)}{SetSoilGrid(ProjectClass *project, SoilClass *soils, VerticalSoilClass *vertsoils)}}]{\setlength{\rightskip}{0pt plus 5cm}void Set\+Soil\+Grid (
+\begin{DoxyParamCaption}
+\item[{{\bf Project\+Class} $\ast$}]{project, }
+\item[{{\bf Soil\+Class} $\ast$}]{soils, }
+\item[{{\bf Vertical\+Soil\+Class} $\ast$}]{vertsoils}
+\end{DoxyParamCaption}
+)}\hypertarget{io_8cc_a4d65faa4a43f499ccb15284cbe190027}{}\label{io_8cc_a4d65faa4a43f499ccb15284cbe190027}

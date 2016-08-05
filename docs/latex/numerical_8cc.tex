@@ -1,0 +1,328 @@
+\hypertarget{numerical_8cc}{}\section{src/numerical.cc File Reference}
+\label{numerical_8cc}\index{src/numerical.\+cc@{src/numerical.\+cc}}
+{\ttfamily \#include $<$Eigen/\+Dense$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include \char`\"{}../include/main.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../include/vertclass.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../include/parser.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{numerical_8cc_a371bc32b72323690def17ba8205f4fd3}{Allocate\+Memory\+Flow\+Model} (\hyperlink{class_time_forcing_class}{Time\+Forcing\+Class} $\ast$timeforcings, \hyperlink{class_overland_flow_class}{Overland\+Flow\+Class} $\ast$\&overland\+\_\+host, \hyperlink{class_overland_flow_class}{Overland\+Flow\+Class} $\ast$\&overland\+\_\+dev, \hyperlink{class_subsurface_flow_class}{Subsurface\+Flow\+Class} $\ast$\&subsurface\+\_\+host, \hyperlink{class_subsurface_flow_class}{Subsurface\+Flow\+Class} $\ast$\&subsurface\+\_\+dev, int procsize, int3 globsize, int num\+\_\+steps)
+\begin{DoxyCompactList}\small\item\em Allocate run-\/time memory for Flow3D model in host and device memory. \end{DoxyCompactList}\item 
+void \hyperlink{numerical_8cc_a9da8704200ecb683a74555de7c432d29}{Allocate\+Memory\+Forcing} (\hyperlink{class_time_forcing_class}{Time\+Forcing\+Class} $\ast$timeforcings, int rank, int procsize, int num\+\_\+steps)
+\begin{DoxyCompactList}\small\item\em Allocate memory for forcing variables. \end{DoxyCompactList}\item 
+void \hyperlink{numerical_8cc_a1d9227bd71f2dfba528d9fcc0a2e6fdd}{Free\+Host\+Memory} (\hyperlink{class_time_forcing_class}{Time\+Forcing\+Class} $\ast$timeforcings, \hyperlink{class_forcing_class}{Forcing\+Class} $\ast$forcings, \hyperlink{class_overland_flow_class}{Overland\+Flow\+Class} $\ast$overland, \hyperlink{class_subsurface_flow_class}{Subsurface\+Flow\+Class} $\ast$subsurface, \hyperlink{class_switch_class}{Switch\+Class} $\ast$switches, \hyperlink{class_constant_class}{Constant\+Class} $\ast$constants, \hyperlink{class_canopy_class}{Canopy\+Class} $\ast$canopies, \hyperlink{class_soil_class}{Soil\+Class} $\ast$soils, \hyperlink{class_radiation_class}{Radiation\+Class} $\ast$radiation, \hyperlink{class_photosynthesis_class}{Photosynthesis\+Class} $\ast$photosynthesis, \hyperlink{class_respiration_class}{Respiration\+Class} $\ast$respiration, \hyperlink{class_stoma_conduct_class}{Stoma\+Conduct\+Class} $\ast$stomaconduct, \hyperlink{class_micro_environment_class}{Micro\+Environment\+Class} $\ast$microenviron, int rank, int procsize)
+\begin{DoxyCompactList}\small\item\em Free all memory in host. \end{DoxyCompactList}\item 
+void \hyperlink{numerical_8cc_a6bc28844a67a2e527dc321bf4036608d}{Free\+Device\+Memory} (\hyperlink{class_overland_flow_class}{Overland\+Flow\+Class} $\ast$overland, \hyperlink{class_subsurface_flow_class}{Subsurface\+Flow\+Class} $\ast$subsurface, int rank, int procsize)
+\begin{DoxyCompactList}\small\item\em To free all memory in device. \end{DoxyCompactList}\item 
+void \hyperlink{numerical_8cc_a29d53e43523f90ded19f2261651c8780}{Set\+Up\+M\+L\+Can\+Model} (int rank, int procsize, int3 globsize, int3 domsize, int2 topolindex, \hyperlink{class_file_name_class}{File\+Name\+Class} $\ast$files, \hyperlink{class_project_class}{Project\+Class} $\ast$project, \hyperlink{class_switch_class}{Switch\+Class} $\ast$switches, \hyperlink{class_constant_class}{Constant\+Class} $\ast$constants, \hyperlink{class_canopy_class}{Canopy\+Class} $\ast$canopies, \hyperlink{class_soil_class}{Soil\+Class} $\ast$soils, \hyperlink{class_radiation_class}{Radiation\+Class} $\ast$radiation, \hyperlink{class_photosynthesis_class}{Photosynthesis\+Class} $\ast$photosynthesis, \hyperlink{class_respiration_class}{Respiration\+Class} $\ast$respiration, \hyperlink{class_stoma_conduct_class}{Stoma\+Conduct\+Class} $\ast$stomaconduct, \hyperlink{class_micro_environment_class}{Micro\+Environment\+Class} $\ast$microenviron, M\+P\+I\+\_\+\+Comm $\ast$cart\+Comm)
+\begin{DoxyCompactList}\small\item\em Sets up ml can model. \end{DoxyCompactList}\item 
+void \hyperlink{numerical_8cc_a0ed99af9eb630e71a4ad578f83e6ac0c}{Mapping\+Eigens\+To\+Classes} (\hyperlink{class_project_class}{Project\+Class} $\ast$project, \hyperlink{class_time_forcing_class}{Time\+Forcing\+Class} $\ast$timeforcings, \hyperlink{class_vertical_canopy_class}{Vertical\+Canopy\+Class} $\ast$vertcanopies, \hyperlink{class_eigen_canopy_class}{Eigen\+Canopy\+Class} $\ast$eigencanopies, \hyperlink{class_vertical_soil_class}{Vertical\+Soil\+Class} $\ast$vertsoils, \hyperlink{class_eigen_soil_class}{Eigen\+Soil\+Class} $\ast$eigensoils, int nl\+\_\+can, int nl\+\_\+soil)
+\begin{DoxyCompactList}\small\item\em Two-\/way mapping eigen classes to regular classes in host memory. This allows changes in one are automatically linked to the other. See \href{http://eigen.tuxfamily.org/}{\tt http\+://eigen.\+tuxfamily.\+org/}. \end{DoxyCompactList}\item 
+void \hyperlink{numerical_8cc_a3207ff87c887103ebec0329ac0a1ad66}{Allocate\+Memory\+Output} (\hyperlink{class_canopy_class}{Canopy\+Class} $\ast$canopies, \hyperlink{class_soil_class}{Soil\+Class} $\ast$soils, \hyperlink{class_output_class}{Output\+Class} $\ast$outmlcan, int num\+\_\+steps)
+\begin{DoxyCompactList}\small\item\em Allocate memory to store outputs from M\+L\+Can model. Outputs may contain variables at different sizes. \end{DoxyCompactList}\item 
+void \hyperlink{numerical_8cc_aa897f1b92b864e62d9e2d061b84d9524}{Numerical\+Model\+Kernels} (int rank, int procsize, \hyperlink{class_file_name_class}{File\+Name\+Class} $\ast$files, \hyperlink{class_project_class}{Project\+Class} $\ast$project, \hyperlink{classmpi_class}{mpi\+Class} $\ast$mpiobj)
+\begin{DoxyCompactList}\small\item\em Main kernels calling numerical models including M\+L\+Can and Flow3D model. While M\+L\+Can is implemented in all M\+PI processes in host, Flow3D model is run in G\+PU device controlled by the Master process. Communications between M\+PI and G\+PU for link M\+L\+Can and Flow3D is executed in Master process only. Simulations in other M\+PI processes are gatherred/scatterred to m\+Master process every time step for communicating with G\+PU device. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{numerical.\+cc@{numerical.\+cc}!Allocate\+Memory\+Flow\+Model@{Allocate\+Memory\+Flow\+Model}}
+\index{Allocate\+Memory\+Flow\+Model@{Allocate\+Memory\+Flow\+Model}!numerical.\+cc@{numerical.\+cc}}
+\subsubsection[{\texorpdfstring{Allocate\+Memory\+Flow\+Model(\+Time\+Forcing\+Class $\ast$timeforcings, Overland\+Flow\+Class $\ast$\&overland\+\_\+host, Overland\+Flow\+Class $\ast$\&overland\+\_\+dev, Subsurface\+Flow\+Class $\ast$\&subsurface\+\_\+host, Subsurface\+Flow\+Class $\ast$\&subsurface\+\_\+dev, int procsize, int3 globsize, int num\+\_\+steps)}{AllocateMemoryFlowModel(TimeForcingClass *timeforcings, OverlandFlowClass *&overland_host, OverlandFlowClass *&overland_dev, SubsurfaceFlowClass *&subsurface_host, SubsurfaceFlowClass *&subsurface_dev, int procsize, int3 globsize, int num_steps)}}]{\setlength{\rightskip}{0pt plus 5cm}void Allocate\+Memory\+Flow\+Model (
+\begin{DoxyParamCaption}
+\item[{{\bf Time\+Forcing\+Class} $\ast$}]{timeforcings, }
+\item[{{\bf Overland\+Flow\+Class} $\ast$\&}]{overland\+\_\+host, }
+\item[{{\bf Overland\+Flow\+Class} $\ast$\&}]{overland\+\_\+dev, }
+\item[{{\bf Subsurface\+Flow\+Class} $\ast$\&}]{subsurface\+\_\+host, }
+\item[{{\bf Subsurface\+Flow\+Class} $\ast$\&}]{subsurface\+\_\+dev, }
+\item[{int}]{procsize, }
+\item[{int3}]{globsize, }
+\item[{int}]{num\+\_\+steps}
+\end{DoxyParamCaption}
+)}\hypertarget{numerical_8cc_a371bc32b72323690def17ba8205f4fd3}{}\label{numerical_8cc_a371bc32b72323690def17ba8205f4fd3}
+
+
+Allocate run-\/time memory for Flow3D model in host and device memory. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em timeforcings} & Class including time forcings \\
+\hline
+ & {\em overland\+\_\+host} & Overland flow class in host memory \\
+\hline
+ & {\em overland\+\_\+dev} & Overland flow class in device memory \\
+\hline
+ & {\em subsurface\+\_\+host} & Subsurface flow class in host memory \\
+\hline
+ & {\em subsurface\+\_\+dev} & Subsurface flow class in device memory \\
+\hline
+\mbox{\tt in}  & {\em procsize} & Total number of M\+PI processes available \\
+\hline
+\mbox{\tt in}  & {\em globsize} & Size of the global domain \\
+\hline
+\mbox{\tt in}  & {\em num\+\_\+steps} & Number of time steps for simulation \\
+\hline
+\end{DoxyParams}
+\index{numerical.\+cc@{numerical.\+cc}!Allocate\+Memory\+Forcing@{Allocate\+Memory\+Forcing}}
+\index{Allocate\+Memory\+Forcing@{Allocate\+Memory\+Forcing}!numerical.\+cc@{numerical.\+cc}}
+\subsubsection[{\texorpdfstring{Allocate\+Memory\+Forcing(\+Time\+Forcing\+Class $\ast$timeforcings, int rank, int procsize, int num\+\_\+steps)}{AllocateMemoryForcing(TimeForcingClass *timeforcings, int rank, int procsize, int num_steps)}}]{\setlength{\rightskip}{0pt plus 5cm}void Allocate\+Memory\+Forcing (
+\begin{DoxyParamCaption}
+\item[{{\bf Time\+Forcing\+Class} $\ast$}]{timeforcings, }
+\item[{int}]{rank, }
+\item[{int}]{procsize, }
+\item[{int}]{num\+\_\+steps}
+\end{DoxyParamCaption}
+)}\hypertarget{numerical_8cc_a9da8704200ecb683a74555de7c432d29}{}\label{numerical_8cc_a9da8704200ecb683a74555de7c432d29}
+
+
+Allocate memory for forcing variables. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em timeforcings} & Class including time forcings \\
+\hline
+\mbox{\tt in}  & {\em rank} & Global rank of the current M\+PI process \\
+\hline
+\mbox{\tt in}  & {\em procsize} & Total number of M\+PI processes available \\
+\hline
+\mbox{\tt in}  & {\em num\+\_\+steps} & Number of time steps for simulation \\
+\hline
+\end{DoxyParams}
+\index{numerical.\+cc@{numerical.\+cc}!Allocate\+Memory\+Output@{Allocate\+Memory\+Output}}
+\index{Allocate\+Memory\+Output@{Allocate\+Memory\+Output}!numerical.\+cc@{numerical.\+cc}}
+\subsubsection[{\texorpdfstring{Allocate\+Memory\+Output(\+Canopy\+Class $\ast$canopies, Soil\+Class $\ast$soils, Output\+Class $\ast$outmlcan, int num\+\_\+steps)}{AllocateMemoryOutput(CanopyClass *canopies, SoilClass *soils, OutputClass *outmlcan, int num_steps)}}]{\setlength{\rightskip}{0pt plus 5cm}void Allocate\+Memory\+Output (
+\begin{DoxyParamCaption}
+\item[{{\bf Canopy\+Class} $\ast$}]{canopies, }
+\item[{{\bf Soil\+Class} $\ast$}]{soils, }
+\item[{{\bf Output\+Class} $\ast$}]{outmlcan, }
+\item[{int}]{num\+\_\+steps}
+\end{DoxyParamCaption}
+)}\hypertarget{numerical_8cc_a3207ff87c887103ebec0329ac0a1ad66}{}\label{numerical_8cc_a3207ff87c887103ebec0329ac0a1ad66}
+
+
+Allocate memory to store outputs from M\+L\+Can model. Outputs may contain variables at different sizes. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em canopies} & Class including variables in canopy \\
+\hline
+ & {\em soils} & Class including variables in soil \\
+\hline
+ & {\em outmlcan} & Output class from M\+L\+Can model \\
+\hline
+\mbox{\tt in}  & {\em num\+\_\+steps} & Number of simulation steps \\
+\hline
+\end{DoxyParams}
+\index{numerical.\+cc@{numerical.\+cc}!Free\+Device\+Memory@{Free\+Device\+Memory}}
+\index{Free\+Device\+Memory@{Free\+Device\+Memory}!numerical.\+cc@{numerical.\+cc}}
+\subsubsection[{\texorpdfstring{Free\+Device\+Memory(\+Overland\+Flow\+Class $\ast$overland, Subsurface\+Flow\+Class $\ast$subsurface, int rank, int procsize)}{FreeDeviceMemory(OverlandFlowClass *overland, SubsurfaceFlowClass *subsurface, int rank, int procsize)}}]{\setlength{\rightskip}{0pt plus 5cm}void Free\+Device\+Memory (
+\begin{DoxyParamCaption}
+\item[{{\bf Overland\+Flow\+Class} $\ast$}]{overland, }
+\item[{{\bf Subsurface\+Flow\+Class} $\ast$}]{subsurface, }
+\item[{int}]{rank, }
+\item[{int}]{procsize}
+\end{DoxyParamCaption}
+)}\hypertarget{numerical_8cc_a6bc28844a67a2e527dc321bf4036608d}{}\label{numerical_8cc_a6bc28844a67a2e527dc321bf4036608d}
+
+
+To free all memory in device. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em overland} & Overland flow class \\
+\hline
+ & {\em subsurface} & Subsurface flow class \\
+\hline
+\mbox{\tt in}  & {\em rank} & Global rank of the current M\+PI process \\
+\hline
+\mbox{\tt in}  & {\em procsize} & Total number of M\+PI processes available \\
+\hline
+\end{DoxyParams}
+\index{numerical.\+cc@{numerical.\+cc}!Free\+Host\+Memory@{Free\+Host\+Memory}}
+\index{Free\+Host\+Memory@{Free\+Host\+Memory}!numerical.\+cc@{numerical.\+cc}}
+\subsubsection[{\texorpdfstring{Free\+Host\+Memory(\+Time\+Forcing\+Class $\ast$timeforcings, Forcing\+Class $\ast$forcings, Overland\+Flow\+Class $\ast$overland, Subsurface\+Flow\+Class $\ast$subsurface, Switch\+Class $\ast$switches, Constant\+Class $\ast$constants, Canopy\+Class $\ast$canopies, Soil\+Class $\ast$soils, Radiation\+Class $\ast$radiation, Photosynthesis\+Class $\ast$photosynthesis, Respiration\+Class $\ast$respiration, Stoma\+Conduct\+Class $\ast$stomaconduct, Micro\+Environment\+Class $\ast$microenviron, int rank, int procsize)}{FreeHostMemory(TimeForcingClass *timeforcings, ForcingClass *forcings, OverlandFlowClass *overland, SubsurfaceFlowClass *subsurface, SwitchClass *switches, ConstantClass *constants, CanopyClass *canopies, SoilClass *soils, RadiationClass *radiation, PhotosynthesisClass *photosynthesis, RespirationClass *respiration, StomaConductClass *stomaconduct, MicroEnvironmentClass *microenviron, int rank, int procsize)}}]{\setlength{\rightskip}{0pt plus 5cm}void Free\+Host\+Memory (
+\begin{DoxyParamCaption}
+\item[{{\bf Time\+Forcing\+Class} $\ast$}]{timeforcings, }
+\item[{{\bf Forcing\+Class} $\ast$}]{forcings, }
+\item[{{\bf Overland\+Flow\+Class} $\ast$}]{overland, }
+\item[{{\bf Subsurface\+Flow\+Class} $\ast$}]{subsurface, }
+\item[{{\bf Switch\+Class} $\ast$}]{switches, }
+\item[{{\bf Constant\+Class} $\ast$}]{constants, }
+\item[{{\bf Canopy\+Class} $\ast$}]{canopies, }
+\item[{{\bf Soil\+Class} $\ast$}]{soils, }
+\item[{{\bf Radiation\+Class} $\ast$}]{radiation, }
+\item[{{\bf Photosynthesis\+Class} $\ast$}]{photosynthesis, }
+\item[{{\bf Respiration\+Class} $\ast$}]{respiration, }
+\item[{{\bf Stoma\+Conduct\+Class} $\ast$}]{stomaconduct, }
+\item[{{\bf Micro\+Environment\+Class} $\ast$}]{microenviron, }
+\item[{int}]{rank, }
+\item[{int}]{procsize}
+\end{DoxyParamCaption}
+)}\hypertarget{numerical_8cc_a1d9227bd71f2dfba528d9fcc0a2e6fdd}{}\label{numerical_8cc_a1d9227bd71f2dfba528d9fcc0a2e6fdd}
+
+
+Free all memory in host. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em timeforcings} & Class including time forcings \\
+\hline
+ & {\em forcings} & Class including forcings info \\
+\hline
+ & {\em overland} & Overland flow class \\
+\hline
+ & {\em subsurface} & Subsurface flow class \\
+\hline
+ & {\em switches} & Class including switch info \\
+\hline
+ & {\em constants} & Class including constant info \\
+\hline
+ & {\em canopies} & Class including canopy variables \\
+\hline
+ & {\em soils} & Class including soil variables \\
+\hline
+ & {\em radiation} & Class including radiation variables \\
+\hline
+ & {\em photosynthesis} & Class including photosynthesis variables \\
+\hline
+ & {\em respiration} & Class including respiration variables \\
+\hline
+ & {\em stomaconduct} & Class including stomaconductance variables \\
+\hline
+ & {\em microenviron} & Class including microenrivonment variables \\
+\hline
+\mbox{\tt in}  & {\em rank} & Global rank of the current M\+PI process \\
+\hline
+\mbox{\tt in}  & {\em procsize} & Total number of M\+PI processes available \\
+\hline
+\end{DoxyParams}
+\index{numerical.\+cc@{numerical.\+cc}!Mapping\+Eigens\+To\+Classes@{Mapping\+Eigens\+To\+Classes}}
+\index{Mapping\+Eigens\+To\+Classes@{Mapping\+Eigens\+To\+Classes}!numerical.\+cc@{numerical.\+cc}}
+\subsubsection[{\texorpdfstring{Mapping\+Eigens\+To\+Classes(\+Project\+Class $\ast$project, Time\+Forcing\+Class $\ast$timeforcings, Vertical\+Canopy\+Class $\ast$vertcanopies, Eigen\+Canopy\+Class $\ast$eigencanopies, Vertical\+Soil\+Class $\ast$vertsoils, Eigen\+Soil\+Class $\ast$eigensoils, int nl\+\_\+can, int nl\+\_\+soil)}{MappingEigensToClasses(ProjectClass *project, TimeForcingClass *timeforcings, VerticalCanopyClass *vertcanopies, EigenCanopyClass *eigencanopies, VerticalSoilClass *vertsoils, EigenSoilClass *eigensoils, int nl_can, int nl_soil)}}]{\setlength{\rightskip}{0pt plus 5cm}void Mapping\+Eigens\+To\+Classes (
+\begin{DoxyParamCaption}
+\item[{{\bf Project\+Class} $\ast$}]{project, }
+\item[{{\bf Time\+Forcing\+Class} $\ast$}]{timeforcings, }
+\item[{{\bf Vertical\+Canopy\+Class} $\ast$}]{vertcanopies, }
+\item[{{\bf Eigen\+Canopy\+Class} $\ast$}]{eigencanopies, }
+\item[{{\bf Vertical\+Soil\+Class} $\ast$}]{vertsoils, }
+\item[{{\bf Eigen\+Soil\+Class} $\ast$}]{eigensoils, }
+\item[{int}]{nl\+\_\+can, }
+\item[{int}]{nl\+\_\+soil}
+\end{DoxyParamCaption}
+)}\hypertarget{numerical_8cc_a0ed99af9eb630e71a4ad578f83e6ac0c}{}\label{numerical_8cc_a0ed99af9eb630e71a4ad578f83e6ac0c}
+
+
+Two-\/way mapping eigen classes to regular classes in host memory. This allows changes in one are automatically linked to the other. See \href{http://eigen.tuxfamily.org/}{\tt http\+://eigen.\+tuxfamily.\+org/}. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em project} & Class including project information \\
+\hline
+ & {\em timeforcings} & Forcing variables over the entire simulation period. \\
+\hline
+ & {\em vertcanopies} & Canopy classes including vertical variables \\
+\hline
+ & {\em eigencanopies} & Canopy class defined in eigen structure \\
+\hline
+ & {\em vertsoils} & Soil classes including vertical variables \\
+\hline
+ & {\em eigensoils} & Soil class defined in eigen structure \\
+\hline
+\mbox{\tt in}  & {\em nl\+\_\+can} & Number of canopy layers \\
+\hline
+\mbox{\tt in}  & {\em nl\+\_\+soil} & Number of soil layers \\
+\hline
+\end{DoxyParams}
+\index{numerical.\+cc@{numerical.\+cc}!Numerical\+Model\+Kernels@{Numerical\+Model\+Kernels}}
+\index{Numerical\+Model\+Kernels@{Numerical\+Model\+Kernels}!numerical.\+cc@{numerical.\+cc}}
+\subsubsection[{\texorpdfstring{Numerical\+Model\+Kernels(int rank, int procsize, File\+Name\+Class $\ast$files, Project\+Class $\ast$project, mpi\+Class $\ast$mpiobj)}{NumericalModelKernels(int rank, int procsize, FileNameClass *files, ProjectClass *project, mpiClass *mpiobj)}}]{\setlength{\rightskip}{0pt plus 5cm}void Numerical\+Model\+Kernels (
+\begin{DoxyParamCaption}
+\item[{int}]{rank, }
+\item[{int}]{procsize, }
+\item[{{\bf File\+Name\+Class} $\ast$}]{files, }
+\item[{{\bf Project\+Class} $\ast$}]{project, }
+\item[{{\bf mpi\+Class} $\ast$}]{mpiobj}
+\end{DoxyParamCaption}
+)}\hypertarget{numerical_8cc_aa897f1b92b864e62d9e2d061b84d9524}{}\label{numerical_8cc_aa897f1b92b864e62d9e2d061b84d9524}
+
+
+Main kernels calling numerical models including M\+L\+Can and Flow3D model. While M\+L\+Can is implemented in all M\+PI processes in host, Flow3D model is run in G\+PU device controlled by the Master process. Communications between M\+PI and G\+PU for link M\+L\+Can and Flow3D is executed in Master process only. Simulations in other M\+PI processes are gatherred/scatterred to m\+Master process every time step for communicating with G\+PU device. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em rank} & Global rank of the current M\+PI process \\
+\hline
+\mbox{\tt in}  & {\em procsize} & Total number of M\+PI processes available \\
+\hline
+ & {\em files} & Number of time steps for simulation \\
+\hline
+ & {\em project} & Filename for loading data \\
+\hline
+ & {\em mpiobj} & The message passing interface objects \\
+\hline
+\end{DoxyParams}
+\index{numerical.\+cc@{numerical.\+cc}!Set\+Up\+M\+L\+Can\+Model@{Set\+Up\+M\+L\+Can\+Model}}
+\index{Set\+Up\+M\+L\+Can\+Model@{Set\+Up\+M\+L\+Can\+Model}!numerical.\+cc@{numerical.\+cc}}
+\subsubsection[{\texorpdfstring{Set\+Up\+M\+L\+Can\+Model(int rank, int procsize, int3 globsize, int3 domsize, int2 topolindex, File\+Name\+Class $\ast$files, Project\+Class $\ast$project, Switch\+Class $\ast$switches, Constant\+Class $\ast$constants, Canopy\+Class $\ast$canopies, Soil\+Class $\ast$soils, Radiation\+Class $\ast$radiation, Photosynthesis\+Class $\ast$photosynthesis, Respiration\+Class $\ast$respiration, Stoma\+Conduct\+Class $\ast$stomaconduct, Micro\+Environment\+Class $\ast$microenviron, M\+P\+I\+\_\+\+Comm $\ast$cart\+Comm)}{SetUpMLCanModel(int rank, int procsize, int3 globsize, int3 domsize, int2 topolindex, FileNameClass *files, ProjectClass *project, SwitchClass *switches, ConstantClass *constants, CanopyClass *canopies, SoilClass *soils, RadiationClass *radiation, PhotosynthesisClass *photosynthesis, RespirationClass *respiration, StomaConductClass *stomaconduct, MicroEnvironmentClass *microenviron, MPI_Comm *cartComm)}}]{\setlength{\rightskip}{0pt plus 5cm}void Set\+Up\+M\+L\+Can\+Model (
+\begin{DoxyParamCaption}
+\item[{int}]{rank, }
+\item[{int}]{procsize, }
+\item[{int3}]{globsize, }
+\item[{int3}]{domsize, }
+\item[{int2}]{topolindex, }
+\item[{{\bf File\+Name\+Class} $\ast$}]{files, }
+\item[{{\bf Project\+Class} $\ast$}]{project, }
+\item[{{\bf Switch\+Class} $\ast$}]{switches, }
+\item[{{\bf Constant\+Class} $\ast$}]{constants, }
+\item[{{\bf Canopy\+Class} $\ast$}]{canopies, }
+\item[{{\bf Soil\+Class} $\ast$}]{soils, }
+\item[{{\bf Radiation\+Class} $\ast$}]{radiation, }
+\item[{{\bf Photosynthesis\+Class} $\ast$}]{photosynthesis, }
+\item[{{\bf Respiration\+Class} $\ast$}]{respiration, }
+\item[{{\bf Stoma\+Conduct\+Class} $\ast$}]{stomaconduct, }
+\item[{{\bf Micro\+Environment\+Class} $\ast$}]{microenviron, }
+\item[{M\+P\+I\+\_\+\+Comm $\ast$}]{cart\+Comm}
+\end{DoxyParamCaption}
+)}\hypertarget{numerical_8cc_a29d53e43523f90ded19f2261651c8780}{}\label{numerical_8cc_a29d53e43523f90ded19f2261651c8780}
+
+
+Sets up ml can model. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em rank} & Global rank of the current M\+PI process \\
+\hline
+\mbox{\tt in}  & {\em procsize} & Total number of M\+PI processes available \\
+\hline
+\mbox{\tt in}  & {\em globsize} & Size of global computational domain \\
+\hline
+\mbox{\tt in}  & {\em domsize} & Size of local domain in each M\+PI process \\
+\hline
+\mbox{\tt in}  & {\em topolindex} & The 2D index in the desired topology \\
+\hline
+ & {\em files} & Class including files for loading data \\
+\hline
+ & {\em project} & Class including project info \\
+\hline
+ & {\em switches} & Class including switches \\
+\hline
+ & {\em constants} & Class including constants \\
+\hline
+ & {\em canopies} & Class including canopies \\
+\hline
+ & {\em soils} & Class including soils \\
+\hline
+ & {\em radiation} & Class including radiation \\
+\hline
+ & {\em photosynthesis} & Class including photosynthesis \\
+\hline
+ & {\em respiration} & Class including respiration \\
+\hline
+ & {\em stomaconduct} & Class including stomaconduct \\
+\hline
+ & {\em microenviron} & Class including microenviron \\
+\hline
+ & {\em cart\+Comm} & Carthesian M\+PI communicator \\
+\hline
+\end{DoxyParams}

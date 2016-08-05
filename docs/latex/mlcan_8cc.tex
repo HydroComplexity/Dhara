@@ -1,0 +1,543 @@
+\hypertarget{mlcan_8cc}{}\section{src/mlcan.cc File Reference}
+\label{mlcan_8cc}\index{src/mlcan.\+cc@{src/mlcan.\+cc}}
+{\ttfamily \#include \char`\"{}main.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}\+\_\+bool.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}\+\_\+defs.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{mlcan_8cc_ae9e5909dfe33e47496a314930fe109a0}{Max\+Find} (const double a, const double b)
+\item 
+unsigned int \hyperlink{mlcan_8cc_a761bd27d1bc7358d39fc9e68354147f0}{Quadratic\+Solver} (double $\ast$ce, double $\ast$roots)
+\item 
+unsigned int \hyperlink{mlcan_8cc_a651bc5153d7d9adc8b74f0dd5e48019f}{Cubic\+Solver} (double $\ast$ce, double $\ast$roots)
+\item 
+unsigned int \hyperlink{mlcan_8cc_ab40cf590913db7d4f3d971ecd1800810}{quartic\+Solver} (double $\ast$ce, double $\ast$roots)
+\item 
+double \hyperlink{mlcan_8cc_aaa27fa110d0a5a3b1dc93bd812ecd720}{rtbis} (double($\ast$func)(double, double, double, double, double, double, double, double, double,                                           double, double, double, double, double), double Rabs, double Ta1, double Ts1, double ea1, double pa1, double U1, double z1, double dzs1, double psis1\+\_\+\+M\+Pa, double vonk, double z0, double T\+C1, double epss, double x1, double x2, double xacc)
+\item 
+double \hyperlink{mlcan_8cc_ab9045c21ec49f70998dc4aacb6e049b9}{Max\+Value} (Vector\+Xd \&Array\+\_\+in, int S\+I\+ZE)
+\item 
+void \hyperlink{mlcan_8cc_a2024468692d2852fd2ca6b68b6f976cf}{Thomas\+Algorithm} (Vector\+Xd \&a, Vector\+Xd \&b, Vector\+Xd \&c, Vector\+Xd \&d, Vector\+Xd \&f, int N)
+\item 
+void \hyperlink{mlcan_8cc_a0c7ce598285290c1d764422e829722f2}{P\+H\+\_\+\+Dist} (\hyperlink{class_canopy_class}{Canopy\+Class} $\ast$canopies, \hyperlink{class_vertical_canopy_class}{Vertical\+Canopy\+Class} $\ast$vertcanopies, \hyperlink{class_photosynthesis_class}{Photosynthesis\+Class} $\ast$photosynthesis, Ref$<$ Vector\+Xd $>$ Vz)
+\item 
+void \hyperlink{mlcan_8cc_aab395c197b44c682ae509335372f3482}{First\+\_\+\+Order\+\_\+\+Closure\+\_\+U} (\hyperlink{class_forcing_class}{Forcing\+Class} $\ast$forcings, \hyperlink{class_canopy_class}{Canopy\+Class} $\ast$canopies, \hyperlink{class_vertical_canopy_class}{Vertical\+Canopy\+Class} $\ast$vertcanopies, \hyperlink{class_micro_environment_class}{Micro\+Environment\+Class} $\ast$microenviron, Ref$<$ Vector\+Xd $>$ Um, Ref$<$ Vector\+Xd $>$ Km)
+\item 
+void \hyperlink{mlcan_8cc_a567338bf9002e5f6edd29d246b3adf5a}{Precip\+\_\+\+Interception} (\hyperlink{class_forcing_class}{Forcing\+Class} $\ast$forcings, \hyperlink{class_canopy_class}{Canopy\+Class} $\ast$canopies, \hyperlink{class_vertical_canopy_class}{Vertical\+Canopy\+Class} $\ast$vertcanopies, \hyperlink{class_vertical_soil_class}{Vertical\+Soil\+Class} $\ast$vertsoils, \hyperlink{class_radiation_class}{Radiation\+Class} $\ast$radiation, Ref$<$ Vector\+Xd $>$ Sh2o\+\_\+prof, Ref$<$ Vector\+Xd $>$ Smaxz, Ref$<$ Vector\+Xd $>$ wetfrac, Ref$<$ Vector\+Xd $>$ dryfrac, double $\ast$ppt\+\_\+ground)
+\item 
+double \hyperlink{mlcan_8cc_a7e6ee5741c12b15ee35ff8d9a2354f63}{Diffuse\+\_\+\+Fraction} (double zendeg, int doy, double S\+Wdn)
+\item 
+void \hyperlink{mlcan_8cc_a16362462b1d6539c17b446a2bc3303fc}{S\+W\+\_\+\+Attenuation} (Ref$<$ Vector\+Xd $>$ sun\+\_\+abs, Ref$<$ Vector\+Xd $>$ shade\+\_\+abs, Ref$<$ Vector\+Xd $>$ fsun, Ref$<$ Vector\+Xd $>$ fshade, Ref$<$ Vector\+Xd $>$ diffdn, Ref$<$ Vector\+Xd $>$ diffup, Ref$<$ Vector\+Xd $>$ L\+A\+Iz, double $\ast$soil\+\_\+abs\+\_\+ptr, double $\ast$radabs\+\_\+tot\+\_\+ptr, double $\ast$radlost\+\_\+ptr, double $\ast$radremain\+\_\+ptr, double beam\+\_\+top, double diff\+\_\+top, double trans, double refl, double refl\+\_\+soil, double clump, double Kbm, double Kdf, int count, int nl\+\_\+can)
+\item 
+void \hyperlink{mlcan_8cc_a9e84aba6ec94a4646483675c1a6cadbf}{Short\+Waveradiation} (\hyperlink{class_forcing_class}{Forcing\+Class} $\ast$forcings, \hyperlink{class_canopy_class}{Canopy\+Class} $\ast$canopies, \hyperlink{class_vertical_canopy_class}{Vertical\+Canopy\+Class} $\ast$vertcanopies, \hyperlink{class_vertical_soil_class}{Vertical\+Soil\+Class} $\ast$vertsoils, \hyperlink{class_constant_class}{Constant\+Class} $\ast$constants, \hyperlink{class_radiation_class}{Radiation\+Class} $\ast$radiation, Ref$<$ Vector\+Xd $>$ fsun, Ref$<$ Vector\+Xd $>$ fshade, Ref$<$ Vector\+Xd $>$ L\+A\+Isun, Ref$<$ Vector\+Xd $>$ L\+A\+Ishade, Ref$<$ Vector\+Xd $>$ S\+Wabs\+\_\+sun, Ref$<$ Vector\+Xd $>$ S\+Wabs\+\_\+shade, Ref$<$ Vector\+Xd $>$ P\+A\+Rabs\+\_\+sun, Ref$<$ Vector\+Xd $>$ P\+A\+Rabs\+\_\+shade, Ref$<$ Vector\+Xd $>$ N\+I\+Rabs\+\_\+sun, Ref$<$ Vector\+Xd $>$ N\+I\+Rabs\+\_\+shade, Ref$<$ Vector\+Xd $>$ taud, double $\ast$S\+Wabs\+\_\+soil, double $\ast$S\+Wout)
+\item 
+void \hyperlink{mlcan_8cc_a03300519db6333d2ccbe03cadad5c485}{L\+W\+\_\+\+Attenuation} (Ref$<$ Vector\+Xd $>$ L\+Wabs\+\_\+can, Ref$<$ Vector\+Xd $>$ diffdn, Ref$<$ Vector\+Xd $>$ diffup, Ref$<$ Vector\+Xd $>$ L\+Wcan\+\_\+out, Ref$<$ Vector\+Xd $>$ L\+Wsun\+\_\+out, Ref$<$ Vector\+Xd $>$ L\+Wshade\+\_\+out, Ref$<$ Vector\+Xd $>$ Tl\+\_\+sun, Ref$<$ Vector\+Xd $>$ Tl\+\_\+shade, Ref$<$ Vector\+Xd $>$ L\+A\+I\+\_\+sun, Ref$<$ Vector\+Xd $>$ L\+A\+I\+\_\+shade, Ref$<$ Vector\+Xd $>$ L\+A\+Iz, Ref$<$ Vector\+Xd $>$ fsun, Ref$<$ Vector\+Xd $>$ fshade, double $\ast$radlost\+\_\+ptr, double $\ast$L\+Wabs\+\_\+soil\+\_\+ptr, double $\ast$L\+W\+\_\+soil\+\_\+out\+\_\+ptr, double L\+W\+\_\+sky, double Tatop, double Tsoil, double epsv, double epss, double clump, double Kdf, int count, int nl\+\_\+can)
+\item 
+void \hyperlink{mlcan_8cc_af82f5ab43661aa733779575bd7c7bd77}{Long\+Waveradiation} (\hyperlink{class_forcing_class}{Forcing\+Class} $\ast$forcings, \hyperlink{class_canopy_class}{Canopy\+Class} $\ast$canopies, \hyperlink{class_vertical_canopy_class}{Vertical\+Canopy\+Class} $\ast$vertcanopies, \hyperlink{class_vertical_soil_class}{Vertical\+Soil\+Class} $\ast$vertsoils, \hyperlink{class_constant_class}{Constant\+Class} $\ast$constants, \hyperlink{class_radiation_class}{Radiation\+Class} $\ast$radiation, Ref$<$ Vector\+Xd $>$ L\+Wabs\+\_\+can, Ref$<$ Vector\+Xd $>$ L\+Wabs\+\_\+sun, Ref$<$ Vector\+Xd $>$ L\+Wabs\+\_\+shade, double $\ast$L\+Wabs\+\_\+soil, double $\ast$L\+Wup, Ref$<$ Vector\+Xd $>$ L\+Wcan\+\_\+emit, Ref$<$ Vector\+Xd $>$ L\+Wsun\+\_\+emit, Ref$<$ Vector\+Xd $>$ L\+Wshade\+\_\+emit, double $\ast$L\+Wemit\+\_\+soil)
+\item 
+double \hyperlink{mlcan_8cc_a41421f09a37bce9f808b0613a559c06e}{Polynomial\+\_\+\+Root} (double a, double b, double c)
+\item 
+void \hyperlink{mlcan_8cc_a1fd28bf6d278044f31df2ba1f7c45990}{photosynthesis\+\_\+\+C4} (\hyperlink{class_photosynthesis_class}{Photosynthesis\+Class} $\ast$photosynthesis, \hyperlink{class_vertical_canopy_class}{Vertical\+Canopy\+Class} $\ast$vertcanopies, Ref$<$ Vector\+Xd $>$ Ph, Ref$<$ Vector\+Xd $>$ An, int nl\+\_\+can, int sunlit)
+\item 
+void \hyperlink{mlcan_8cc_a7dd1d9da85ccda593a7a98b9397bf0a2}{B\+L\+C\+\_\+\+Nikolov} (\hyperlink{class_photosynthesis_class}{Photosynthesis\+Class} $\ast$photosynthesis, \hyperlink{class_canopy_class}{Canopy\+Class} $\ast$canopies, \hyperlink{class_vertical_canopy_class}{Vertical\+Canopy\+Class} $\ast$vertcanopies, Ref$<$ Vector\+Xd $>$ gbv, Ref$<$ Vector\+Xd $>$ gbh, int nl\+\_\+can, int sunlit)
+\item 
+void \hyperlink{mlcan_8cc_a1e41d98c793e03a1241ae3e42541bd3b}{Leaf\+\_\+\+Water\+\_\+\+Potential} (\hyperlink{class_vertical_soil_class}{Vertical\+Soil\+Class} $\ast$vertsoils, \hyperlink{class_vertical_canopy_class}{Vertical\+Canopy\+Class} $\ast$vertcanopies, \hyperlink{class_constant_class}{Constant\+Class} $\ast$constants, \hyperlink{class_stoma_conduct_class}{Stoma\+Conduct\+Class} $\ast$stomaconduct, Ref$<$ Vector\+Xd $>$ psil\+\_\+\+M\+PA, int nl\+\_\+can)
+\item 
+void \hyperlink{mlcan_8cc_a641130ac54aeb155d97ccd53c90e0efa}{Tuzet\+\_\+\+Function} (\hyperlink{class_stoma_conduct_class}{Stoma\+Conduct\+Class} $\ast$stomaconduct, Ref$<$ Vector\+Xd $>$ fsv, Ref$<$ Vector\+Xd $>$ psil\+\_\+\+M\+Pa, int nl\+\_\+can)
+\item 
+void \hyperlink{mlcan_8cc_a364adfaa16a7116a14e4ebc7b8330ef4}{Ball\+\_\+\+Berry} (\hyperlink{class_stoma_conduct_class}{Stoma\+Conduct\+Class} $\ast$stomaconduct, \hyperlink{class_vertical_canopy_class}{Vertical\+Canopy\+Class} $\ast$vertcanopies, Ref$<$ Vector\+Xd $>$ gsv, Ref$<$ Vector\+Xd $>$ Ci, Ref$<$ Vector\+Xd $>$ An, Ref$<$ Vector\+Xd $>$ fsv, Ref$<$ Vector\+Xd $>$ gbv, int sunlit, int nl\+\_\+can)
+\item 
+void \hyperlink{mlcan_8cc_aa9fd5a03871068d247242ec9ccdae02a}{L\+E\+B\+\_\+\+Quartic} (\hyperlink{class_canopy_class}{Canopy\+Class} $\ast$canopies, \hyperlink{class_vertical_canopy_class}{Vertical\+Canopy\+Class} $\ast$vertcanopies, \hyperlink{class_constant_class}{Constant\+Class} $\ast$constants, \hyperlink{class_radiation_class}{Radiation\+Class} $\ast$radiation, Ref$<$ Vector\+Xd $>$ Tl, Ref$<$ Vector\+Xd $>$ gv, Ref$<$ Vector\+Xd $>$ H, Ref$<$ Vector\+Xd $>$ LE, int sunlit, int nl\+\_\+can, int dry)
+\item 
+void \hyperlink{mlcan_8cc_ac49c607314e85aeba5047055fa7e3ab5}{Leaf\+Solution} (\hyperlink{class_forcing_class}{Forcing\+Class} $\ast$forcings, \hyperlink{class_canopy_class}{Canopy\+Class} $\ast$canopies, \hyperlink{class_vertical_canopy_class}{Vertical\+Canopy\+Class} $\ast$vertcanopies, \hyperlink{class_vertical_soil_class}{Vertical\+Soil\+Class} $\ast$vertsoils, \hyperlink{class_photosynthesis_class}{Photosynthesis\+Class} $\ast$photosynthesis, \hyperlink{class_constant_class}{Constant\+Class} $\ast$constants, \hyperlink{class_radiation_class}{Radiation\+Class} $\ast$radiation, \hyperlink{class_stoma_conduct_class}{Stoma\+Conduct\+Class} $\ast$stomaconduct, Ref$<$ Vector\+Xd $>$ Ph, Ref$<$ Vector\+Xd $>$ An, Ref$<$ Vector\+Xd $>$ Ci, Ref$<$ Vector\+Xd $>$ gsv, Ref$<$ Vector\+Xd $>$ Tl, Ref$<$ Vector\+Xd $>$ LE, Ref$<$ Vector\+Xd $>$ TR, Ref$<$ Vector\+Xd $>$ Evap\+\_\+mm, Ref$<$ Vector\+Xd $>$ H, Ref$<$ Vector\+Xd $>$ psil, Ref$<$ Vector\+Xd $>$ fsv, Ref$<$ Vector\+Xd $>$ Ch2o\+\_\+mm, Ref$<$ Vector\+Xd $>$ gbv, Ref$<$ Vector\+Xd $>$ gbh, int sunlit, int t)
+\item 
+void \hyperlink{mlcan_8cc_a74403715db434f72a77fb057e9db4d33}{S\+E\+B\+\_\+\+Remainder\+\_\+return} (double Ts, double Rabs, double Ta1, double Ts1, double ea1, double pa, double U1, double z1, double dzs1, double psis1\+\_\+\+M\+Pa, double vonk, double z0, double T\+C1, double epss, double $\ast$Hs, double $\ast$RH, double $\ast$L\+Es, double $\ast$Gs, double $\ast$L\+Wups, double $\ast$remain)
+\item 
+double \hyperlink{mlcan_8cc_a8895290faf5acc7416e43e5cb0d9716a}{S\+E\+B\+\_\+\+Remainder} (double Ts, double Rabs, double Ta1, double Ts1, double ea1, double pa, double U1, double z1, double dzs1, double psis1\+\_\+\+M\+Pa, double vonk, double z0, double T\+C1, double epss)
+\item 
+void \hyperlink{mlcan_8cc_a5fc2ccef00bb96fa1fabf0980d941c19}{Soil\+\_\+\+Surface\+\_\+\+Fluxes} (\hyperlink{class_vertical_canopy_class}{Vertical\+Canopy\+Class} $\ast$vertcanopies, \hyperlink{class_canopy_class}{Canopy\+Class} $\ast$canopies, \hyperlink{class_vertical_soil_class}{Vertical\+Soil\+Class} $\ast$vertsoils, \hyperlink{class_soil_class}{Soil\+Class} $\ast$soils, \hyperlink{class_radiation_class}{Radiation\+Class} $\ast$radiation, \hyperlink{class_constant_class}{Constant\+Class} $\ast$constants, double $\ast$Tsurf, double $\ast$Hs, double $\ast$L\+Es, double $\ast$Gs, double $\ast$RH, double $\ast$L\+Wups)
+\item 
+void \hyperlink{mlcan_8cc_ac5793840ed0ebe12e4aca86a6e51c50d}{Order\+\_\+1\+\_\+\+Closure\+\_\+\+All} (Ref$<$ Vector\+Xd $>$ Ca\+\_\+in, Ref$<$ Vector\+Xd $>$ z\+\_\+in, Ref$<$ Vector\+Xd $>$ K\+\_\+in, Ref$<$ Vector\+Xd $>$ S\+S\+\_\+in, double \hyperlink{devconst_8h_aad01429fd3a33d4b91ab552e3ff058e8}{dz}, double soilf, double ctz, int nl\+\_\+can)
+\item 
+void \hyperlink{mlcan_8cc_a205b6034b25ec7a7baef4ca8874fb2b2}{Micro\+\_\+\+Environment} (\hyperlink{class_vertical_canopy_class}{Vertical\+Canopy\+Class} $\ast$vertcanopies, \hyperlink{class_canopy_class}{Canopy\+Class} $\ast$canopies, \hyperlink{class_vertical_soil_class}{Vertical\+Soil\+Class} $\ast$vertsoils, \hyperlink{class_constant_class}{Constant\+Class} $\ast$constants, Ref$<$ Vector\+Xd $>$ C\+Az, Ref$<$ Vector\+Xd $>$ E\+Az, Ref$<$ Vector\+Xd $>$ T\+Az, int nl\+\_\+can)
+\item 
+void \hyperlink{mlcan_8cc_afd66277d8e2b8f57bbdd7d6ebcd931e3}{Evap\+\_\+\+Condensation\+\_\+\+Adjust} (\hyperlink{class_vertical_canopy_class}{Vertical\+Canopy\+Class} $\ast$vertcanopies, \hyperlink{class_canopy_class}{Canopy\+Class} $\ast$canopies, \hyperlink{class_vertical_soil_class}{Vertical\+Soil\+Class} $\ast$vertsoils, Ref$<$ Vector\+Xd $>$ Sh2o\+\_\+prof, double $\ast$Sh2o\+\_\+can, int nl\+\_\+can)
+\item 
+void \hyperlink{mlcan_8cc_ac8fc52bdf29c56d534e8893ee1364822}{Canopy\+Model} (\hyperlink{class_project_class}{Project\+Class} $\ast$project, \hyperlink{class_switch_class}{Switch\+Class} $\ast$Switches, \hyperlink{class_constant_class}{Constant\+Class} $\ast$constants, \hyperlink{class_canopy_class}{Canopy\+Class} $\ast$canopies, \hyperlink{class_vertical_canopy_class}{Vertical\+Canopy\+Class} $\ast$vertcanopies, \hyperlink{class_soil_class}{Soil\+Class} $\ast$soils, \hyperlink{class_vertical_soil_class}{Vertical\+Soil\+Class} $\ast$vertsoils, \hyperlink{class_time_forcing_class}{Time\+Forcing\+Class} $\ast$timeforcings, \hyperlink{class_forcing_class}{Forcing\+Class} $\ast$forcings, \hyperlink{class_radiation_class}{Radiation\+Class} $\ast$radiation, \hyperlink{class_photosynthesis_class}{Photosynthesis\+Class} $\ast$photosynthesis, \hyperlink{class_stoma_conduct_class}{Stoma\+Conduct\+Class} $\ast$stomaconduct, \hyperlink{class_respiration_class}{Respiration\+Class} $\ast$respiration, \hyperlink{class_micro_environment_class}{Micro\+Environment\+Class} $\ast$microenviron, \hyperlink{class_output_class}{Output\+Class} $\ast$outmlcan, int t, int rank, int size)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{mlcan.\+cc@{mlcan.\+cc}!Ball\+\_\+\+Berry@{Ball\+\_\+\+Berry}}
+\index{Ball\+\_\+\+Berry@{Ball\+\_\+\+Berry}!mlcan.\+cc@{mlcan.\+cc}}
+\subsubsection[{\texorpdfstring{Ball\+\_\+\+Berry(\+Stoma\+Conduct\+Class $\ast$stomaconduct, Vertical\+Canopy\+Class $\ast$vertcanopies, Ref$<$ Vector\+Xd $>$ gsv, Ref$<$ Vector\+Xd $>$ Ci, Ref$<$ Vector\+Xd $>$ An, Ref$<$ Vector\+Xd $>$ fsv, Ref$<$ Vector\+Xd $>$ gbv, int sunlit, int nl\+\_\+can)}{Ball_Berry(StomaConductClass *stomaconduct, VerticalCanopyClass *vertcanopies, Ref< VectorXd > gsv, Ref< VectorXd > Ci, Ref< VectorXd > An, Ref< VectorXd > fsv, Ref< VectorXd > gbv, int sunlit, int nl_can)}}]{\setlength{\rightskip}{0pt plus 5cm}void Ball\+\_\+\+Berry (
+\begin{DoxyParamCaption}
+\item[{{\bf Stoma\+Conduct\+Class} $\ast$}]{stomaconduct, }
+\item[{{\bf Vertical\+Canopy\+Class} $\ast$}]{vertcanopies, }
+\item[{Ref$<$ Vector\+Xd $>$}]{gsv, }
+\item[{Ref$<$ Vector\+Xd $>$}]{Ci, }
+\item[{Ref$<$ Vector\+Xd $>$}]{An, }
+\item[{Ref$<$ Vector\+Xd $>$}]{fsv, }
+\item[{Ref$<$ Vector\+Xd $>$}]{gbv, }
+\item[{int}]{sunlit, }
+\item[{int}]{nl\+\_\+can}
+\end{DoxyParamCaption}
+)}\hypertarget{mlcan_8cc_a364adfaa16a7116a14e4ebc7b8330ef4}{}\label{mlcan_8cc_a364adfaa16a7116a14e4ebc7b8330ef4}
+\index{mlcan.\+cc@{mlcan.\+cc}!B\+L\+C\+\_\+\+Nikolov@{B\+L\+C\+\_\+\+Nikolov}}
+\index{B\+L\+C\+\_\+\+Nikolov@{B\+L\+C\+\_\+\+Nikolov}!mlcan.\+cc@{mlcan.\+cc}}
+\subsubsection[{\texorpdfstring{B\+L\+C\+\_\+\+Nikolov(\+Photosynthesis\+Class $\ast$photosynthesis, Canopy\+Class $\ast$canopies, Vertical\+Canopy\+Class $\ast$vertcanopies, Ref$<$ Vector\+Xd $>$ gbv, Ref$<$ Vector\+Xd $>$ gbh, int nl\+\_\+can, int sunlit)}{BLC_Nikolov(PhotosynthesisClass *photosynthesis, CanopyClass *canopies, VerticalCanopyClass *vertcanopies, Ref< VectorXd > gbv, Ref< VectorXd > gbh, int nl_can, int sunlit)}}]{\setlength{\rightskip}{0pt plus 5cm}void B\+L\+C\+\_\+\+Nikolov (
+\begin{DoxyParamCaption}
+\item[{{\bf Photosynthesis\+Class} $\ast$}]{photosynthesis, }
+\item[{{\bf Canopy\+Class} $\ast$}]{canopies, }
+\item[{{\bf Vertical\+Canopy\+Class} $\ast$}]{vertcanopies, }
+\item[{Ref$<$ Vector\+Xd $>$}]{gbv, }
+\item[{Ref$<$ Vector\+Xd $>$}]{gbh, }
+\item[{int}]{nl\+\_\+can, }
+\item[{int}]{sunlit}
+\end{DoxyParamCaption}
+)}\hypertarget{mlcan_8cc_a7dd1d9da85ccda593a7a98b9397bf0a2}{}\label{mlcan_8cc_a7dd1d9da85ccda593a7a98b9397bf0a2}
+\index{mlcan.\+cc@{mlcan.\+cc}!Canopy\+Model@{Canopy\+Model}}
+\index{Canopy\+Model@{Canopy\+Model}!mlcan.\+cc@{mlcan.\+cc}}
+\subsubsection[{\texorpdfstring{Canopy\+Model(\+Project\+Class $\ast$project, Switch\+Class $\ast$\+Switches, Constant\+Class $\ast$constants, Canopy\+Class $\ast$canopies, Vertical\+Canopy\+Class $\ast$vertcanopies, Soil\+Class $\ast$soils, Vertical\+Soil\+Class $\ast$vertsoils, Time\+Forcing\+Class $\ast$timeforcings, Forcing\+Class $\ast$forcings, Radiation\+Class $\ast$radiation, Photosynthesis\+Class $\ast$photosynthesis, Stoma\+Conduct\+Class $\ast$stomaconduct, Respiration\+Class $\ast$respiration, Micro\+Environment\+Class $\ast$microenviron, Output\+Class $\ast$outmlcan, int t, int rank, int size)}{CanopyModel(ProjectClass *project, SwitchClass *Switches, ConstantClass *constants, CanopyClass *canopies, VerticalCanopyClass *vertcanopies, SoilClass *soils, VerticalSoilClass *vertsoils, TimeForcingClass *timeforcings, ForcingClass *forcings, RadiationClass *radiation, PhotosynthesisClass *photosynthesis, StomaConductClass *stomaconduct, RespirationClass *respiration, MicroEnvironmentClass *microenviron, OutputClass *outmlcan, int t, int rank, int size)}}]{\setlength{\rightskip}{0pt plus 5cm}void Canopy\+Model (
+\begin{DoxyParamCaption}
+\item[{{\bf Project\+Class} $\ast$}]{project, }
+\item[{{\bf Switch\+Class} $\ast$}]{Switches, }
+\item[{{\bf Constant\+Class} $\ast$}]{constants, }
+\item[{{\bf Canopy\+Class} $\ast$}]{canopies, }
+\item[{{\bf Vertical\+Canopy\+Class} $\ast$}]{vertcanopies, }
+\item[{{\bf Soil\+Class} $\ast$}]{soils, }
+\item[{{\bf Vertical\+Soil\+Class} $\ast$}]{vertsoils, }
+\item[{{\bf Time\+Forcing\+Class} $\ast$}]{timeforcings, }
+\item[{{\bf Forcing\+Class} $\ast$}]{forcings, }
+\item[{{\bf Radiation\+Class} $\ast$}]{radiation, }
+\item[{{\bf Photosynthesis\+Class} $\ast$}]{photosynthesis, }
+\item[{{\bf Stoma\+Conduct\+Class} $\ast$}]{stomaconduct, }
+\item[{{\bf Respiration\+Class} $\ast$}]{respiration, }
+\item[{{\bf Micro\+Environment\+Class} $\ast$}]{microenviron, }
+\item[{{\bf Output\+Class} $\ast$}]{outmlcan, }
+\item[{int}]{t, }
+\item[{int}]{rank, }
+\item[{int}]{size}
+\end{DoxyParamCaption}
+)}\hypertarget{mlcan_8cc_ac8fc52bdf29c56d534e8893ee1364822}{}\label{mlcan_8cc_ac8fc52bdf29c56d534e8893ee1364822}
+\index{mlcan.\+cc@{mlcan.\+cc}!Cubic\+Solver@{Cubic\+Solver}}
+\index{Cubic\+Solver@{Cubic\+Solver}!mlcan.\+cc@{mlcan.\+cc}}
+\subsubsection[{\texorpdfstring{Cubic\+Solver(double $\ast$ce, double $\ast$roots)}{CubicSolver(double *ce, double *roots)}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int Cubic\+Solver (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{ce, }
+\item[{double $\ast$}]{roots}
+\end{DoxyParamCaption}
+)}\hypertarget{mlcan_8cc_a651bc5153d7d9adc8b74f0dd5e48019f}{}\label{mlcan_8cc_a651bc5153d7d9adc8b74f0dd5e48019f}
+\index{mlcan.\+cc@{mlcan.\+cc}!Diffuse\+\_\+\+Fraction@{Diffuse\+\_\+\+Fraction}}
+\index{Diffuse\+\_\+\+Fraction@{Diffuse\+\_\+\+Fraction}!mlcan.\+cc@{mlcan.\+cc}}
+\subsubsection[{\texorpdfstring{Diffuse\+\_\+\+Fraction(double zendeg, int doy, double S\+Wdn)}{Diffuse_Fraction(double zendeg, int doy, double SWdn)}}]{\setlength{\rightskip}{0pt plus 5cm}double Diffuse\+\_\+\+Fraction (
+\begin{DoxyParamCaption}
+\item[{double}]{zendeg, }
+\item[{int}]{doy, }
+\item[{double}]{S\+Wdn}
+\end{DoxyParamCaption}
+)}\hypertarget{mlcan_8cc_a7e6ee5741c12b15ee35ff8d9a2354f63}{}\label{mlcan_8cc_a7e6ee5741c12b15ee35ff8d9a2354f63}
+\index{mlcan.\+cc@{mlcan.\+cc}!Evap\+\_\+\+Condensation\+\_\+\+Adjust@{Evap\+\_\+\+Condensation\+\_\+\+Adjust}}
+\index{Evap\+\_\+\+Condensation\+\_\+\+Adjust@{Evap\+\_\+\+Condensation\+\_\+\+Adjust}!mlcan.\+cc@{mlcan.\+cc}}
+\subsubsection[{\texorpdfstring{Evap\+\_\+\+Condensation\+\_\+\+Adjust(\+Vertical\+Canopy\+Class $\ast$vertcanopies, Canopy\+Class $\ast$canopies, Vertical\+Soil\+Class $\ast$vertsoils, Ref$<$ Vector\+Xd $>$ Sh2o\+\_\+prof, double $\ast$\+Sh2o\+\_\+can, int nl\+\_\+can)}{Evap_Condensation_Adjust(VerticalCanopyClass *vertcanopies, CanopyClass *canopies, VerticalSoilClass *vertsoils, Ref< VectorXd > Sh2o_prof, double *Sh2o_can, int nl_can)}}]{\setlength{\rightskip}{0pt plus 5cm}void Evap\+\_\+\+Condensation\+\_\+\+Adjust (
+\begin{DoxyParamCaption}
+\item[{{\bf Vertical\+Canopy\+Class} $\ast$}]{vertcanopies, }
+\item[{{\bf Canopy\+Class} $\ast$}]{canopies, }
+\item[{{\bf Vertical\+Soil\+Class} $\ast$}]{vertsoils, }
+\item[{Ref$<$ Vector\+Xd $>$}]{Sh2o\+\_\+prof, }
+\item[{double $\ast$}]{Sh2o\+\_\+can, }
+\item[{int}]{nl\+\_\+can}
+\end{DoxyParamCaption}
+)}\hypertarget{mlcan_8cc_afd66277d8e2b8f57bbdd7d6ebcd931e3}{}\label{mlcan_8cc_afd66277d8e2b8f57bbdd7d6ebcd931e3}
+\index{mlcan.\+cc@{mlcan.\+cc}!First\+\_\+\+Order\+\_\+\+Closure\+\_\+U@{First\+\_\+\+Order\+\_\+\+Closure\+\_\+U}}
+\index{First\+\_\+\+Order\+\_\+\+Closure\+\_\+U@{First\+\_\+\+Order\+\_\+\+Closure\+\_\+U}!mlcan.\+cc@{mlcan.\+cc}}
+\subsubsection[{\texorpdfstring{First\+\_\+\+Order\+\_\+\+Closure\+\_\+\+U(\+Forcing\+Class $\ast$forcings, Canopy\+Class $\ast$canopies, Vertical\+Canopy\+Class $\ast$vertcanopies, Micro\+Environment\+Class $\ast$microenviron, Ref$<$ Vector\+Xd $>$ Um, Ref$<$ Vector\+Xd $>$ Km)}{First_Order_Closure_U(ForcingClass *forcings, CanopyClass *canopies, VerticalCanopyClass *vertcanopies, MicroEnvironmentClass *microenviron, Ref< VectorXd > Um, Ref< VectorXd > Km)}}]{\setlength{\rightskip}{0pt plus 5cm}void First\+\_\+\+Order\+\_\+\+Closure\+\_\+U (
+\begin{DoxyParamCaption}
+\item[{{\bf Forcing\+Class} $\ast$}]{forcings, }
+\item[{{\bf Canopy\+Class} $\ast$}]{canopies, }
+\item[{{\bf Vertical\+Canopy\+Class} $\ast$}]{vertcanopies, }
+\item[{{\bf Micro\+Environment\+Class} $\ast$}]{microenviron, }
+\item[{Ref$<$ Vector\+Xd $>$}]{Um, }
+\item[{Ref$<$ Vector\+Xd $>$}]{Km}
+\end{DoxyParamCaption}
+)}\hypertarget{mlcan_8cc_aab395c197b44c682ae509335372f3482}{}\label{mlcan_8cc_aab395c197b44c682ae509335372f3482}
+\index{mlcan.\+cc@{mlcan.\+cc}!Leaf\+\_\+\+Water\+\_\+\+Potential@{Leaf\+\_\+\+Water\+\_\+\+Potential}}
+\index{Leaf\+\_\+\+Water\+\_\+\+Potential@{Leaf\+\_\+\+Water\+\_\+\+Potential}!mlcan.\+cc@{mlcan.\+cc}}
+\subsubsection[{\texorpdfstring{Leaf\+\_\+\+Water\+\_\+\+Potential(\+Vertical\+Soil\+Class $\ast$vertsoils, Vertical\+Canopy\+Class $\ast$vertcanopies, Constant\+Class $\ast$constants, Stoma\+Conduct\+Class $\ast$stomaconduct, Ref$<$ Vector\+Xd $>$ psil\+\_\+\+M\+P\+A, int nl\+\_\+can)}{Leaf_Water_Potential(VerticalSoilClass *vertsoils, VerticalCanopyClass *vertcanopies, ConstantClass *constants, StomaConductClass *stomaconduct, Ref< VectorXd > psil_MPA, int nl_can)}}]{\setlength{\rightskip}{0pt plus 5cm}void Leaf\+\_\+\+Water\+\_\+\+Potential (
+\begin{DoxyParamCaption}
+\item[{{\bf Vertical\+Soil\+Class} $\ast$}]{vertsoils, }
+\item[{{\bf Vertical\+Canopy\+Class} $\ast$}]{vertcanopies, }
+\item[{{\bf Constant\+Class} $\ast$}]{constants, }
+\item[{{\bf Stoma\+Conduct\+Class} $\ast$}]{stomaconduct, }
+\item[{Ref$<$ Vector\+Xd $>$}]{psil\+\_\+\+M\+PA, }
+\item[{int}]{nl\+\_\+can}
+\end{DoxyParamCaption}
+)}\hypertarget{mlcan_8cc_a1e41d98c793e03a1241ae3e42541bd3b}{}\label{mlcan_8cc_a1e41d98c793e03a1241ae3e42541bd3b}
+\index{mlcan.\+cc@{mlcan.\+cc}!Leaf\+Solution@{Leaf\+Solution}}
+\index{Leaf\+Solution@{Leaf\+Solution}!mlcan.\+cc@{mlcan.\+cc}}
+\subsubsection[{\texorpdfstring{Leaf\+Solution(\+Forcing\+Class $\ast$forcings, Canopy\+Class $\ast$canopies, Vertical\+Canopy\+Class $\ast$vertcanopies, Vertical\+Soil\+Class $\ast$vertsoils, Photosynthesis\+Class $\ast$photosynthesis, Constant\+Class $\ast$constants, Radiation\+Class $\ast$radiation, Stoma\+Conduct\+Class $\ast$stomaconduct, Ref$<$ Vector\+Xd $>$ Ph, Ref$<$ Vector\+Xd $>$ An, Ref$<$ Vector\+Xd $>$ Ci, Ref$<$ Vector\+Xd $>$ gsv, Ref$<$ Vector\+Xd $>$ Tl, Ref$<$ Vector\+Xd $>$ L\+E, Ref$<$ Vector\+Xd $>$ T\+R, Ref$<$ Vector\+Xd $>$ Evap\+\_\+mm, Ref$<$ Vector\+Xd $>$ H, Ref$<$ Vector\+Xd $>$ psil, Ref$<$ Vector\+Xd $>$ fsv, Ref$<$ Vector\+Xd $>$ Ch2o\+\_\+mm, Ref$<$ Vector\+Xd $>$ gbv, Ref$<$ Vector\+Xd $>$ gbh, int sunlit, int t)}{LeafSolution(ForcingClass *forcings, CanopyClass *canopies, VerticalCanopyClass *vertcanopies, VerticalSoilClass *vertsoils, PhotosynthesisClass *photosynthesis, ConstantClass *constants, RadiationClass *radiation, StomaConductClass *stomaconduct, Ref< VectorXd > Ph, Ref< VectorXd > An, Ref< VectorXd > Ci, Ref< VectorXd > gsv, Ref< VectorXd > Tl, Ref< VectorXd > LE, Ref< VectorXd > TR, Ref< VectorXd > Evap_mm, Ref< VectorXd > H, Ref< VectorXd > psil, Ref< VectorXd > fsv, Ref< VectorXd > Ch2o_mm, Ref< VectorXd > gbv, Ref< VectorXd > gbh, int sunlit, int t)}}]{\setlength{\rightskip}{0pt plus 5cm}void Leaf\+Solution (
+\begin{DoxyParamCaption}
+\item[{{\bf Forcing\+Class} $\ast$}]{forcings, }
+\item[{{\bf Canopy\+Class} $\ast$}]{canopies, }
+\item[{{\bf Vertical\+Canopy\+Class} $\ast$}]{vertcanopies, }
+\item[{{\bf Vertical\+Soil\+Class} $\ast$}]{vertsoils, }
+\item[{{\bf Photosynthesis\+Class} $\ast$}]{photosynthesis, }
+\item[{{\bf Constant\+Class} $\ast$}]{constants, }
+\item[{{\bf Radiation\+Class} $\ast$}]{radiation, }
+\item[{{\bf Stoma\+Conduct\+Class} $\ast$}]{stomaconduct, }
+\item[{Ref$<$ Vector\+Xd $>$}]{Ph, }
+\item[{Ref$<$ Vector\+Xd $>$}]{An, }
+\item[{Ref$<$ Vector\+Xd $>$}]{Ci, }
+\item[{Ref$<$ Vector\+Xd $>$}]{gsv, }
+\item[{Ref$<$ Vector\+Xd $>$}]{Tl, }
+\item[{Ref$<$ Vector\+Xd $>$}]{LE, }
+\item[{Ref$<$ Vector\+Xd $>$}]{TR, }
+\item[{Ref$<$ Vector\+Xd $>$}]{Evap\+\_\+mm, }
+\item[{Ref$<$ Vector\+Xd $>$}]{H, }
+\item[{Ref$<$ Vector\+Xd $>$}]{psil, }
+\item[{Ref$<$ Vector\+Xd $>$}]{fsv, }
+\item[{Ref$<$ Vector\+Xd $>$}]{Ch2o\+\_\+mm, }
+\item[{Ref$<$ Vector\+Xd $>$}]{gbv, }
+\item[{Ref$<$ Vector\+Xd $>$}]{gbh, }
+\item[{int}]{sunlit, }
+\item[{int}]{t}
+\end{DoxyParamCaption}
+)}\hypertarget{mlcan_8cc_ac49c607314e85aeba5047055fa7e3ab5}{}\label{mlcan_8cc_ac49c607314e85aeba5047055fa7e3ab5}
+\index{mlcan.\+cc@{mlcan.\+cc}!L\+E\+B\+\_\+\+Quartic@{L\+E\+B\+\_\+\+Quartic}}
+\index{L\+E\+B\+\_\+\+Quartic@{L\+E\+B\+\_\+\+Quartic}!mlcan.\+cc@{mlcan.\+cc}}
+\subsubsection[{\texorpdfstring{L\+E\+B\+\_\+\+Quartic(\+Canopy\+Class $\ast$canopies, Vertical\+Canopy\+Class $\ast$vertcanopies, Constant\+Class $\ast$constants, Radiation\+Class $\ast$radiation, Ref$<$ Vector\+Xd $>$ Tl, Ref$<$ Vector\+Xd $>$ gv, Ref$<$ Vector\+Xd $>$ H, Ref$<$ Vector\+Xd $>$ L\+E, int sunlit, int nl\+\_\+can, int dry)}{LEB_Quartic(CanopyClass *canopies, VerticalCanopyClass *vertcanopies, ConstantClass *constants, RadiationClass *radiation, Ref< VectorXd > Tl, Ref< VectorXd > gv, Ref< VectorXd > H, Ref< VectorXd > LE, int sunlit, int nl_can, int dry)}}]{\setlength{\rightskip}{0pt plus 5cm}void L\+E\+B\+\_\+\+Quartic (
+\begin{DoxyParamCaption}
+\item[{{\bf Canopy\+Class} $\ast$}]{canopies, }
+\item[{{\bf Vertical\+Canopy\+Class} $\ast$}]{vertcanopies, }
+\item[{{\bf Constant\+Class} $\ast$}]{constants, }
+\item[{{\bf Radiation\+Class} $\ast$}]{radiation, }
+\item[{Ref$<$ Vector\+Xd $>$}]{Tl, }
+\item[{Ref$<$ Vector\+Xd $>$}]{gv, }
+\item[{Ref$<$ Vector\+Xd $>$}]{H, }
+\item[{Ref$<$ Vector\+Xd $>$}]{LE, }
+\item[{int}]{sunlit, }
+\item[{int}]{nl\+\_\+can, }
+\item[{int}]{dry}
+\end{DoxyParamCaption}
+)}\hypertarget{mlcan_8cc_aa9fd5a03871068d247242ec9ccdae02a}{}\label{mlcan_8cc_aa9fd5a03871068d247242ec9ccdae02a}
+\index{mlcan.\+cc@{mlcan.\+cc}!Long\+Waveradiation@{Long\+Waveradiation}}
+\index{Long\+Waveradiation@{Long\+Waveradiation}!mlcan.\+cc@{mlcan.\+cc}}
+\subsubsection[{\texorpdfstring{Long\+Waveradiation(\+Forcing\+Class $\ast$forcings, Canopy\+Class $\ast$canopies, Vertical\+Canopy\+Class $\ast$vertcanopies, Vertical\+Soil\+Class $\ast$vertsoils, Constant\+Class $\ast$constants, Radiation\+Class $\ast$radiation, Ref$<$ Vector\+Xd $>$ L\+Wabs\+\_\+can, Ref$<$ Vector\+Xd $>$ L\+Wabs\+\_\+sun, Ref$<$ Vector\+Xd $>$ L\+Wabs\+\_\+shade, double $\ast$\+L\+Wabs\+\_\+soil, double $\ast$\+L\+Wup, Ref$<$ Vector\+Xd $>$ L\+Wcan\+\_\+emit, Ref$<$ Vector\+Xd $>$ L\+Wsun\+\_\+emit, Ref$<$ Vector\+Xd $>$ L\+Wshade\+\_\+emit, double $\ast$\+L\+Wemit\+\_\+soil)}{LongWaveradiation(ForcingClass *forcings, CanopyClass *canopies, VerticalCanopyClass *vertcanopies, VerticalSoilClass *vertsoils, ConstantClass *constants, RadiationClass *radiation, Ref< VectorXd > LWabs_can, Ref< VectorXd > LWabs_sun, Ref< VectorXd > LWabs_shade, double *LWabs_soil, double *LWup, Ref< VectorXd > LWcan_emit, Ref< VectorXd > LWsun_emit, Ref< VectorXd > LWshade_emit, double *LWemit_soil)}}]{\setlength{\rightskip}{0pt plus 5cm}void Long\+Waveradiation (
+\begin{DoxyParamCaption}
+\item[{{\bf Forcing\+Class} $\ast$}]{forcings, }
+\item[{{\bf Canopy\+Class} $\ast$}]{canopies, }
+\item[{{\bf Vertical\+Canopy\+Class} $\ast$}]{vertcanopies, }
+\item[{{\bf Vertical\+Soil\+Class} $\ast$}]{vertsoils, }
+\item[{{\bf Constant\+Class} $\ast$}]{constants, }
+\item[{{\bf Radiation\+Class} $\ast$}]{radiation, }
+\item[{Ref$<$ Vector\+Xd $>$}]{L\+Wabs\+\_\+can, }
+\item[{Ref$<$ Vector\+Xd $>$}]{L\+Wabs\+\_\+sun, }
+\item[{Ref$<$ Vector\+Xd $>$}]{L\+Wabs\+\_\+shade, }
+\item[{double $\ast$}]{L\+Wabs\+\_\+soil, }
+\item[{double $\ast$}]{L\+Wup, }
+\item[{Ref$<$ Vector\+Xd $>$}]{L\+Wcan\+\_\+emit, }
+\item[{Ref$<$ Vector\+Xd $>$}]{L\+Wsun\+\_\+emit, }
+\item[{Ref$<$ Vector\+Xd $>$}]{L\+Wshade\+\_\+emit, }
+\item[{double $\ast$}]{L\+Wemit\+\_\+soil}
+\end{DoxyParamCaption}
+)}\hypertarget{mlcan_8cc_af82f5ab43661aa733779575bd7c7bd77}{}\label{mlcan_8cc_af82f5ab43661aa733779575bd7c7bd77}
+\index{mlcan.\+cc@{mlcan.\+cc}!L\+W\+\_\+\+Attenuation@{L\+W\+\_\+\+Attenuation}}
+\index{L\+W\+\_\+\+Attenuation@{L\+W\+\_\+\+Attenuation}!mlcan.\+cc@{mlcan.\+cc}}
+\subsubsection[{\texorpdfstring{L\+W\+\_\+\+Attenuation(\+Ref$<$ Vector\+Xd $>$ L\+Wabs\+\_\+can, Ref$<$ Vector\+Xd $>$ diffdn, Ref$<$ Vector\+Xd $>$ diffup, Ref$<$ Vector\+Xd $>$ L\+Wcan\+\_\+out, Ref$<$ Vector\+Xd $>$ L\+Wsun\+\_\+out, Ref$<$ Vector\+Xd $>$ L\+Wshade\+\_\+out, Ref$<$ Vector\+Xd $>$ Tl\+\_\+sun, Ref$<$ Vector\+Xd $>$ Tl\+\_\+shade, Ref$<$ Vector\+Xd $>$ L\+A\+I\+\_\+sun, Ref$<$ Vector\+Xd $>$ L\+A\+I\+\_\+shade, Ref$<$ Vector\+Xd $>$ L\+A\+Iz, Ref$<$ Vector\+Xd $>$ fsun, Ref$<$ Vector\+Xd $>$ fshade, double $\ast$radlost\+\_\+ptr, double $\ast$\+L\+Wabs\+\_\+soil\+\_\+ptr, double $\ast$\+L\+W\+\_\+soil\+\_\+out\+\_\+ptr, double L\+W\+\_\+sky, double Tatop, double Tsoil, double epsv, double epss, double clump, double Kdf, int count, int nl\+\_\+can)}{LW_Attenuation(Ref< VectorXd > LWabs_can, Ref< VectorXd > diffdn, Ref< VectorXd > diffup, Ref< VectorXd > LWcan_out, Ref< VectorXd > LWsun_out, Ref< VectorXd > LWshade_out, Ref< VectorXd > Tl_sun, Ref< VectorXd > Tl_shade, Ref< VectorXd > LAI_sun, Ref< VectorXd > LAI_shade, Ref< VectorXd > LAIz, Ref< VectorXd > fsun, Ref< VectorXd > fshade, double *radlost_ptr, double *LWabs_soil_ptr, double *LW_soil_out_ptr, double LW_sky, double Tatop, double Tsoil, double epsv, double epss, double clump, double Kdf, int count, int nl_can)}}]{\setlength{\rightskip}{0pt plus 5cm}void L\+W\+\_\+\+Attenuation (
+\begin{DoxyParamCaption}
+\item[{Ref$<$ Vector\+Xd $>$}]{L\+Wabs\+\_\+can, }
+\item[{Ref$<$ Vector\+Xd $>$}]{diffdn, }
+\item[{Ref$<$ Vector\+Xd $>$}]{diffup, }
+\item[{Ref$<$ Vector\+Xd $>$}]{L\+Wcan\+\_\+out, }
+\item[{Ref$<$ Vector\+Xd $>$}]{L\+Wsun\+\_\+out, }
+\item[{Ref$<$ Vector\+Xd $>$}]{L\+Wshade\+\_\+out, }
+\item[{Ref$<$ Vector\+Xd $>$}]{Tl\+\_\+sun, }
+\item[{Ref$<$ Vector\+Xd $>$}]{Tl\+\_\+shade, }
+\item[{Ref$<$ Vector\+Xd $>$}]{L\+A\+I\+\_\+sun, }
+\item[{Ref$<$ Vector\+Xd $>$}]{L\+A\+I\+\_\+shade, }
+\item[{Ref$<$ Vector\+Xd $>$}]{L\+A\+Iz, }
+\item[{Ref$<$ Vector\+Xd $>$}]{fsun, }
+\item[{Ref$<$ Vector\+Xd $>$}]{fshade, }
+\item[{double $\ast$}]{radlost\+\_\+ptr, }
+\item[{double $\ast$}]{L\+Wabs\+\_\+soil\+\_\+ptr, }
+\item[{double $\ast$}]{L\+W\+\_\+soil\+\_\+out\+\_\+ptr, }
+\item[{double}]{L\+W\+\_\+sky, }
+\item[{double}]{Tatop, }
+\item[{double}]{Tsoil, }
+\item[{double}]{epsv, }
+\item[{double}]{epss, }
+\item[{double}]{clump, }
+\item[{double}]{Kdf, }
+\item[{int}]{count, }
+\item[{int}]{nl\+\_\+can}
+\end{DoxyParamCaption}
+)}\hypertarget{mlcan_8cc_a03300519db6333d2ccbe03cadad5c485}{}\label{mlcan_8cc_a03300519db6333d2ccbe03cadad5c485}
+\index{mlcan.\+cc@{mlcan.\+cc}!Max\+Find@{Max\+Find}}
+\index{Max\+Find@{Max\+Find}!mlcan.\+cc@{mlcan.\+cc}}
+\subsubsection[{\texorpdfstring{Max\+Find(const double a, const double b)}{MaxFind(const double a, const double b)}}]{\setlength{\rightskip}{0pt plus 5cm}double Max\+Find (
+\begin{DoxyParamCaption}
+\item[{const double}]{a, }
+\item[{const double}]{b}
+\end{DoxyParamCaption}
+)}\hypertarget{mlcan_8cc_ae9e5909dfe33e47496a314930fe109a0}{}\label{mlcan_8cc_ae9e5909dfe33e47496a314930fe109a0}
+\index{mlcan.\+cc@{mlcan.\+cc}!Max\+Value@{Max\+Value}}
+\index{Max\+Value@{Max\+Value}!mlcan.\+cc@{mlcan.\+cc}}
+\subsubsection[{\texorpdfstring{Max\+Value(\+Vector\+Xd \&\+Array\+\_\+in, int S\+I\+Z\+E)}{MaxValue(VectorXd &Array_in, int SIZE)}}]{\setlength{\rightskip}{0pt plus 5cm}double Max\+Value (
+\begin{DoxyParamCaption}
+\item[{Vector\+Xd \&}]{Array\+\_\+in, }
+\item[{int}]{S\+I\+ZE}
+\end{DoxyParamCaption}
+)}\hypertarget{mlcan_8cc_ab9045c21ec49f70998dc4aacb6e049b9}{}\label{mlcan_8cc_ab9045c21ec49f70998dc4aacb6e049b9}
+\index{mlcan.\+cc@{mlcan.\+cc}!Micro\+\_\+\+Environment@{Micro\+\_\+\+Environment}}
+\index{Micro\+\_\+\+Environment@{Micro\+\_\+\+Environment}!mlcan.\+cc@{mlcan.\+cc}}
+\subsubsection[{\texorpdfstring{Micro\+\_\+\+Environment(\+Vertical\+Canopy\+Class $\ast$vertcanopies, Canopy\+Class $\ast$canopies, Vertical\+Soil\+Class $\ast$vertsoils, Constant\+Class $\ast$constants, Ref$<$ Vector\+Xd $>$ C\+Az, Ref$<$ Vector\+Xd $>$ E\+Az, Ref$<$ Vector\+Xd $>$ T\+Az, int nl\+\_\+can)}{Micro_Environment(VerticalCanopyClass *vertcanopies, CanopyClass *canopies, VerticalSoilClass *vertsoils, ConstantClass *constants, Ref< VectorXd > CAz, Ref< VectorXd > EAz, Ref< VectorXd > TAz, int nl_can)}}]{\setlength{\rightskip}{0pt plus 5cm}void Micro\+\_\+\+Environment (
+\begin{DoxyParamCaption}
+\item[{{\bf Vertical\+Canopy\+Class} $\ast$}]{vertcanopies, }
+\item[{{\bf Canopy\+Class} $\ast$}]{canopies, }
+\item[{{\bf Vertical\+Soil\+Class} $\ast$}]{vertsoils, }
+\item[{{\bf Constant\+Class} $\ast$}]{constants, }
+\item[{Ref$<$ Vector\+Xd $>$}]{C\+Az, }
+\item[{Ref$<$ Vector\+Xd $>$}]{E\+Az, }
+\item[{Ref$<$ Vector\+Xd $>$}]{T\+Az, }
+\item[{int}]{nl\+\_\+can}
+\end{DoxyParamCaption}
+)}\hypertarget{mlcan_8cc_a205b6034b25ec7a7baef4ca8874fb2b2}{}\label{mlcan_8cc_a205b6034b25ec7a7baef4ca8874fb2b2}
+\index{mlcan.\+cc@{mlcan.\+cc}!Order\+\_\+1\+\_\+\+Closure\+\_\+\+All@{Order\+\_\+1\+\_\+\+Closure\+\_\+\+All}}
+\index{Order\+\_\+1\+\_\+\+Closure\+\_\+\+All@{Order\+\_\+1\+\_\+\+Closure\+\_\+\+All}!mlcan.\+cc@{mlcan.\+cc}}
+\subsubsection[{\texorpdfstring{Order\+\_\+1\+\_\+\+Closure\+\_\+\+All(\+Ref$<$ Vector\+Xd $>$ Ca\+\_\+in, Ref$<$ Vector\+Xd $>$ z\+\_\+in, Ref$<$ Vector\+Xd $>$ K\+\_\+in, Ref$<$ Vector\+Xd $>$ S\+S\+\_\+in, double dz, double soilf, double ctz, int nl\+\_\+can)}{Order_1_Closure_All(Ref< VectorXd > Ca_in, Ref< VectorXd > z_in, Ref< VectorXd > K_in, Ref< VectorXd > SS_in, double dz, double soilf, double ctz, int nl_can)}}]{\setlength{\rightskip}{0pt plus 5cm}void Order\+\_\+1\+\_\+\+Closure\+\_\+\+All (
+\begin{DoxyParamCaption}
+\item[{Ref$<$ Vector\+Xd $>$}]{Ca\+\_\+in, }
+\item[{Ref$<$ Vector\+Xd $>$}]{z\+\_\+in, }
+\item[{Ref$<$ Vector\+Xd $>$}]{K\+\_\+in, }
+\item[{Ref$<$ Vector\+Xd $>$}]{S\+S\+\_\+in, }
+\item[{double}]{dz, }
+\item[{double}]{soilf, }
+\item[{double}]{ctz, }
+\item[{int}]{nl\+\_\+can}
+\end{DoxyParamCaption}
+)}\hypertarget{mlcan_8cc_ac5793840ed0ebe12e4aca86a6e51c50d}{}\label{mlcan_8cc_ac5793840ed0ebe12e4aca86a6e51c50d}
+\index{mlcan.\+cc@{mlcan.\+cc}!P\+H\+\_\+\+Dist@{P\+H\+\_\+\+Dist}}
+\index{P\+H\+\_\+\+Dist@{P\+H\+\_\+\+Dist}!mlcan.\+cc@{mlcan.\+cc}}
+\subsubsection[{\texorpdfstring{P\+H\+\_\+\+Dist(\+Canopy\+Class $\ast$canopies, Vertical\+Canopy\+Class $\ast$vertcanopies, Photosynthesis\+Class $\ast$photosynthesis, Ref$<$ Vector\+Xd $>$ Vz)}{PH_Dist(CanopyClass *canopies, VerticalCanopyClass *vertcanopies, PhotosynthesisClass *photosynthesis, Ref< VectorXd > Vz)}}]{\setlength{\rightskip}{0pt plus 5cm}void P\+H\+\_\+\+Dist (
+\begin{DoxyParamCaption}
+\item[{{\bf Canopy\+Class} $\ast$}]{canopies, }
+\item[{{\bf Vertical\+Canopy\+Class} $\ast$}]{vertcanopies, }
+\item[{{\bf Photosynthesis\+Class} $\ast$}]{photosynthesis, }
+\item[{Ref$<$ Vector\+Xd $>$}]{Vz}
+\end{DoxyParamCaption}
+)}\hypertarget{mlcan_8cc_a0c7ce598285290c1d764422e829722f2}{}\label{mlcan_8cc_a0c7ce598285290c1d764422e829722f2}
+\index{mlcan.\+cc@{mlcan.\+cc}!photosynthesis\+\_\+\+C4@{photosynthesis\+\_\+\+C4}}
+\index{photosynthesis\+\_\+\+C4@{photosynthesis\+\_\+\+C4}!mlcan.\+cc@{mlcan.\+cc}}
+\subsubsection[{\texorpdfstring{photosynthesis\+\_\+\+C4(\+Photosynthesis\+Class $\ast$photosynthesis, Vertical\+Canopy\+Class $\ast$vertcanopies, Ref$<$ Vector\+Xd $>$ Ph, Ref$<$ Vector\+Xd $>$ An, int nl\+\_\+can, int sunlit)}{photosynthesis_C4(PhotosynthesisClass *photosynthesis, VerticalCanopyClass *vertcanopies, Ref< VectorXd > Ph, Ref< VectorXd > An, int nl_can, int sunlit)}}]{\setlength{\rightskip}{0pt plus 5cm}void photosynthesis\+\_\+\+C4 (
+\begin{DoxyParamCaption}
+\item[{{\bf Photosynthesis\+Class} $\ast$}]{photosynthesis, }
+\item[{{\bf Vertical\+Canopy\+Class} $\ast$}]{vertcanopies, }
+\item[{Ref$<$ Vector\+Xd $>$}]{Ph, }
+\item[{Ref$<$ Vector\+Xd $>$}]{An, }
+\item[{int}]{nl\+\_\+can, }
+\item[{int}]{sunlit}
+\end{DoxyParamCaption}
+)}\hypertarget{mlcan_8cc_a1fd28bf6d278044f31df2ba1f7c45990}{}\label{mlcan_8cc_a1fd28bf6d278044f31df2ba1f7c45990}
+\index{mlcan.\+cc@{mlcan.\+cc}!Polynomial\+\_\+\+Root@{Polynomial\+\_\+\+Root}}
+\index{Polynomial\+\_\+\+Root@{Polynomial\+\_\+\+Root}!mlcan.\+cc@{mlcan.\+cc}}
+\subsubsection[{\texorpdfstring{Polynomial\+\_\+\+Root(double a, double b, double c)}{Polynomial_Root(double a, double b, double c)}}]{\setlength{\rightskip}{0pt plus 5cm}double Polynomial\+\_\+\+Root (
+\begin{DoxyParamCaption}
+\item[{double}]{a, }
+\item[{double}]{b, }
+\item[{double}]{c}
+\end{DoxyParamCaption}
+)}\hypertarget{mlcan_8cc_a41421f09a37bce9f808b0613a559c06e}{}\label{mlcan_8cc_a41421f09a37bce9f808b0613a559c06e}
+\index{mlcan.\+cc@{mlcan.\+cc}!Precip\+\_\+\+Interception@{Precip\+\_\+\+Interception}}
+\index{Precip\+\_\+\+Interception@{Precip\+\_\+\+Interception}!mlcan.\+cc@{mlcan.\+cc}}
+\subsubsection[{\texorpdfstring{Precip\+\_\+\+Interception(\+Forcing\+Class $\ast$forcings, Canopy\+Class $\ast$canopies, Vertical\+Canopy\+Class $\ast$vertcanopies, Vertical\+Soil\+Class $\ast$vertsoils, Radiation\+Class $\ast$radiation, Ref$<$ Vector\+Xd $>$ Sh2o\+\_\+prof, Ref$<$ Vector\+Xd $>$ Smaxz, Ref$<$ Vector\+Xd $>$ wetfrac, Ref$<$ Vector\+Xd $>$ dryfrac, double $\ast$ppt\+\_\+ground)}{Precip_Interception(ForcingClass *forcings, CanopyClass *canopies, VerticalCanopyClass *vertcanopies, VerticalSoilClass *vertsoils, RadiationClass *radiation, Ref< VectorXd > Sh2o_prof, Ref< VectorXd > Smaxz, Ref< VectorXd > wetfrac, Ref< VectorXd > dryfrac, double *ppt_ground)}}]{\setlength{\rightskip}{0pt plus 5cm}void Precip\+\_\+\+Interception (
+\begin{DoxyParamCaption}
+\item[{{\bf Forcing\+Class} $\ast$}]{forcings, }
+\item[{{\bf Canopy\+Class} $\ast$}]{canopies, }
+\item[{{\bf Vertical\+Canopy\+Class} $\ast$}]{vertcanopies, }
+\item[{{\bf Vertical\+Soil\+Class} $\ast$}]{vertsoils, }
+\item[{{\bf Radiation\+Class} $\ast$}]{radiation, }
+\item[{Ref$<$ Vector\+Xd $>$}]{Sh2o\+\_\+prof, }
+\item[{Ref$<$ Vector\+Xd $>$}]{Smaxz, }
+\item[{Ref$<$ Vector\+Xd $>$}]{wetfrac, }
+\item[{Ref$<$ Vector\+Xd $>$}]{dryfrac, }
+\item[{double $\ast$}]{ppt\+\_\+ground}
+\end{DoxyParamCaption}
+)}\hypertarget{mlcan_8cc_a567338bf9002e5f6edd29d246b3adf5a}{}\label{mlcan_8cc_a567338bf9002e5f6edd29d246b3adf5a}
+\index{mlcan.\+cc@{mlcan.\+cc}!Quadratic\+Solver@{Quadratic\+Solver}}
+\index{Quadratic\+Solver@{Quadratic\+Solver}!mlcan.\+cc@{mlcan.\+cc}}
+\subsubsection[{\texorpdfstring{Quadratic\+Solver(double $\ast$ce, double $\ast$roots)}{QuadraticSolver(double *ce, double *roots)}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int Quadratic\+Solver (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{ce, }
+\item[{double $\ast$}]{roots}
+\end{DoxyParamCaption}
+)}\hypertarget{mlcan_8cc_a761bd27d1bc7358d39fc9e68354147f0}{}\label{mlcan_8cc_a761bd27d1bc7358d39fc9e68354147f0}
+\index{mlcan.\+cc@{mlcan.\+cc}!quartic\+Solver@{quartic\+Solver}}
+\index{quartic\+Solver@{quartic\+Solver}!mlcan.\+cc@{mlcan.\+cc}}
+\subsubsection[{\texorpdfstring{quartic\+Solver(double $\ast$ce, double $\ast$roots)}{quarticSolver(double *ce, double *roots)}}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int quartic\+Solver (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{ce, }
+\item[{double $\ast$}]{roots}
+\end{DoxyParamCaption}
+)}\hypertarget{mlcan_8cc_ab40cf590913db7d4f3d971ecd1800810}{}\label{mlcan_8cc_ab40cf590913db7d4f3d971ecd1800810}
+\index{mlcan.\+cc@{mlcan.\+cc}!rtbis@{rtbis}}
+\index{rtbis@{rtbis}!mlcan.\+cc@{mlcan.\+cc}}
+\subsubsection[{\texorpdfstring{rtbis(double($\ast$func)(double, double, double, double, double, double, double, double, double,                                           double, double, double, double, double), double Rabs, double Ta1, double Ts1, double ea1, double pa1, double U1, double z1, double dzs1, double psis1\+\_\+\+M\+Pa, double vonk, double z0, double T\+C1, double epss, double x1, double x2, double xacc)}{rtbis(double(*func)(double, double, double, double, double, double, double, double, double,                                           double, double, double, double, double), double Rabs, double Ta1, double Ts1, double ea1, double pa1, double U1, double z1, double dzs1, double psis1_MPa, double vonk, double z0, double TC1, double epss, double x1, double x2, double xacc)}}]{\setlength{\rightskip}{0pt plus 5cm}double rtbis (
+\begin{DoxyParamCaption}
+\item[{double($\ast$)(double, double, double, double, double, double, double, double, double,                                           double, double, double, double, double)}]{func, }
+\item[{double}]{Rabs, }
+\item[{double}]{Ta1, }
+\item[{double}]{Ts1, }
+\item[{double}]{ea1, }
+\item[{double}]{pa1, }
+\item[{double}]{U1, }
+\item[{double}]{z1, }
+\item[{double}]{dzs1, }
+\item[{double}]{psis1\+\_\+\+M\+Pa, }
+\item[{double}]{vonk, }
+\item[{double}]{z0, }
+\item[{double}]{T\+C1, }
+\item[{double}]{epss, }
+\item[{double}]{x1, }
+\item[{double}]{x2, }
+\item[{double}]{xacc}
+\end{DoxyParamCaption}
+)}\hypertarget{mlcan_8cc_aaa27fa110d0a5a3b1dc93bd812ecd720}{}\label{mlcan_8cc_aaa27fa110d0a5a3b1dc93bd812ecd720}
+\index{mlcan.\+cc@{mlcan.\+cc}!S\+E\+B\+\_\+\+Remainder@{S\+E\+B\+\_\+\+Remainder}}
+\index{S\+E\+B\+\_\+\+Remainder@{S\+E\+B\+\_\+\+Remainder}!mlcan.\+cc@{mlcan.\+cc}}
+\subsubsection[{\texorpdfstring{S\+E\+B\+\_\+\+Remainder(double Ts, double Rabs, double Ta1, double Ts1, double ea1, double pa, double U1, double z1, double dzs1, double psis1\+\_\+\+M\+Pa, double vonk, double z0, double T\+C1, double epss)}{SEB_Remainder(double Ts, double Rabs, double Ta1, double Ts1, double ea1, double pa, double U1, double z1, double dzs1, double psis1_MPa, double vonk, double z0, double TC1, double epss)}}]{\setlength{\rightskip}{0pt plus 5cm}double S\+E\+B\+\_\+\+Remainder (
+\begin{DoxyParamCaption}
+\item[{double}]{Ts, }
+\item[{double}]{Rabs, }
+\item[{double}]{Ta1, }
+\item[{double}]{Ts1, }
+\item[{double}]{ea1, }
+\item[{double}]{pa, }
+\item[{double}]{U1, }
+\item[{double}]{z1, }
+\item[{double}]{dzs1, }
+\item[{double}]{psis1\+\_\+\+M\+Pa, }
+\item[{double}]{vonk, }
+\item[{double}]{z0, }
+\item[{double}]{T\+C1, }
+\item[{double}]{epss}
+\end{DoxyParamCaption}
+)}\hypertarget{mlcan_8cc_a8895290faf5acc7416e43e5cb0d9716a}{}\label{mlcan_8cc_a8895290faf5acc7416e43e5cb0d9716a}
+\index{mlcan.\+cc@{mlcan.\+cc}!S\+E\+B\+\_\+\+Remainder\+\_\+return@{S\+E\+B\+\_\+\+Remainder\+\_\+return}}
+\index{S\+E\+B\+\_\+\+Remainder\+\_\+return@{S\+E\+B\+\_\+\+Remainder\+\_\+return}!mlcan.\+cc@{mlcan.\+cc}}
+\subsubsection[{\texorpdfstring{S\+E\+B\+\_\+\+Remainder\+\_\+return(double Ts, double Rabs, double Ta1, double Ts1, double ea1, double pa, double U1, double z1, double dzs1, double psis1\+\_\+\+M\+Pa, double vonk, double z0, double T\+C1, double epss, double $\ast$\+Hs, double $\ast$\+R\+H, double $\ast$\+L\+Es, double $\ast$\+Gs, double $\ast$\+L\+Wups, double $\ast$remain)}{SEB_Remainder_return(double Ts, double Rabs, double Ta1, double Ts1, double ea1, double pa, double U1, double z1, double dzs1, double psis1_MPa, double vonk, double z0, double TC1, double epss, double *Hs, double *RH, double *LEs, double *Gs, double *LWups, double *remain)}}]{\setlength{\rightskip}{0pt plus 5cm}void S\+E\+B\+\_\+\+Remainder\+\_\+return (
+\begin{DoxyParamCaption}
+\item[{double}]{Ts, }
+\item[{double}]{Rabs, }
+\item[{double}]{Ta1, }
+\item[{double}]{Ts1, }
+\item[{double}]{ea1, }
+\item[{double}]{pa, }
+\item[{double}]{U1, }
+\item[{double}]{z1, }
+\item[{double}]{dzs1, }
+\item[{double}]{psis1\+\_\+\+M\+Pa, }
+\item[{double}]{vonk, }
+\item[{double}]{z0, }
+\item[{double}]{T\+C1, }
+\item[{double}]{epss, }
+\item[{double $\ast$}]{Hs, }
+\item[{double $\ast$}]{RH, }
+\item[{double $\ast$}]{L\+Es, }
+\item[{double $\ast$}]{Gs, }
+\item[{double $\ast$}]{L\+Wups, }
+\item[{double $\ast$}]{remain}
+\end{DoxyParamCaption}
+)}\hypertarget{mlcan_8cc_a74403715db434f72a77fb057e9db4d33}{}\label{mlcan_8cc_a74403715db434f72a77fb057e9db4d33}
+\index{mlcan.\+cc@{mlcan.\+cc}!Short\+Waveradiation@{Short\+Waveradiation}}
+\index{Short\+Waveradiation@{Short\+Waveradiation}!mlcan.\+cc@{mlcan.\+cc}}
+\subsubsection[{\texorpdfstring{Short\+Waveradiation(\+Forcing\+Class $\ast$forcings, Canopy\+Class $\ast$canopies, Vertical\+Canopy\+Class $\ast$vertcanopies, Vertical\+Soil\+Class $\ast$vertsoils, Constant\+Class $\ast$constants, Radiation\+Class $\ast$radiation, Ref$<$ Vector\+Xd $>$ fsun, Ref$<$ Vector\+Xd $>$ fshade, Ref$<$ Vector\+Xd $>$ L\+A\+Isun, Ref$<$ Vector\+Xd $>$ L\+A\+Ishade, Ref$<$ Vector\+Xd $>$ S\+Wabs\+\_\+sun, Ref$<$ Vector\+Xd $>$ S\+Wabs\+\_\+shade, Ref$<$ Vector\+Xd $>$ P\+A\+Rabs\+\_\+sun, Ref$<$ Vector\+Xd $>$ P\+A\+Rabs\+\_\+shade, Ref$<$ Vector\+Xd $>$ N\+I\+Rabs\+\_\+sun, Ref$<$ Vector\+Xd $>$ N\+I\+Rabs\+\_\+shade, Ref$<$ Vector\+Xd $>$ taud, double $\ast$\+S\+Wabs\+\_\+soil, double $\ast$\+S\+Wout)}{ShortWaveradiation(ForcingClass *forcings, CanopyClass *canopies, VerticalCanopyClass *vertcanopies, VerticalSoilClass *vertsoils, ConstantClass *constants, RadiationClass *radiation, Ref< VectorXd > fsun, Ref< VectorXd > fshade, Ref< VectorXd > LAIsun, Ref< VectorXd > LAIshade, Ref< VectorXd > SWabs_sun, Ref< VectorXd > SWabs_shade, Ref< VectorXd > PARabs_sun, Ref< VectorXd > PARabs_shade, Ref< VectorXd > NIRabs_sun, Ref< VectorXd > NIRabs_shade, Ref< VectorXd > taud, double *SWabs_soil, double *SWout)}}]{\setlength{\rightskip}{0pt plus 5cm}void Short\+Waveradiation (
+\begin{DoxyParamCaption}
+\item[{{\bf Forcing\+Class} $\ast$}]{forcings, }
+\item[{{\bf Canopy\+Class} $\ast$}]{canopies, }
+\item[{{\bf Vertical\+Canopy\+Class} $\ast$}]{vertcanopies, }
+\item[{{\bf Vertical\+Soil\+Class} $\ast$}]{vertsoils, }
+\item[{{\bf Constant\+Class} $\ast$}]{constants, }
+\item[{{\bf Radiation\+Class} $\ast$}]{radiation, }
+\item[{Ref$<$ Vector\+Xd $>$}]{fsun, }
+\item[{Ref$<$ Vector\+Xd $>$}]{fshade, }
+\item[{Ref$<$ Vector\+Xd $>$}]{L\+A\+Isun, }
+\item[{Ref$<$ Vector\+Xd $>$}]{L\+A\+Ishade, }
+\item[{Ref$<$ Vector\+Xd $>$}]{S\+Wabs\+\_\+sun, }
+\item[{Ref$<$ Vector\+Xd $>$}]{S\+Wabs\+\_\+shade, }
+\item[{Ref$<$ Vector\+Xd $>$}]{P\+A\+Rabs\+\_\+sun, }
+\item[{Ref$<$ Vector\+Xd $>$}]{P\+A\+Rabs\+\_\+shade, }
+\item[{Ref$<$ Vector\+Xd $>$}]{N\+I\+Rabs\+\_\+sun, }
+\item[{Ref$<$ Vector\+Xd $>$}]{N\+I\+Rabs\+\_\+shade, }
+\item[{Ref$<$ Vector\+Xd $>$}]{taud, }
+\item[{double $\ast$}]{S\+Wabs\+\_\+soil, }
+\item[{double $\ast$}]{S\+Wout}
+\end{DoxyParamCaption}
+)}\hypertarget{mlcan_8cc_a9e84aba6ec94a4646483675c1a6cadbf}{}\label{mlcan_8cc_a9e84aba6ec94a4646483675c1a6cadbf}
+\index{mlcan.\+cc@{mlcan.\+cc}!Soil\+\_\+\+Surface\+\_\+\+Fluxes@{Soil\+\_\+\+Surface\+\_\+\+Fluxes}}
+\index{Soil\+\_\+\+Surface\+\_\+\+Fluxes@{Soil\+\_\+\+Surface\+\_\+\+Fluxes}!mlcan.\+cc@{mlcan.\+cc}}
+\subsubsection[{\texorpdfstring{Soil\+\_\+\+Surface\+\_\+\+Fluxes(\+Vertical\+Canopy\+Class $\ast$vertcanopies, Canopy\+Class $\ast$canopies, Vertical\+Soil\+Class $\ast$vertsoils, Soil\+Class $\ast$soils, Radiation\+Class $\ast$radiation, Constant\+Class $\ast$constants, double $\ast$\+Tsurf, double $\ast$\+Hs, double $\ast$\+L\+Es, double $\ast$\+Gs, double $\ast$\+R\+H, double $\ast$\+L\+Wups)}{Soil_Surface_Fluxes(VerticalCanopyClass *vertcanopies, CanopyClass *canopies, VerticalSoilClass *vertsoils, SoilClass *soils, RadiationClass *radiation, ConstantClass *constants, double *Tsurf, double *Hs, double *LEs, double *Gs, double *RH, double *LWups)}}]{\setlength{\rightskip}{0pt plus 5cm}void Soil\+\_\+\+Surface\+\_\+\+Fluxes (
+\begin{DoxyParamCaption}
+\item[{{\bf Vertical\+Canopy\+Class} $\ast$}]{vertcanopies, }
+\item[{{\bf Canopy\+Class} $\ast$}]{canopies, }
+\item[{{\bf Vertical\+Soil\+Class} $\ast$}]{vertsoils, }
+\item[{{\bf Soil\+Class} $\ast$}]{soils, }
+\item[{{\bf Radiation\+Class} $\ast$}]{radiation, }
+\item[{{\bf Constant\+Class} $\ast$}]{constants, }
+\item[{double $\ast$}]{Tsurf, }
+\item[{double $\ast$}]{Hs, }
+\item[{double $\ast$}]{L\+Es, }
+\item[{double $\ast$}]{Gs, }
+\item[{double $\ast$}]{RH, }
+\item[{double $\ast$}]{L\+Wups}
+\end{DoxyParamCaption}
+)}\hypertarget{mlcan_8cc_a5fc2ccef00bb96fa1fabf0980d941c19}{}\label{mlcan_8cc_a5fc2ccef00bb96fa1fabf0980d941c19}
+\index{mlcan.\+cc@{mlcan.\+cc}!S\+W\+\_\+\+Attenuation@{S\+W\+\_\+\+Attenuation}}
+\index{S\+W\+\_\+\+Attenuation@{S\+W\+\_\+\+Attenuation}!mlcan.\+cc@{mlcan.\+cc}}
+\subsubsection[{\texorpdfstring{S\+W\+\_\+\+Attenuation(\+Ref$<$ Vector\+Xd $>$ sun\+\_\+abs, Ref$<$ Vector\+Xd $>$ shade\+\_\+abs, Ref$<$ Vector\+Xd $>$ fsun, Ref$<$ Vector\+Xd $>$ fshade, Ref$<$ Vector\+Xd $>$ diffdn, Ref$<$ Vector\+Xd $>$ diffup, Ref$<$ Vector\+Xd $>$ L\+A\+Iz, double $\ast$soil\+\_\+abs\+\_\+ptr, double $\ast$radabs\+\_\+tot\+\_\+ptr, double $\ast$radlost\+\_\+ptr, double $\ast$radremain\+\_\+ptr, double beam\+\_\+top, double diff\+\_\+top, double trans, double refl, double refl\+\_\+soil, double clump, double Kbm, double Kdf, int count, int nl\+\_\+can)}{SW_Attenuation(Ref< VectorXd > sun_abs, Ref< VectorXd > shade_abs, Ref< VectorXd > fsun, Ref< VectorXd > fshade, Ref< VectorXd > diffdn, Ref< VectorXd > diffup, Ref< VectorXd > LAIz, double *soil_abs_ptr, double *radabs_tot_ptr, double *radlost_ptr, double *radremain_ptr, double beam_top, double diff_top, double trans, double refl, double refl_soil, double clump, double Kbm, double Kdf, int count, int nl_can)}}]{\setlength{\rightskip}{0pt plus 5cm}void S\+W\+\_\+\+Attenuation (
+\begin{DoxyParamCaption}
+\item[{Ref$<$ Vector\+Xd $>$}]{sun\+\_\+abs, }
+\item[{Ref$<$ Vector\+Xd $>$}]{shade\+\_\+abs, }
+\item[{Ref$<$ Vector\+Xd $>$}]{fsun, }
+\item[{Ref$<$ Vector\+Xd $>$}]{fshade, }
+\item[{Ref$<$ Vector\+Xd $>$}]{diffdn, }
+\item[{Ref$<$ Vector\+Xd $>$}]{diffup, }
+\item[{Ref$<$ Vector\+Xd $>$}]{L\+A\+Iz, }
+\item[{double $\ast$}]{soil\+\_\+abs\+\_\+ptr, }
+\item[{double $\ast$}]{radabs\+\_\+tot\+\_\+ptr, }
+\item[{double $\ast$}]{radlost\+\_\+ptr, }
+\item[{double $\ast$}]{radremain\+\_\+ptr, }
+\item[{double}]{beam\+\_\+top, }
+\item[{double}]{diff\+\_\+top, }
+\item[{double}]{trans, }
+\item[{double}]{refl, }
+\item[{double}]{refl\+\_\+soil, }
+\item[{double}]{clump, }
+\item[{double}]{Kbm, }
+\item[{double}]{Kdf, }
+\item[{int}]{count, }
+\item[{int}]{nl\+\_\+can}
+\end{DoxyParamCaption}
+)}\hypertarget{mlcan_8cc_a16362462b1d6539c17b446a2bc3303fc}{}\label{mlcan_8cc_a16362462b1d6539c17b446a2bc3303fc}
+\index{mlcan.\+cc@{mlcan.\+cc}!Thomas\+Algorithm@{Thomas\+Algorithm}}
+\index{Thomas\+Algorithm@{Thomas\+Algorithm}!mlcan.\+cc@{mlcan.\+cc}}
+\subsubsection[{\texorpdfstring{Thomas\+Algorithm(\+Vector\+Xd \&a, Vector\+Xd \&b, Vector\+Xd \&c, Vector\+Xd \&d, Vector\+Xd \&f, int N)}{ThomasAlgorithm(VectorXd &a, VectorXd &b, VectorXd &c, VectorXd &d, VectorXd &f, int N)}}]{\setlength{\rightskip}{0pt plus 5cm}void Thomas\+Algorithm (
+\begin{DoxyParamCaption}
+\item[{Vector\+Xd \&}]{a, }
+\item[{Vector\+Xd \&}]{b, }
+\item[{Vector\+Xd \&}]{c, }
+\item[{Vector\+Xd \&}]{d, }
+\item[{Vector\+Xd \&}]{f, }
+\item[{int}]{N}
+\end{DoxyParamCaption}
+)}\hypertarget{mlcan_8cc_a2024468692d2852fd2ca6b68b6f976cf}{}\label{mlcan_8cc_a2024468692d2852fd2ca6b68b6f976cf}
+\index{mlcan.\+cc@{mlcan.\+cc}!Tuzet\+\_\+\+Function@{Tuzet\+\_\+\+Function}}
+\index{Tuzet\+\_\+\+Function@{Tuzet\+\_\+\+Function}!mlcan.\+cc@{mlcan.\+cc}}
+\subsubsection[{\texorpdfstring{Tuzet\+\_\+\+Function(\+Stoma\+Conduct\+Class $\ast$stomaconduct, Ref$<$ Vector\+Xd $>$ fsv, Ref$<$ Vector\+Xd $>$ psil\+\_\+\+M\+Pa, int nl\+\_\+can)}{Tuzet_Function(StomaConductClass *stomaconduct, Ref< VectorXd > fsv, Ref< VectorXd > psil_MPa, int nl_can)}}]{\setlength{\rightskip}{0pt plus 5cm}void Tuzet\+\_\+\+Function (
+\begin{DoxyParamCaption}
+\item[{{\bf Stoma\+Conduct\+Class} $\ast$}]{stomaconduct, }
+\item[{Ref$<$ Vector\+Xd $>$}]{fsv, }
+\item[{Ref$<$ Vector\+Xd $>$}]{psil\+\_\+\+M\+Pa, }
+\item[{int}]{nl\+\_\+can}
+\end{DoxyParamCaption}
+)}\hypertarget{mlcan_8cc_a641130ac54aeb155d97ccd53c90e0efa}{}\label{mlcan_8cc_a641130ac54aeb155d97ccd53c90e0efa}

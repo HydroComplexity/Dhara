@@ -1,0 +1,144 @@
+\hypertarget{mpienv_8cc}{}\section{src/mpienv.cc File Reference}
+\label{mpienv_8cc}\index{src/mpienv.\+cc@{src/mpienv.\+cc}}
+{\ttfamily \#include \char`\"{}../include/main.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{mpienv_8cc_a4a19481ecee412fb5ec4fd04c90adb5d}{Initialize\+M\+PI} (int $\ast$argc, char $\ast$$\ast$$\ast$argv, int $\ast$rank, int $\ast$procsize)
+\begin{DoxyCompactList}\small\item\em Initialize M\+PI processes. \end{DoxyCompactList}\item 
+void \hyperlink{mpienv_8cc_a24594871c51ae6b8ca2d6a8c7794d6b8}{Finalize\+M\+PI} (int rank, int procsize, \hyperlink{classmpi_class}{mpi\+Class} $\ast$mpiobj)
+\begin{DoxyCompactList}\small\item\em \+: Close (finalize) the M\+PI environment \end{DoxyCompactList}\item 
+void \hyperlink{mpienv_8cc_a715aa1cec1044e2e62a4c63ba65f0b13}{Partition\+Domain\+To\+Process} (int rank, int procsize, int $\ast$colx, int $\ast$xoffset, int $\ast$xdispls, int $\ast$xcounts, int $\ast$rowy, int $\ast$yoffset, int $\ast$ydispls, int $\ast$ycounts, int2 topolsize, int3 $\ast$globsize, M\+P\+I\+\_\+\+Comm $\ast$cart\+Comm)
+\begin{DoxyCompactList}\small\item\em Partitioning the entire domain to processes. \end{DoxyCompactList}\item 
+int \hyperlink{mpienv_8cc_ad0565c33ed351121f9cbd7bf1ddfbec8}{Set\+Topology\+Network} (int rank, int procsize, \hyperlink{class_project_class}{Project\+Class} $\ast$\&project, \hyperlink{classmpi_class}{mpi\+Class} $\ast$\&mpiobj)
+\begin{DoxyCompactList}\small\item\em Set up topolgy network (domain decomposition) and obtained neighbors. The size of topology must be matched with the size of M\+PI processes used. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{mpienv.\+cc@{mpienv.\+cc}!Finalize\+M\+PI@{Finalize\+M\+PI}}
+\index{Finalize\+M\+PI@{Finalize\+M\+PI}!mpienv.\+cc@{mpienv.\+cc}}
+\subsubsection[{\texorpdfstring{Finalize\+M\+P\+I(int rank, int procsize, mpi\+Class $\ast$mpiobj)}{FinalizeMPI(int rank, int procsize, mpiClass *mpiobj)}}]{\setlength{\rightskip}{0pt plus 5cm}void Finalize\+M\+PI (
+\begin{DoxyParamCaption}
+\item[{int}]{rank, }
+\item[{int}]{procsize, }
+\item[{{\bf mpi\+Class} $\ast$}]{mpiobj}
+\end{DoxyParamCaption}
+)}\hypertarget{mpienv_8cc_a24594871c51ae6b8ca2d6a8c7794d6b8}{}\label{mpienv_8cc_a24594871c51ae6b8ca2d6a8c7794d6b8}
+
+
+\+: Close (finalize) the M\+PI environment 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em rank} & The global rank of the current M\+PI process \\
+\hline
+\mbox{\tt in}  & {\em procsize} & The total number of M\+PI processes available \\
+\hline
+ & {\em mpiobj} & message passing interface object class \\
+\hline
+\end{DoxyParams}
+\index{mpienv.\+cc@{mpienv.\+cc}!Initialize\+M\+PI@{Initialize\+M\+PI}}
+\index{Initialize\+M\+PI@{Initialize\+M\+PI}!mpienv.\+cc@{mpienv.\+cc}}
+\subsubsection[{\texorpdfstring{Initialize\+M\+P\+I(int $\ast$argc, char $\ast$$\ast$$\ast$argv, int $\ast$rank, int $\ast$procsize)}{InitializeMPI(int *argc, char ***argv, int *rank, int *procsize)}}]{\setlength{\rightskip}{0pt plus 5cm}void Initialize\+M\+PI (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{argc, }
+\item[{char $\ast$$\ast$$\ast$}]{argv, }
+\item[{int $\ast$}]{rank, }
+\item[{int $\ast$}]{procsize}
+\end{DoxyParamCaption}
+)}\hypertarget{mpienv_8cc_a4a19481ecee412fb5ec4fd04c90adb5d}{}\label{mpienv_8cc_a4a19481ecee412fb5ec4fd04c90adb5d}
+
+
+Initialize M\+PI processes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & The number of command-\/line arguments \\
+\hline
+{\em argv} & The list of command-\/line arguments \\
+\hline
+{\em rank} & The global rank of the current M\+PI process \\
+\hline
+{\em size} & The total number of M\+PI processes available \\
+\hline
+\end{DoxyParams}
+\index{mpienv.\+cc@{mpienv.\+cc}!Partition\+Domain\+To\+Process@{Partition\+Domain\+To\+Process}}
+\index{Partition\+Domain\+To\+Process@{Partition\+Domain\+To\+Process}!mpienv.\+cc@{mpienv.\+cc}}
+\subsubsection[{\texorpdfstring{Partition\+Domain\+To\+Process(int rank, int procsize, int $\ast$colx, int $\ast$xoffset, int $\ast$xdispls, int $\ast$xcounts, int $\ast$rowy, int $\ast$yoffset, int $\ast$ydispls, int $\ast$ycounts, int2 topolsize, int3 $\ast$globsize, M\+P\+I\+\_\+\+Comm $\ast$cart\+Comm)}{PartitionDomainToProcess(int rank, int procsize, int *colx, int *xoffset, int *xdispls, int *xcounts, int *rowy, int *yoffset, int *ydispls, int *ycounts, int2 topolsize, int3 *globsize, MPI_Comm *cartComm)}}]{\setlength{\rightskip}{0pt plus 5cm}void Partition\+Domain\+To\+Process (
+\begin{DoxyParamCaption}
+\item[{int}]{rank, }
+\item[{int}]{procsize, }
+\item[{int $\ast$}]{colx, }
+\item[{int $\ast$}]{xoffset, }
+\item[{int $\ast$}]{xdispls, }
+\item[{int $\ast$}]{xcounts, }
+\item[{int $\ast$}]{rowy, }
+\item[{int $\ast$}]{yoffset, }
+\item[{int $\ast$}]{ydispls, }
+\item[{int $\ast$}]{ycounts, }
+\item[{int2}]{topolsize, }
+\item[{int3 $\ast$}]{globsize, }
+\item[{M\+P\+I\+\_\+\+Comm $\ast$}]{cart\+Comm}
+\end{DoxyParamCaption}
+)}\hypertarget{mpienv_8cc_a715aa1cec1044e2e62a4c63ba65f0b13}{}\label{mpienv_8cc_a715aa1cec1044e2e62a4c63ba65f0b13}
+
+
+Partitioning the entire domain to processes. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em rank} & The global rank of the current M\+PI process \\
+\hline
+\mbox{\tt in}  & {\em procsize} & The total number of M\+PI processes available \\
+\hline
+ & {\em colx} & Topology size in x (horizontal) direction \\
+\hline
+ & {\em xoffset} & Offset in x-\/direction \\
+\hline
+ & {\em xdispls} & Displacements in x-\/direction \\
+\hline
+ & {\em xcounts} & Counts in x-\/direction \\
+\hline
+ & {\em rowy} & Topology size in y (vertical) direction \\
+\hline
+ & {\em yoffset} & Offset in y-\/direction \\
+\hline
+ & {\em ydispls} & Displacements in y-\/direction \\
+\hline
+ & {\em ycounts} & Counts in y-\/direction \\
+\hline
+\mbox{\tt in}  & {\em topolsize} & Size of topology nodes (mpi) \\
+\hline
+ & {\em globsize} & Size of the global domain \\
+\hline
+ & {\em cart\+Comm} & Carthesian M\+PI communicator \\
+\hline
+\end{DoxyParams}
+\index{mpienv.\+cc@{mpienv.\+cc}!Set\+Topology\+Network@{Set\+Topology\+Network}}
+\index{Set\+Topology\+Network@{Set\+Topology\+Network}!mpienv.\+cc@{mpienv.\+cc}}
+\subsubsection[{\texorpdfstring{Set\+Topology\+Network(int rank, int procsize, Project\+Class $\ast$\&project, mpi\+Class $\ast$\&mpiobj)}{SetTopologyNetwork(int rank, int procsize, ProjectClass *&project, mpiClass *&mpiobj)}}]{\setlength{\rightskip}{0pt plus 5cm}int Set\+Topology\+Network (
+\begin{DoxyParamCaption}
+\item[{int}]{rank, }
+\item[{int}]{procsize, }
+\item[{{\bf Project\+Class} $\ast$\&}]{project, }
+\item[{{\bf mpi\+Class} $\ast$\&}]{mpiobj}
+\end{DoxyParamCaption}
+)}\hypertarget{mpienv_8cc_ad0565c33ed351121f9cbd7bf1ddfbec8}{}\label{mpienv_8cc_ad0565c33ed351121f9cbd7bf1ddfbec8}
+
+
+Set up topolgy network (domain decomposition) and obtained neighbors. The size of topology must be matched with the size of M\+PI processes used. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em rank} & The global rank of the current M\+PI process \\
+\hline
+\mbox{\tt in}  & {\em procsize} & The total number of M\+PI processes available \\
+\hline
+ & {\em project} & Class including project info \\
+\hline
+ & {\em mpiobj} & message passing interface object class\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+function status 
+\end{DoxyReturn}

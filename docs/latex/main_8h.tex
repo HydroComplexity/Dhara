@@ -1,0 +1,785 @@
+\hypertarget{main_8h}{}\section{include/main.h File Reference}
+\label{main_8h}\index{include/main.\+h@{include/main.\+h}}
+{\ttfamily \#include $<$mpi.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$cmath$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$algorithm$>$}\\*
+{\ttfamily \#include $<$sys/stat.\+h$>$}\\*
+{\ttfamily \#include $<$sys/types.\+h$>$}\\*
+{\ttfamily \#include $<$cuda.\+h$>$}\\*
+{\ttfamily \#include $<$cuda\+\_\+runtime.\+h$>$}\\*
+{\ttfamily \#include $<$netcdf.\+h$>$}\\*
+{\ttfamily \#include $<$Eigen/\+Dense$>$}\\*
+{\ttfamily \#include \char`\"{}class.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}vertclass.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}saveclass.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{main_8h_a30c87e11fd7fecbcda306bb0b73ef320}{M\+P\+I\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+R\+A\+NK}~0
+\item 
+\#define \hyperlink{main_8h_a367a96ad20ec8de41dfed50904b0a07c}{N\+U\+M\+\_\+\+S\+O\+I\+L\+\_\+\+L\+A\+Y\+E\+RS}~15
+\item 
+\#define \hyperlink{main_8h_aae4d4529829bf9cdd8b2812ff70ec542}{P\+R\+I\+N\+T\+\_\+\+N\+E\+I\+G\+H\+B\+O\+RS}~0
+\item 
+\#define \hyperlink{main_8h_a11a25bf4c5f5a9c787764b5fb052d367}{P\+R\+I\+N\+T\+\_\+\+T\+O\+P\+O\+L\+O\+GY}~0
+\item 
+\#define \hyperlink{main_8h_a15d6adf66aaac47296377a40dd721966}{P\+R\+I\+N\+T\+\_\+\+I\+N\+I\+T\+I\+A\+L\+D\+A\+TA}~0
+\item 
+\#define \hyperlink{main_8h_ad733c449d4055fd00765183476566700}{P\+R\+I\+N\+T\+\_\+\+R\+E\+S\+U\+L\+TS}~0
+\item 
+\#define \hyperlink{main_8h_ab31de9bfdd44a250d67ecc8cd2cc06fd}{D\+I\+R\+\_\+\+T\+OP}~0
+\item 
+\#define \hyperlink{main_8h_a85ae9767b23edf40871541d23962784b}{D\+I\+R\+\_\+\+R\+I\+G\+HT}~1
+\item 
+\#define \hyperlink{main_8h_aa8116fa3b84c06c2419683806a072321}{D\+I\+R\+\_\+\+B\+O\+T\+T\+OM}~2
+\item 
+\#define \hyperlink{main_8h_a788d3497514ea05602fd974d7bdcdbde}{D\+I\+R\+\_\+\+L\+E\+FT}~3
+\item 
+\#define \hyperlink{main_8h_a2403320c41f08e7567cb169de5db66b3}{S\+T\+A\+T\+U\+S\+\_\+\+OK}~0
+\item 
+\#define \hyperlink{main_8h_a23205a6a97096d57a247794f5e250963}{S\+T\+A\+T\+U\+S\+\_\+\+E\+RR}~-\/1
+\item 
+\#define \hyperlink{main_8h_a030738838149f080d79d8ab81cc5e74d}{pinum}~3.\+1415926535897932384626433832795028841971693993751058209749445923
+\item 
+\#define \hyperlink{main_8h_a8bfff1124eee0869b4d7f81837b9c9aa}{Jmax\+\_\+\+Bisec}~100
+\item 
+\#define \hyperlink{main_8h_af4576165ce647221dc94903a244cd93c}{cuda\+Check\+Error}(msg)
+\item 
+\#define \hyperlink{main_8h_afecf1c2ac44bffaacd9dc7b5f83a0c97}{Safe\+Cuda\+Call}(call)                ~\hyperlink{main_8h_a87c5ce86d74764a06a13b73dff013870}{Check\+Cuda\+Call}(call, \#call, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+)
+\item 
+\#define \hyperlink{main_8h_a84f5dcf6c178909ae55cf2b9cda92f20}{Safe\+Host\+Free}(block)              ~\{ if (block) free(block); \}
+\item 
+\#define \hyperlink{main_8h_aea018f545c7be490c24d661735e86bd7}{Safe\+Dev\+Free}(block)                ~\{ if (block) \hyperlink{main_8h_afecf1c2ac44bffaacd9dc7b5f83a0c97}{Safe\+Cuda\+Call}(cuda\+Free(block)); \}
+\item 
+\#define \hyperlink{main_8h_a860ca7f6ec845b64d0103e09ebf5260a}{One\+Printf}(allow, ...)          ~\{ if (allow) printf(\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+); \}
+\item 
+\#define \hyperlink{main_8h_afe205acf716cef1ddae916a653356bdf}{One\+Err\+Printf}(allow, ...)    ~\{ if (allow) fprintf(stderr, \+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+); \}
+\item 
+\#define \hyperlink{main_8h_a0b1ecd085bfbe6b1aa903940060d2050}{Has\+Neighbor}(neighbors,  dir)~(neighbors\mbox{[}dir\mbox{]} != M\+P\+I\+\_\+\+P\+R\+O\+C\+\_\+\+N\+U\+LL)
+\item 
+\#define \hyperlink{main_8h_ad39af27454ac575592b323e38d94c264}{B\+SZ}~256
+\item 
+\#define \hyperlink{main_8h_a3a1880a5118efea1a49ec4f07d1e2d74}{T\+SZ}~256
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{main_8h_a4a19481ecee412fb5ec4fd04c90adb5d}{Initialize\+M\+PI} (int $\ast$argc, char $\ast$$\ast$$\ast$argv, int $\ast$rank, int $\ast$procsize)
+\begin{DoxyCompactList}\small\item\em Initialize M\+PI processes. \end{DoxyCompactList}\item 
+void \hyperlink{main_8h_a24594871c51ae6b8ca2d6a8c7794d6b8}{Finalize\+M\+PI} (int rank, int procsize, \hyperlink{classmpi_class}{mpi\+Class} $\ast$mpiobj)
+\begin{DoxyCompactList}\small\item\em \+: Close (finalize) the M\+PI environment \end{DoxyCompactList}\item 
+int \hyperlink{main_8h_ad0565c33ed351121f9cbd7bf1ddfbec8}{Set\+Topology\+Network} (int rank, int procsize, \hyperlink{class_project_class}{Project\+Class} $\ast$\&project, \hyperlink{classmpi_class}{mpi\+Class} $\ast$\&mpiobj)
+\begin{DoxyCompactList}\small\item\em Set up topolgy network (domain decomposition) and obtained neighbors. The size of topology must be matched with the size of M\+PI processes used. \end{DoxyCompactList}\item 
+void \hyperlink{main_8h_aa5d43bf4e37ab8cd5eebd603b72ea5f9}{Parsing\+Commands\+And\+Configurations} (int argc, char $\ast$$\ast$argv, const char $\ast$\&file\+\_\+config, int rank, int procsize, \hyperlink{class_project_class}{Project\+Class} $\ast$\&project, \hyperlink{class_file_name_class}{File\+Name\+Class} $\ast$\&files, \hyperlink{classmpi_class}{mpi\+Class} $\ast$\&mpiobj)
+\begin{DoxyCompactList}\small\item\em Parse command line arguments and read configuration file. \end{DoxyCompactList}\item 
+void \hyperlink{main_8h_a1fb8e2a162c61a792a4f6784ae7ceae2}{Load\+Config\+M\+L\+Can\+Model} (\hyperlink{class_project_class}{Project\+Class} $\ast$project, \hyperlink{class_file_name_class}{File\+Name\+Class} $\ast$files, \hyperlink{class_switch_class}{Switch\+Class} $\ast$switches, \hyperlink{class_constant_class}{Constant\+Class} $\ast$constants, \hyperlink{class_canopy_class}{Canopy\+Class} $\ast$canopies, \hyperlink{class_soil_class}{Soil\+Class} $\ast$soils, \hyperlink{class_radiation_class}{Radiation\+Class} $\ast$radiation, \hyperlink{class_photosynthesis_class}{Photosynthesis\+Class} $\ast$photosynthesis, \hyperlink{class_respiration_class}{Respiration\+Class} $\ast$respiration, \hyperlink{class_stoma_conduct_class}{Stoma\+Conduct\+Class} $\ast$stomaconduct, \hyperlink{class_micro_environment_class}{Micro\+Environment\+Class} $\ast$microenviron)
+\begin{DoxyCompactList}\small\item\em Loads user configurations to M\+L\+Canmodel. \end{DoxyCompactList}\item 
+void \hyperlink{main_8h_ae4e7123ba69ff3d9bbd373c5f9611b3e}{Load\+Canopy\+Root\+Distributions} (\hyperlink{class_project_class}{Project\+Class} $\ast$project, \hyperlink{class_canopy_class}{Canopy\+Class} $\ast$canopies, \hyperlink{class_vertical_canopy_class}{Vertical\+Canopy\+Class} $\ast$vertcanopies, \hyperlink{class_soil_class}{Soil\+Class} $\ast$soils, \hyperlink{class_vertical_soil_class}{Vertical\+Soil\+Class} $\ast$vertsoils)
+\begin{DoxyCompactList}\small\item\em Load canopy and root distribution from text files specified in configuration file. If more than one vegetation, distributions for each species must be provided. \end{DoxyCompactList}\item 
+void \hyperlink{main_8h_a60d0bb17a56ea141fe870e514ef122f0}{Load\+Forcing\+Data} (\hyperlink{class_file_name_class}{File\+Name\+Class} $\ast$files, \hyperlink{class_canopy_class}{Canopy\+Class} $\ast$canopies, \hyperlink{class_time_forcing_class}{Time\+Forcing\+Class} $\ast$timeforcings, int rank, int procsize, int num\+\_\+steps)
+\begin{DoxyCompactList}\small\item\em load forcing data from Net\+C\+DF file. \end{DoxyCompactList}\item 
+void \hyperlink{main_8h_a94d1be3f7a08fb71cc9a747e8bc9c597}{Load\+Flow\+Model\+Config} (\hyperlink{class_project_class}{Project\+Class} $\ast$project, \hyperlink{class_file_name_class}{File\+Name\+Class} $\ast$files, \hyperlink{class_overland_flow_class}{Overland\+Flow\+Class} $\ast$overland, \hyperlink{class_subsurface_flow_class}{Subsurface\+Flow\+Class} $\ast$subsurface)
+\begin{DoxyCompactList}\small\item\em Loads user configurations to flow model. \end{DoxyCompactList}\item 
+void \hyperlink{main_8h_aa916afa39225dd0fa219a35bef364027}{Load\+Topography} (\hyperlink{class_file_name_class}{File\+Name\+Class} $\ast$files, \hyperlink{class_overland_flow_class}{Overland\+Flow\+Class} $\ast$overland, int rank, int procsize)
+\begin{DoxyCompactList}\small\item\em To load topography info from Net\+C\+DF file. Topography is only used for flow modling in G\+PU device through master process. \end{DoxyCompactList}\item 
+void \hyperlink{main_8h_a582f178161d87441eb604256d4da3d17}{Get\+File\+Info} (const char $\ast$file\+\_\+name, const char $\ast$var\+\_\+name, int ndims, int $\ast$dim)
+\begin{DoxyCompactList}\small\item\em To extract information and dimension of Net\+C\+DF files. \end{DoxyCompactList}\item 
+void \hyperlink{main_8h_a01482c18a453883899e7979fc631d459}{Set\+Flow\+Model\+Conditions} (\hyperlink{class_time_forcing_class}{Time\+Forcing\+Class} $\ast$timeforcings, \hyperlink{class_file_name_class}{File\+Name\+Class} $\ast$files, \hyperlink{class_overland_flow_class}{Overland\+Flow\+Class} $\ast$overland, \hyperlink{class_subsurface_flow_class}{Subsurface\+Flow\+Class} $\ast$\&subsurface, int num\+\_\+steps, int rank, int procsize, int3 globsize)
+\begin{DoxyCompactList}\small\item\em Set conditions in host memory. \end{DoxyCompactList}\item 
+void \hyperlink{main_8h_a98590f5891351f22d8c51d213bf483a7}{Set\+M\+P\+I\+G\+P\+U\+Mapping} (\hyperlink{classmpi_class}{mpi\+Class} $\ast$mpiobj, \hyperlink{class_subsurface_flow_class}{Subsurface\+Flow\+Class} $\ast$\&subsurface, int procsize, int3 globsize, int2 topolsize)
+\begin{DoxyCompactList}\small\item\em Sets the M\+PI map used for flow model in G\+PU. \end{DoxyCompactList}\item 
+void \hyperlink{main_8h_afb3f68180a7899c43e060d4d4e091038}{Gather\+Root\+Density\+To\+Master\+And\+Filter} (\hyperlink{class_project_class}{Project\+Class} $\ast$project, \hyperlink{class_vertical_soil_class}{Vertical\+Soil\+Class} $\ast$vertsoils, \hyperlink{class_soil_class}{Soil\+Class} $\ast$soils, \hyperlink{class_subsurface_flow_class}{Subsurface\+Flow\+Class} $\ast$subsurface\+\_\+host, \hyperlink{class_subsurface_flow_class}{Subsurface\+Flow\+Class} $\ast$subsurface\+\_\+dev, int rank, int procsize, M\+P\+I\+\_\+\+Comm $\ast$cart\+Comm)
+\begin{DoxyCompactList}\small\item\em Collect root density profile from all processes to master. \end{DoxyCompactList}\item 
+void \hyperlink{main_8h_aa897f1b92b864e62d9e2d061b84d9524}{Numerical\+Model\+Kernels} (int rank, int procsize, \hyperlink{class_file_name_class}{File\+Name\+Class} $\ast$files, \hyperlink{class_project_class}{Project\+Class} $\ast$project, \hyperlink{classmpi_class}{mpi\+Class} $\ast$mpiobj)
+\begin{DoxyCompactList}\small\item\em Main kernels calling numerical models including M\+L\+Can and Flow3D model. While M\+L\+Can is implemented in all M\+PI processes in host, Flow3D model is run in G\+PU device controlled by the Master process. Communications between M\+PI and G\+PU for link M\+L\+Can and Flow3D is executed in Master process only. Simulations in other M\+PI processes are gatherred/scatterred to m\+Master process every time step for communicating with G\+PU device. \end{DoxyCompactList}\item 
+void \hyperlink{main_8h_a87c5ce86d74764a06a13b73dff013870}{Check\+Cuda\+Call} (cuda\+Error\+\_\+t command, const char $\ast$command\+Name, const char $\ast$file\+Name, int line)
+\item 
+void \hyperlink{main_8h_af7e2e49efca5ebd09279daeef8dac513}{Pre\+Running\+Flow\+Model} (\hyperlink{class_project_class}{Project\+Class} $\ast$project, \hyperlink{class_subsurface_flow_class}{Subsurface\+Flow\+Class} $\ast$\&subsurface\+\_\+dev, int rank, int procsize, int3 globsize, M\+P\+I\+\_\+\+Comm $\ast$cart\+Comm)
+\item 
+void \hyperlink{main_8h_a06ccda7e927aad51714c254e703c7342}{Save\+Model\+Results} (\hyperlink{class_project_class}{Project\+Class} $\ast$project, \hyperlink{class_overland_flow_class}{Overland\+Flow\+Class} $\ast$overland\+\_\+host, \hyperlink{class_overland_flow_class}{Overland\+Flow\+Class} $\ast$overland\+\_\+dev, \hyperlink{class_subsurface_flow_class}{Subsurface\+Flow\+Class} $\ast$subsurface\+\_\+host, \hyperlink{class_subsurface_flow_class}{Subsurface\+Flow\+Class} $\ast$subsurface\+\_\+dev, int3 globsize, int t)
+\begin{DoxyCompactList}\small\item\em Copy to host and save 2D and 3D results to netcdf. \end{DoxyCompactList}\item 
+void \hyperlink{main_8h_a35c9d3d3dc374ced7d701074e0b3b414}{Run\+Coupled\+Flow\+Model} (\hyperlink{class_time_forcing_class}{Time\+Forcing\+Class} $\ast$timeforcings, \hyperlink{class_overland_flow_class}{Overland\+Flow\+Class} $\ast$overland\+\_\+host, \hyperlink{class_overland_flow_class}{Overland\+Flow\+Class} $\ast$overland\+\_\+dev, \hyperlink{class_subsurface_flow_class}{Subsurface\+Flow\+Class} $\ast$subsurface\+\_\+host, \hyperlink{class_subsurface_flow_class}{Subsurface\+Flow\+Class} $\ast$subsurface\+\_\+dev, \hyperlink{class_file_name_class}{File\+Name\+Class} $\ast$files, \hyperlink{class_project_class}{Project\+Class} $\ast$project, \hyperlink{class_forcing_class}{Forcing\+Class} $\ast$\&forcings, \hyperlink{class_switch_class}{Switch\+Class} $\ast$switches, \hyperlink{class_constant_class}{Constant\+Class} $\ast$constants, \hyperlink{class_canopy_class}{Canopy\+Class} $\ast$canopies, \hyperlink{class_soil_class}{Soil\+Class} $\ast$soils, \hyperlink{class_radiation_class}{Radiation\+Class} $\ast$radiation, \hyperlink{class_photosynthesis_class}{Photosynthesis\+Class} $\ast$photosynthesis, \hyperlink{class_respiration_class}{Respiration\+Class} $\ast$respiration, \hyperlink{class_stoma_conduct_class}{Stoma\+Conduct\+Class} $\ast$stomaconduct, \hyperlink{class_micro_environment_class}{Micro\+Environment\+Class} $\ast$microenviron, \hyperlink{class_vertical_canopy_class}{Vertical\+Canopy\+Class} $\ast$vertcanopies, \hyperlink{class_vertical_soil_class}{Vertical\+Soil\+Class} $\ast$vertsoils, \hyperlink{class_eigen_canopy_class}{Eigen\+Canopy\+Class} $\ast$eigencanopies, \hyperlink{class_eigen_soil_class}{Eigen\+Soil\+Class} $\ast$eigensoils, \hyperlink{class_output_class}{Output\+Class} $\ast$outmlcan, int rank, int procsize, int3 globsize, int3 domsize, int2 topolsize, int2 topolindex, M\+P\+I\+\_\+\+Comm $\ast$cart\+Comm)
+\item 
+void \hyperlink{main_8h_a762a56db325b0a56ade192fef8bb55b7}{Copy\+Data\+To\+Device} (\hyperlink{class_project_class}{Project\+Class} $\ast$project, \hyperlink{class_time_forcing_class}{Time\+Forcing\+Class} $\ast$timeforcings, \hyperlink{class_overland_flow_class}{Overland\+Flow\+Class} $\ast$overland\+\_\+host, \hyperlink{class_overland_flow_class}{Overland\+Flow\+Class} $\ast$overland\+\_\+dev, \hyperlink{class_subsurface_flow_class}{Subsurface\+Flow\+Class} $\ast$subsurface\+\_\+host, \hyperlink{class_subsurface_flow_class}{Subsurface\+Flow\+Class} $\ast$subsurface\+\_\+dev, int3 globsize)
+\item 
+void \hyperlink{main_8h_a106808d5ba55a54cef12059a6af7f2cc}{Save\+Result\+Entire\+Period} (\hyperlink{class_project_class}{Project\+Class} $\ast$project, \hyperlink{class_canopy_class}{Canopy\+Class} $\ast$canopies, \hyperlink{class_subsurface_flow_class}{Subsurface\+Flow\+Class} $\ast$subsurface\+\_\+host, \hyperlink{class_output_class}{Output\+Class} $\ast$outmlcan, int rank, int procsize, int3 globsize, M\+P\+I\+\_\+\+Comm $\ast$cart\+Comm)
+\begin{DoxyCompactList}\small\item\em Save mean results for entire simulation period. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{main.\+h@{main.\+h}!B\+SZ@{B\+SZ}}
+\index{B\+SZ@{B\+SZ}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{B\+SZ}{BSZ}}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+SZ~256}\hypertarget{main_8h_ad39af27454ac575592b323e38d94c264}{}\label{main_8h_ad39af27454ac575592b323e38d94c264}
+\index{main.\+h@{main.\+h}!cuda\+Check\+Error@{cuda\+Check\+Error}}
+\index{cuda\+Check\+Error@{cuda\+Check\+Error}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{cuda\+Check\+Error}{cudaCheckError}}]{\setlength{\rightskip}{0pt plus 5cm}\#define cuda\+Check\+Error(
+\begin{DoxyParamCaption}
+\item[{}]{msg}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8h_af4576165ce647221dc94903a244cd93c}{}\label{main_8h_af4576165ce647221dc94903a244cd93c}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{ \(\backslash\)
+        cudaError\_t \_\_err = cudaGetLastError(); \(\backslash\)
+        if (\_\_err != cudaSuccess) \{ \(\backslash\)
+            fprintf(stderr, \textcolor{stringliteral}{"Fatal error: %s (%s at %s:%d)\(\backslash\)n"}, \(\backslash\)
+                            msg, cudaGetErrorString(\_\_err), \(\backslash\)
+                            \_\_FILE\_\_, \_\_LINE\_\_); \(\backslash\)
+            fprintf(stderr, \textcolor{stringliteral}{"*** FAILED - ABORTING\(\backslash\)n"}); \(\backslash\)
+            exit(1); \(\backslash\)
+        \} \(\backslash\)
+      \} \textcolor{keywordflow}{while} (0)
+\end{DoxyCode}
+\index{main.\+h@{main.\+h}!D\+I\+R\+\_\+\+B\+O\+T\+T\+OM@{D\+I\+R\+\_\+\+B\+O\+T\+T\+OM}}
+\index{D\+I\+R\+\_\+\+B\+O\+T\+T\+OM@{D\+I\+R\+\_\+\+B\+O\+T\+T\+OM}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{D\+I\+R\+\_\+\+B\+O\+T\+T\+OM}{DIR_BOTTOM}}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+I\+R\+\_\+\+B\+O\+T\+T\+OM~2}\hypertarget{main_8h_aa8116fa3b84c06c2419683806a072321}{}\label{main_8h_aa8116fa3b84c06c2419683806a072321}
+\index{main.\+h@{main.\+h}!D\+I\+R\+\_\+\+L\+E\+FT@{D\+I\+R\+\_\+\+L\+E\+FT}}
+\index{D\+I\+R\+\_\+\+L\+E\+FT@{D\+I\+R\+\_\+\+L\+E\+FT}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{D\+I\+R\+\_\+\+L\+E\+FT}{DIR_LEFT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+I\+R\+\_\+\+L\+E\+FT~3}\hypertarget{main_8h_a788d3497514ea05602fd974d7bdcdbde}{}\label{main_8h_a788d3497514ea05602fd974d7bdcdbde}
+\index{main.\+h@{main.\+h}!D\+I\+R\+\_\+\+R\+I\+G\+HT@{D\+I\+R\+\_\+\+R\+I\+G\+HT}}
+\index{D\+I\+R\+\_\+\+R\+I\+G\+HT@{D\+I\+R\+\_\+\+R\+I\+G\+HT}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{D\+I\+R\+\_\+\+R\+I\+G\+HT}{DIR_RIGHT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+I\+R\+\_\+\+R\+I\+G\+HT~1}\hypertarget{main_8h_a85ae9767b23edf40871541d23962784b}{}\label{main_8h_a85ae9767b23edf40871541d23962784b}
+\index{main.\+h@{main.\+h}!D\+I\+R\+\_\+\+T\+OP@{D\+I\+R\+\_\+\+T\+OP}}
+\index{D\+I\+R\+\_\+\+T\+OP@{D\+I\+R\+\_\+\+T\+OP}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{D\+I\+R\+\_\+\+T\+OP}{DIR_TOP}}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+I\+R\+\_\+\+T\+OP~0}\hypertarget{main_8h_ab31de9bfdd44a250d67ecc8cd2cc06fd}{}\label{main_8h_ab31de9bfdd44a250d67ecc8cd2cc06fd}
+\index{main.\+h@{main.\+h}!Has\+Neighbor@{Has\+Neighbor}}
+\index{Has\+Neighbor@{Has\+Neighbor}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{Has\+Neighbor}{HasNeighbor}}]{\setlength{\rightskip}{0pt plus 5cm}\#define Has\+Neighbor(
+\begin{DoxyParamCaption}
+\item[{}]{neighbors, }
+\item[{}]{dir}
+\end{DoxyParamCaption}
+)~(neighbors\mbox{[}dir\mbox{]} != M\+P\+I\+\_\+\+P\+R\+O\+C\+\_\+\+N\+U\+LL)}\hypertarget{main_8h_a0b1ecd085bfbe6b1aa903940060d2050}{}\label{main_8h_a0b1ecd085bfbe6b1aa903940060d2050}
+\index{main.\+h@{main.\+h}!Jmax\+\_\+\+Bisec@{Jmax\+\_\+\+Bisec}}
+\index{Jmax\+\_\+\+Bisec@{Jmax\+\_\+\+Bisec}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{Jmax\+\_\+\+Bisec}{Jmax_Bisec}}]{\setlength{\rightskip}{0pt plus 5cm}\#define Jmax\+\_\+\+Bisec~100}\hypertarget{main_8h_a8bfff1124eee0869b4d7f81837b9c9aa}{}\label{main_8h_a8bfff1124eee0869b4d7f81837b9c9aa}
+\index{main.\+h@{main.\+h}!M\+P\+I\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+R\+A\+NK@{M\+P\+I\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+R\+A\+NK}}
+\index{M\+P\+I\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+R\+A\+NK@{M\+P\+I\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+R\+A\+NK}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{M\+P\+I\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+R\+A\+NK}{MPI_MASTER_RANK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+P\+I\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+R\+A\+NK~0}\hypertarget{main_8h_a30c87e11fd7fecbcda306bb0b73ef320}{}\label{main_8h_a30c87e11fd7fecbcda306bb0b73ef320}
+\index{main.\+h@{main.\+h}!N\+U\+M\+\_\+\+S\+O\+I\+L\+\_\+\+L\+A\+Y\+E\+RS@{N\+U\+M\+\_\+\+S\+O\+I\+L\+\_\+\+L\+A\+Y\+E\+RS}}
+\index{N\+U\+M\+\_\+\+S\+O\+I\+L\+\_\+\+L\+A\+Y\+E\+RS@{N\+U\+M\+\_\+\+S\+O\+I\+L\+\_\+\+L\+A\+Y\+E\+RS}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{N\+U\+M\+\_\+\+S\+O\+I\+L\+\_\+\+L\+A\+Y\+E\+RS}{NUM_SOIL_LAYERS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+U\+M\+\_\+\+S\+O\+I\+L\+\_\+\+L\+A\+Y\+E\+RS~15}\hypertarget{main_8h_a367a96ad20ec8de41dfed50904b0a07c}{}\label{main_8h_a367a96ad20ec8de41dfed50904b0a07c}
+\index{main.\+h@{main.\+h}!One\+Err\+Printf@{One\+Err\+Printf}}
+\index{One\+Err\+Printf@{One\+Err\+Printf}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{One\+Err\+Printf}{OneErrPrintf}}]{\setlength{\rightskip}{0pt plus 5cm}\#define One\+Err\+Printf(
+\begin{DoxyParamCaption}
+\item[{}]{allow, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)~\{ if (allow) fprintf(stderr, \+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+); \}}\hypertarget{main_8h_afe205acf716cef1ddae916a653356bdf}{}\label{main_8h_afe205acf716cef1ddae916a653356bdf}
+\index{main.\+h@{main.\+h}!One\+Printf@{One\+Printf}}
+\index{One\+Printf@{One\+Printf}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{One\+Printf}{OnePrintf}}]{\setlength{\rightskip}{0pt plus 5cm}\#define One\+Printf(
+\begin{DoxyParamCaption}
+\item[{}]{allow, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)~\{ if (allow) printf(\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+); \}}\hypertarget{main_8h_a860ca7f6ec845b64d0103e09ebf5260a}{}\label{main_8h_a860ca7f6ec845b64d0103e09ebf5260a}
+\index{main.\+h@{main.\+h}!pinum@{pinum}}
+\index{pinum@{pinum}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{pinum}{pinum}}]{\setlength{\rightskip}{0pt plus 5cm}\#define pinum~3.\+1415926535897932384626433832795028841971693993751058209749445923}\hypertarget{main_8h_a030738838149f080d79d8ab81cc5e74d}{}\label{main_8h_a030738838149f080d79d8ab81cc5e74d}
+\index{main.\+h@{main.\+h}!P\+R\+I\+N\+T\+\_\+\+I\+N\+I\+T\+I\+A\+L\+D\+A\+TA@{P\+R\+I\+N\+T\+\_\+\+I\+N\+I\+T\+I\+A\+L\+D\+A\+TA}}
+\index{P\+R\+I\+N\+T\+\_\+\+I\+N\+I\+T\+I\+A\+L\+D\+A\+TA@{P\+R\+I\+N\+T\+\_\+\+I\+N\+I\+T\+I\+A\+L\+D\+A\+TA}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{P\+R\+I\+N\+T\+\_\+\+I\+N\+I\+T\+I\+A\+L\+D\+A\+TA}{PRINT_INITIALDATA}}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+R\+I\+N\+T\+\_\+\+I\+N\+I\+T\+I\+A\+L\+D\+A\+TA~0}\hypertarget{main_8h_a15d6adf66aaac47296377a40dd721966}{}\label{main_8h_a15d6adf66aaac47296377a40dd721966}
+\index{main.\+h@{main.\+h}!P\+R\+I\+N\+T\+\_\+\+N\+E\+I\+G\+H\+B\+O\+RS@{P\+R\+I\+N\+T\+\_\+\+N\+E\+I\+G\+H\+B\+O\+RS}}
+\index{P\+R\+I\+N\+T\+\_\+\+N\+E\+I\+G\+H\+B\+O\+RS@{P\+R\+I\+N\+T\+\_\+\+N\+E\+I\+G\+H\+B\+O\+RS}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{P\+R\+I\+N\+T\+\_\+\+N\+E\+I\+G\+H\+B\+O\+RS}{PRINT_NEIGHBORS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+R\+I\+N\+T\+\_\+\+N\+E\+I\+G\+H\+B\+O\+RS~0}\hypertarget{main_8h_aae4d4529829bf9cdd8b2812ff70ec542}{}\label{main_8h_aae4d4529829bf9cdd8b2812ff70ec542}
+\index{main.\+h@{main.\+h}!P\+R\+I\+N\+T\+\_\+\+R\+E\+S\+U\+L\+TS@{P\+R\+I\+N\+T\+\_\+\+R\+E\+S\+U\+L\+TS}}
+\index{P\+R\+I\+N\+T\+\_\+\+R\+E\+S\+U\+L\+TS@{P\+R\+I\+N\+T\+\_\+\+R\+E\+S\+U\+L\+TS}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{P\+R\+I\+N\+T\+\_\+\+R\+E\+S\+U\+L\+TS}{PRINT_RESULTS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+R\+I\+N\+T\+\_\+\+R\+E\+S\+U\+L\+TS~0}\hypertarget{main_8h_ad733c449d4055fd00765183476566700}{}\label{main_8h_ad733c449d4055fd00765183476566700}
+\index{main.\+h@{main.\+h}!P\+R\+I\+N\+T\+\_\+\+T\+O\+P\+O\+L\+O\+GY@{P\+R\+I\+N\+T\+\_\+\+T\+O\+P\+O\+L\+O\+GY}}
+\index{P\+R\+I\+N\+T\+\_\+\+T\+O\+P\+O\+L\+O\+GY@{P\+R\+I\+N\+T\+\_\+\+T\+O\+P\+O\+L\+O\+GY}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{P\+R\+I\+N\+T\+\_\+\+T\+O\+P\+O\+L\+O\+GY}{PRINT_TOPOLOGY}}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+R\+I\+N\+T\+\_\+\+T\+O\+P\+O\+L\+O\+GY~0}\hypertarget{main_8h_a11a25bf4c5f5a9c787764b5fb052d367}{}\label{main_8h_a11a25bf4c5f5a9c787764b5fb052d367}
+\index{main.\+h@{main.\+h}!Safe\+Cuda\+Call@{Safe\+Cuda\+Call}}
+\index{Safe\+Cuda\+Call@{Safe\+Cuda\+Call}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{Safe\+Cuda\+Call}{SafeCudaCall}}]{\setlength{\rightskip}{0pt plus 5cm}\#define Safe\+Cuda\+Call(
+\begin{DoxyParamCaption}
+\item[{}]{call}
+\end{DoxyParamCaption}
+)~{\bf Check\+Cuda\+Call}(call, \#call, \+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+, \+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+)}\hypertarget{main_8h_afecf1c2ac44bffaacd9dc7b5f83a0c97}{}\label{main_8h_afecf1c2ac44bffaacd9dc7b5f83a0c97}
+\index{main.\+h@{main.\+h}!Safe\+Dev\+Free@{Safe\+Dev\+Free}}
+\index{Safe\+Dev\+Free@{Safe\+Dev\+Free}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{Safe\+Dev\+Free}{SafeDevFree}}]{\setlength{\rightskip}{0pt plus 5cm}\#define Safe\+Dev\+Free(
+\begin{DoxyParamCaption}
+\item[{}]{block}
+\end{DoxyParamCaption}
+)~\{ if (block) {\bf Safe\+Cuda\+Call}(cuda\+Free(block)); \}}\hypertarget{main_8h_aea018f545c7be490c24d661735e86bd7}{}\label{main_8h_aea018f545c7be490c24d661735e86bd7}
+\index{main.\+h@{main.\+h}!Safe\+Host\+Free@{Safe\+Host\+Free}}
+\index{Safe\+Host\+Free@{Safe\+Host\+Free}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{Safe\+Host\+Free}{SafeHostFree}}]{\setlength{\rightskip}{0pt plus 5cm}\#define Safe\+Host\+Free(
+\begin{DoxyParamCaption}
+\item[{}]{block}
+\end{DoxyParamCaption}
+)~\{ if (block) free(block); \}}\hypertarget{main_8h_a84f5dcf6c178909ae55cf2b9cda92f20}{}\label{main_8h_a84f5dcf6c178909ae55cf2b9cda92f20}
+\index{main.\+h@{main.\+h}!S\+T\+A\+T\+U\+S\+\_\+\+E\+RR@{S\+T\+A\+T\+U\+S\+\_\+\+E\+RR}}
+\index{S\+T\+A\+T\+U\+S\+\_\+\+E\+RR@{S\+T\+A\+T\+U\+S\+\_\+\+E\+RR}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{S\+T\+A\+T\+U\+S\+\_\+\+E\+RR}{STATUS_ERR}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+A\+T\+U\+S\+\_\+\+E\+RR~-\/1}\hypertarget{main_8h_a23205a6a97096d57a247794f5e250963}{}\label{main_8h_a23205a6a97096d57a247794f5e250963}
+\index{main.\+h@{main.\+h}!S\+T\+A\+T\+U\+S\+\_\+\+OK@{S\+T\+A\+T\+U\+S\+\_\+\+OK}}
+\index{S\+T\+A\+T\+U\+S\+\_\+\+OK@{S\+T\+A\+T\+U\+S\+\_\+\+OK}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{S\+T\+A\+T\+U\+S\+\_\+\+OK}{STATUS_OK}}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+A\+T\+U\+S\+\_\+\+OK~0}\hypertarget{main_8h_a2403320c41f08e7567cb169de5db66b3}{}\label{main_8h_a2403320c41f08e7567cb169de5db66b3}
+\index{main.\+h@{main.\+h}!T\+SZ@{T\+SZ}}
+\index{T\+SZ@{T\+SZ}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{T\+SZ}{TSZ}}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+SZ~256}\hypertarget{main_8h_a3a1880a5118efea1a49ec4f07d1e2d74}{}\label{main_8h_a3a1880a5118efea1a49ec4f07d1e2d74}
+
+
+\subsection{Function Documentation}
+\index{main.\+h@{main.\+h}!Check\+Cuda\+Call@{Check\+Cuda\+Call}}
+\index{Check\+Cuda\+Call@{Check\+Cuda\+Call}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{Check\+Cuda\+Call(cuda\+Error\+\_\+t command, const char $\ast$command\+Name, const char $\ast$file\+Name, int line)}{CheckCudaCall(cudaError_t command, const char *commandName, const char *fileName, int line)}}]{\setlength{\rightskip}{0pt plus 5cm}void Check\+Cuda\+Call (
+\begin{DoxyParamCaption}
+\item[{cuda\+Error\+\_\+t}]{command, }
+\item[{const char $\ast$}]{command\+Name, }
+\item[{const char $\ast$}]{file\+Name, }
+\item[{int}]{line}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8h_a87c5ce86d74764a06a13b73dff013870}{}\label{main_8h_a87c5ce86d74764a06a13b73dff013870}
+\index{main.\+h@{main.\+h}!Copy\+Data\+To\+Device@{Copy\+Data\+To\+Device}}
+\index{Copy\+Data\+To\+Device@{Copy\+Data\+To\+Device}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{Copy\+Data\+To\+Device(\+Project\+Class $\ast$project, Time\+Forcing\+Class $\ast$timeforcings, Overland\+Flow\+Class $\ast$overland\+\_\+host, Overland\+Flow\+Class $\ast$overland\+\_\+dev, Subsurface\+Flow\+Class $\ast$subsurface\+\_\+host, Subsurface\+Flow\+Class $\ast$subsurface\+\_\+dev, int3 globsize)}{CopyDataToDevice(ProjectClass *project, TimeForcingClass *timeforcings, OverlandFlowClass *overland_host, OverlandFlowClass *overland_dev, SubsurfaceFlowClass *subsurface_host, SubsurfaceFlowClass *subsurface_dev, int3 globsize)}}]{\setlength{\rightskip}{0pt plus 5cm}void Copy\+Data\+To\+Device (
+\begin{DoxyParamCaption}
+\item[{{\bf Project\+Class} $\ast$}]{project, }
+\item[{{\bf Time\+Forcing\+Class} $\ast$}]{timeforcings, }
+\item[{{\bf Overland\+Flow\+Class} $\ast$}]{overland\+\_\+host, }
+\item[{{\bf Overland\+Flow\+Class} $\ast$}]{overland\+\_\+dev, }
+\item[{{\bf Subsurface\+Flow\+Class} $\ast$}]{subsurface\+\_\+host, }
+\item[{{\bf Subsurface\+Flow\+Class} $\ast$}]{subsurface\+\_\+dev, }
+\item[{int3}]{globsize}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8h_a762a56db325b0a56ade192fef8bb55b7}{}\label{main_8h_a762a56db325b0a56ade192fef8bb55b7}
+\index{main.\+h@{main.\+h}!Finalize\+M\+PI@{Finalize\+M\+PI}}
+\index{Finalize\+M\+PI@{Finalize\+M\+PI}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{Finalize\+M\+P\+I(int rank, int procsize, mpi\+Class $\ast$mpiobj)}{FinalizeMPI(int rank, int procsize, mpiClass *mpiobj)}}]{\setlength{\rightskip}{0pt plus 5cm}void Finalize\+M\+PI (
+\begin{DoxyParamCaption}
+\item[{int}]{rank, }
+\item[{int}]{procsize, }
+\item[{{\bf mpi\+Class} $\ast$}]{mpiobj}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8h_a24594871c51ae6b8ca2d6a8c7794d6b8}{}\label{main_8h_a24594871c51ae6b8ca2d6a8c7794d6b8}
+
+
+\+: Close (finalize) the M\+PI environment 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em rank} & The global rank of the current M\+PI process \\
+\hline
+\mbox{\tt in}  & {\em procsize} & The total number of M\+PI processes available \\
+\hline
+ & {\em mpiobj} & message passing interface object class \\
+\hline
+\end{DoxyParams}
+\index{main.\+h@{main.\+h}!Gather\+Root\+Density\+To\+Master\+And\+Filter@{Gather\+Root\+Density\+To\+Master\+And\+Filter}}
+\index{Gather\+Root\+Density\+To\+Master\+And\+Filter@{Gather\+Root\+Density\+To\+Master\+And\+Filter}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{Gather\+Root\+Density\+To\+Master\+And\+Filter(\+Project\+Class $\ast$project, Vertical\+Soil\+Class $\ast$vertsoils, Soil\+Class $\ast$soils, Subsurface\+Flow\+Class $\ast$subsurface\+\_\+host, Subsurface\+Flow\+Class $\ast$subsurface\+\_\+dev, int rank, int procsize, M\+P\+I\+\_\+\+Comm $\ast$cart\+Comm)}{GatherRootDensityToMasterAndFilter(ProjectClass *project, VerticalSoilClass *vertsoils, SoilClass *soils, SubsurfaceFlowClass *subsurface_host, SubsurfaceFlowClass *subsurface_dev, int rank, int procsize, MPI_Comm *cartComm)}}]{\setlength{\rightskip}{0pt plus 5cm}void Gather\+Root\+Density\+To\+Master\+And\+Filter (
+\begin{DoxyParamCaption}
+\item[{{\bf Project\+Class} $\ast$}]{project, }
+\item[{{\bf Vertical\+Soil\+Class} $\ast$}]{vertsoils, }
+\item[{{\bf Soil\+Class} $\ast$}]{soils, }
+\item[{{\bf Subsurface\+Flow\+Class} $\ast$}]{subsurface\+\_\+host, }
+\item[{{\bf Subsurface\+Flow\+Class} $\ast$}]{subsurface\+\_\+dev, }
+\item[{int}]{rank, }
+\item[{int}]{procsize, }
+\item[{M\+P\+I\+\_\+\+Comm $\ast$}]{cart\+Comm}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8h_afb3f68180a7899c43e060d4d4e091038}{}\label{main_8h_afb3f68180a7899c43e060d4d4e091038}
+
+
+Collect root density profile from all processes to master. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em project} & Class including project info \\
+\hline
+ & {\em vertsoils} & Class including vertical soil info \\
+\hline
+ & {\em soils} & Class including soil variables \\
+\hline
+ & {\em subsurface\+\_\+host} & Subsurface flow class in host memory \\
+\hline
+ & {\em subsurface\+\_\+dev} & Subsurface flow class in device memory \\
+\hline
+\mbox{\tt in}  & {\em rank} & Global rank of the current M\+PI process \\
+\hline
+\mbox{\tt in}  & {\em procsize} & Size of the global domain \\
+\hline
+ & {\em cart\+Comm} & Carthesian M\+PI communicator \\
+\hline
+\end{DoxyParams}
+\index{main.\+h@{main.\+h}!Get\+File\+Info@{Get\+File\+Info}}
+\index{Get\+File\+Info@{Get\+File\+Info}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{Get\+File\+Info(const char $\ast$file\+\_\+name, const char $\ast$var\+\_\+name, int ndims, int $\ast$dim)}{GetFileInfo(const char *file_name, const char *var_name, int ndims, int *dim)}}]{\setlength{\rightskip}{0pt plus 5cm}void Get\+File\+Info (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{file\+\_\+name, }
+\item[{const char $\ast$}]{var\+\_\+name, }
+\item[{int}]{ndims, }
+\item[{int $\ast$}]{dim}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8h_a582f178161d87441eb604256d4da3d17}{}\label{main_8h_a582f178161d87441eb604256d4da3d17}
+
+
+To extract information and dimension of Net\+C\+DF files. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em file\+\_\+name} & Net\+C\+DF file \\
+\hline
+\mbox{\tt in}  & {\em var\+\_\+name} & Variable inspecting \\
+\hline
+\mbox{\tt in}  & {\em ndims} & Number of dimension of the vars \\
+\hline
+ & {\em dim} & Dimension of the vars \\
+\hline
+\end{DoxyParams}
+\index{main.\+h@{main.\+h}!Initialize\+M\+PI@{Initialize\+M\+PI}}
+\index{Initialize\+M\+PI@{Initialize\+M\+PI}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{Initialize\+M\+P\+I(int $\ast$argc, char $\ast$$\ast$$\ast$argv, int $\ast$rank, int $\ast$procsize)}{InitializeMPI(int *argc, char ***argv, int *rank, int *procsize)}}]{\setlength{\rightskip}{0pt plus 5cm}void Initialize\+M\+PI (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{argc, }
+\item[{char $\ast$$\ast$$\ast$}]{argv, }
+\item[{int $\ast$}]{rank, }
+\item[{int $\ast$}]{procsize}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8h_a4a19481ecee412fb5ec4fd04c90adb5d}{}\label{main_8h_a4a19481ecee412fb5ec4fd04c90adb5d}
+
+
+Initialize M\+PI processes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & The number of command-\/line arguments \\
+\hline
+{\em argv} & The list of command-\/line arguments \\
+\hline
+{\em rank} & The global rank of the current M\+PI process \\
+\hline
+{\em size} & The total number of M\+PI processes available \\
+\hline
+\end{DoxyParams}
+\index{main.\+h@{main.\+h}!Load\+Canopy\+Root\+Distributions@{Load\+Canopy\+Root\+Distributions}}
+\index{Load\+Canopy\+Root\+Distributions@{Load\+Canopy\+Root\+Distributions}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{Load\+Canopy\+Root\+Distributions(\+Project\+Class $\ast$project, Canopy\+Class $\ast$canopies, Vertical\+Canopy\+Class $\ast$vertcanopies, Soil\+Class $\ast$soils, Vertical\+Soil\+Class $\ast$vertsoils)}{LoadCanopyRootDistributions(ProjectClass *project, CanopyClass *canopies, VerticalCanopyClass *vertcanopies, SoilClass *soils, VerticalSoilClass *vertsoils)}}]{\setlength{\rightskip}{0pt plus 5cm}void Load\+Canopy\+Root\+Distributions (
+\begin{DoxyParamCaption}
+\item[{{\bf Project\+Class} $\ast$}]{project, }
+\item[{{\bf Canopy\+Class} $\ast$}]{canopies, }
+\item[{{\bf Vertical\+Canopy\+Class} $\ast$}]{vertcanopies, }
+\item[{{\bf Soil\+Class} $\ast$}]{soils, }
+\item[{{\bf Vertical\+Soil\+Class} $\ast$}]{vertsoils}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8h_ae4e7123ba69ff3d9bbd373c5f9611b3e}{}\label{main_8h_ae4e7123ba69ff3d9bbd373c5f9611b3e}
+
+
+Load canopy and root distribution from text files specified in configuration file. If more than one vegetation, distributions for each species must be provided. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em canopies} & Class including variables in canopy \\
+\hline
+{\em vertcanopies} & Canopy classes including vertical variables \\
+\hline
+{\em soils} & Class including variables in soil \\
+\hline
+{\em vertsoils} & Soil classes including vertical variables \\
+\hline
+\end{DoxyParams}
+\index{main.\+h@{main.\+h}!Load\+Config\+M\+L\+Can\+Model@{Load\+Config\+M\+L\+Can\+Model}}
+\index{Load\+Config\+M\+L\+Can\+Model@{Load\+Config\+M\+L\+Can\+Model}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{Load\+Config\+M\+L\+Can\+Model(\+Project\+Class $\ast$project, File\+Name\+Class $\ast$files, Switch\+Class $\ast$switches, Constant\+Class $\ast$constants, Canopy\+Class $\ast$canopies, Soil\+Class $\ast$soils, Radiation\+Class $\ast$radiation, Photosynthesis\+Class $\ast$photosynthesis, Respiration\+Class $\ast$respiration, Stoma\+Conduct\+Class $\ast$stomaconduct, Micro\+Environment\+Class $\ast$microenviron)}{LoadConfigMLCanModel(ProjectClass *project, FileNameClass *files, SwitchClass *switches, ConstantClass *constants, CanopyClass *canopies, SoilClass *soils, RadiationClass *radiation, PhotosynthesisClass *photosynthesis, RespirationClass *respiration, StomaConductClass *stomaconduct, MicroEnvironmentClass *microenviron)}}]{\setlength{\rightskip}{0pt plus 5cm}void Load\+Config\+M\+L\+Can\+Model (
+\begin{DoxyParamCaption}
+\item[{{\bf Project\+Class} $\ast$}]{project, }
+\item[{{\bf File\+Name\+Class} $\ast$}]{files, }
+\item[{{\bf Switch\+Class} $\ast$}]{switches, }
+\item[{{\bf Constant\+Class} $\ast$}]{constants, }
+\item[{{\bf Canopy\+Class} $\ast$}]{canopies, }
+\item[{{\bf Soil\+Class} $\ast$}]{soils, }
+\item[{{\bf Radiation\+Class} $\ast$}]{radiation, }
+\item[{{\bf Photosynthesis\+Class} $\ast$}]{photosynthesis, }
+\item[{{\bf Respiration\+Class} $\ast$}]{respiration, }
+\item[{{\bf Stoma\+Conduct\+Class} $\ast$}]{stomaconduct, }
+\item[{{\bf Micro\+Environment\+Class} $\ast$}]{microenviron}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8h_a1fb8e2a162c61a792a4f6784ae7ceae2}{}\label{main_8h_a1fb8e2a162c61a792a4f6784ae7ceae2}
+
+
+Loads user configurations to M\+L\+Canmodel. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em project} & Class including project info \\
+\hline
+{\em files} & Class including filename info \\
+\hline
+{\em switches} & Class including switch info \\
+\hline
+{\em constants} & Class including constant info \\
+\hline
+{\em canopies} & Class including canopy variables \\
+\hline
+{\em soils} & Class including soil variables \\
+\hline
+{\em radiation} & Class including radiation variables \\
+\hline
+{\em photosynthesis} & Class including photosynthesis variables \\
+\hline
+{\em respiration} & Class including respiration variables \\
+\hline
+{\em stomaconduct} & Class including stomaconductance variables \\
+\hline
+{\em microenviron} & Class including microenrivonment variables \\
+\hline
+\end{DoxyParams}
+\index{main.\+h@{main.\+h}!Load\+Flow\+Model\+Config@{Load\+Flow\+Model\+Config}}
+\index{Load\+Flow\+Model\+Config@{Load\+Flow\+Model\+Config}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{Load\+Flow\+Model\+Config(\+Project\+Class $\ast$project, File\+Name\+Class $\ast$files, Overland\+Flow\+Class $\ast$overland, Subsurface\+Flow\+Class $\ast$subsurface)}{LoadFlowModelConfig(ProjectClass *project, FileNameClass *files, OverlandFlowClass *overland, SubsurfaceFlowClass *subsurface)}}]{\setlength{\rightskip}{0pt plus 5cm}void Load\+Flow\+Model\+Config (
+\begin{DoxyParamCaption}
+\item[{{\bf Project\+Class} $\ast$}]{project, }
+\item[{{\bf File\+Name\+Class} $\ast$}]{files, }
+\item[{{\bf Overland\+Flow\+Class} $\ast$}]{overland, }
+\item[{{\bf Subsurface\+Flow\+Class} $\ast$}]{subsurface}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8h_a94d1be3f7a08fb71cc9a747e8bc9c597}{}\label{main_8h_a94d1be3f7a08fb71cc9a747e8bc9c597}
+
+
+Loads user configurations to flow model. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em project} & Class including project info \\
+\hline
+{\em files} & Class including filename info \\
+\hline
+{\em overland} & Overland flow class \\
+\hline
+{\em subsurface} & Subsurface flow class \\
+\hline
+\end{DoxyParams}
+\index{main.\+h@{main.\+h}!Load\+Forcing\+Data@{Load\+Forcing\+Data}}
+\index{Load\+Forcing\+Data@{Load\+Forcing\+Data}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{Load\+Forcing\+Data(\+File\+Name\+Class $\ast$files, Canopy\+Class $\ast$canopies, Time\+Forcing\+Class $\ast$timeforcings, int rank, int procsize, int num\+\_\+steps)}{LoadForcingData(FileNameClass *files, CanopyClass *canopies, TimeForcingClass *timeforcings, int rank, int procsize, int num_steps)}}]{\setlength{\rightskip}{0pt plus 5cm}void Load\+Forcing\+Data (
+\begin{DoxyParamCaption}
+\item[{{\bf File\+Name\+Class} $\ast$}]{files, }
+\item[{{\bf Canopy\+Class} $\ast$}]{canopies, }
+\item[{{\bf Time\+Forcing\+Class} $\ast$}]{timeforcings, }
+\item[{int}]{rank, }
+\item[{int}]{procsize, }
+\item[{int}]{num\+\_\+steps}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8h_a60d0bb17a56ea141fe870e514ef122f0}{}\label{main_8h_a60d0bb17a56ea141fe870e514ef122f0}
+
+
+load forcing data from Net\+C\+DF file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em files} & Net\+C\+DF file \\
+\hline
+ & {\em canopies} & The canopies \\
+\hline
+ & {\em timeforcings} & Forcings time class \\
+\hline
+\mbox{\tt in}  & {\em rank} & Global rank of the current M\+PI process \\
+\hline
+\mbox{\tt in}  & {\em procsize} & Total number of M\+PI processes available \\
+\hline
+\mbox{\tt in}  & {\em num\+\_\+steps} & The number of timesteps \\
+\hline
+\end{DoxyParams}
+\index{main.\+h@{main.\+h}!Load\+Topography@{Load\+Topography}}
+\index{Load\+Topography@{Load\+Topography}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{Load\+Topography(\+File\+Name\+Class $\ast$files, Overland\+Flow\+Class $\ast$overland, int rank, int procsize)}{LoadTopography(FileNameClass *files, OverlandFlowClass *overland, int rank, int procsize)}}]{\setlength{\rightskip}{0pt plus 5cm}void Load\+Topography (
+\begin{DoxyParamCaption}
+\item[{{\bf File\+Name\+Class} $\ast$}]{files, }
+\item[{{\bf Overland\+Flow\+Class} $\ast$}]{overland, }
+\item[{int}]{rank, }
+\item[{int}]{procsize}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8h_aa916afa39225dd0fa219a35bef364027}{}\label{main_8h_aa916afa39225dd0fa219a35bef364027}
+
+
+To load topography info from Net\+C\+DF file. Topography is only used for flow modling in G\+PU device through master process. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em files} & Net\+C\+DF file \\
+\hline
+ & {\em overland} & Overland flow class \\
+\hline
+\mbox{\tt in}  & {\em rank} & Global rank of the current M\+PI process \\
+\hline
+\mbox{\tt in}  & {\em procsize} & Total number of M\+PI processes available \\
+\hline
+\end{DoxyParams}
+\index{main.\+h@{main.\+h}!Numerical\+Model\+Kernels@{Numerical\+Model\+Kernels}}
+\index{Numerical\+Model\+Kernels@{Numerical\+Model\+Kernels}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{Numerical\+Model\+Kernels(int rank, int procsize, File\+Name\+Class $\ast$files, Project\+Class $\ast$project, mpi\+Class $\ast$mpiobj)}{NumericalModelKernels(int rank, int procsize, FileNameClass *files, ProjectClass *project, mpiClass *mpiobj)}}]{\setlength{\rightskip}{0pt plus 5cm}void Numerical\+Model\+Kernels (
+\begin{DoxyParamCaption}
+\item[{int}]{rank, }
+\item[{int}]{procsize, }
+\item[{{\bf File\+Name\+Class} $\ast$}]{files, }
+\item[{{\bf Project\+Class} $\ast$}]{project, }
+\item[{{\bf mpi\+Class} $\ast$}]{mpiobj}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8h_aa897f1b92b864e62d9e2d061b84d9524}{}\label{main_8h_aa897f1b92b864e62d9e2d061b84d9524}
+
+
+Main kernels calling numerical models including M\+L\+Can and Flow3D model. While M\+L\+Can is implemented in all M\+PI processes in host, Flow3D model is run in G\+PU device controlled by the Master process. Communications between M\+PI and G\+PU for link M\+L\+Can and Flow3D is executed in Master process only. Simulations in other M\+PI processes are gatherred/scatterred to m\+Master process every time step for communicating with G\+PU device. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em rank} & Global rank of the current M\+PI process \\
+\hline
+\mbox{\tt in}  & {\em procsize} & Total number of M\+PI processes available \\
+\hline
+ & {\em files} & Number of time steps for simulation \\
+\hline
+ & {\em project} & Filename for loading data \\
+\hline
+ & {\em mpiobj} & The message passing interface objects \\
+\hline
+\end{DoxyParams}
+\index{main.\+h@{main.\+h}!Parsing\+Commands\+And\+Configurations@{Parsing\+Commands\+And\+Configurations}}
+\index{Parsing\+Commands\+And\+Configurations@{Parsing\+Commands\+And\+Configurations}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{Parsing\+Commands\+And\+Configurations(int argc, char $\ast$$\ast$argv, const char $\ast$\&file\+\_\+config, int rank, int procsize, Project\+Class $\ast$\&project, File\+Name\+Class $\ast$\&files, mpi\+Class $\ast$\&mpiobj)}{ParsingCommandsAndConfigurations(int argc, char **argv, const char *&file_config, int rank, int procsize, ProjectClass *&project, FileNameClass *&files, mpiClass *&mpiobj)}}]{\setlength{\rightskip}{0pt plus 5cm}void Parsing\+Commands\+And\+Configurations (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv, }
+\item[{const char $\ast$\&}]{file\+\_\+config, }
+\item[{int}]{rank, }
+\item[{int}]{procsize, }
+\item[{{\bf Project\+Class} $\ast$\&}]{project, }
+\item[{{\bf File\+Name\+Class} $\ast$\&}]{files, }
+\item[{{\bf mpi\+Class} $\ast$\&}]{mpiobj}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8h_aa5d43bf4e37ab8cd5eebd603b72ea5f9}{}\label{main_8h_aa5d43bf4e37ab8cd5eebd603b72ea5f9}
+
+
+Parse command line arguments and read configuration file. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em rank} & Global rank of the current M\+PI process \\
+\hline
+\mbox{\tt in}  & {\em size} & The total number of M\+PI processes available \\
+\hline
+ & {\em globsize} & Size of the entire domain \\
+\hline
+ & {\em domsize} & Size of local domain in each M\+PI \\
+\hline
+ & {\em topolsize} & The desired topology size of M\+PI \\
+\hline
+\end{DoxyParams}
+\index{main.\+h@{main.\+h}!Pre\+Running\+Flow\+Model@{Pre\+Running\+Flow\+Model}}
+\index{Pre\+Running\+Flow\+Model@{Pre\+Running\+Flow\+Model}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{Pre\+Running\+Flow\+Model(\+Project\+Class $\ast$project, Subsurface\+Flow\+Class $\ast$\&subsurface\+\_\+dev, int rank, int procsize, int3 globsize, M\+P\+I\+\_\+\+Comm $\ast$cart\+Comm)}{PreRunningFlowModel(ProjectClass *project, SubsurfaceFlowClass *&subsurface_dev, int rank, int procsize, int3 globsize, MPI_Comm *cartComm)}}]{\setlength{\rightskip}{0pt plus 5cm}void Pre\+Running\+Flow\+Model (
+\begin{DoxyParamCaption}
+\item[{{\bf Project\+Class} $\ast$}]{project, }
+\item[{{\bf Subsurface\+Flow\+Class} $\ast$\&}]{subsurface\+\_\+dev, }
+\item[{int}]{rank, }
+\item[{int}]{procsize, }
+\item[{int3}]{globsize, }
+\item[{M\+P\+I\+\_\+\+Comm $\ast$}]{cart\+Comm}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8h_af7e2e49efca5ebd09279daeef8dac513}{}\label{main_8h_af7e2e49efca5ebd09279daeef8dac513}
+\index{main.\+h@{main.\+h}!Run\+Coupled\+Flow\+Model@{Run\+Coupled\+Flow\+Model}}
+\index{Run\+Coupled\+Flow\+Model@{Run\+Coupled\+Flow\+Model}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{Run\+Coupled\+Flow\+Model(\+Time\+Forcing\+Class $\ast$timeforcings, Overland\+Flow\+Class $\ast$overland\+\_\+host, Overland\+Flow\+Class $\ast$overland\+\_\+dev, Subsurface\+Flow\+Class $\ast$subsurface\+\_\+host, Subsurface\+Flow\+Class $\ast$subsurface\+\_\+dev, File\+Name\+Class $\ast$files, Project\+Class $\ast$project, Forcing\+Class $\ast$\&forcings, Switch\+Class $\ast$switches, Constant\+Class $\ast$constants, Canopy\+Class $\ast$canopies, Soil\+Class $\ast$soils, Radiation\+Class $\ast$radiation, Photosynthesis\+Class $\ast$photosynthesis, Respiration\+Class $\ast$respiration, Stoma\+Conduct\+Class $\ast$stomaconduct, Micro\+Environment\+Class $\ast$microenviron, Vertical\+Canopy\+Class $\ast$vertcanopies, Vertical\+Soil\+Class $\ast$vertsoils, Eigen\+Canopy\+Class $\ast$eigencanopies, Eigen\+Soil\+Class $\ast$eigensoils, Output\+Class $\ast$outmlcan, int rank, int procsize, int3 globsize, int3 domsize, int2 topolsize, int2 topolindex, M\+P\+I\+\_\+\+Comm $\ast$cart\+Comm)}{RunCoupledFlowModel(TimeForcingClass *timeforcings, OverlandFlowClass *overland_host, OverlandFlowClass *overland_dev, SubsurfaceFlowClass *subsurface_host, SubsurfaceFlowClass *subsurface_dev, FileNameClass *files, ProjectClass *project, ForcingClass *&forcings, SwitchClass *switches, ConstantClass *constants, CanopyClass *canopies, SoilClass *soils, RadiationClass *radiation, PhotosynthesisClass *photosynthesis, RespirationClass *respiration, StomaConductClass *stomaconduct, MicroEnvironmentClass *microenviron, VerticalCanopyClass *vertcanopies, VerticalSoilClass *vertsoils, EigenCanopyClass *eigencanopies, EigenSoilClass *eigensoils, OutputClass *outmlcan, int rank, int procsize, int3 globsize, int3 domsize, int2 topolsize, int2 topolindex, MPI_Comm *cartComm)}}]{\setlength{\rightskip}{0pt plus 5cm}void Run\+Coupled\+Flow\+Model (
+\begin{DoxyParamCaption}
+\item[{{\bf Time\+Forcing\+Class} $\ast$}]{timeforcings, }
+\item[{{\bf Overland\+Flow\+Class} $\ast$}]{overland\+\_\+host, }
+\item[{{\bf Overland\+Flow\+Class} $\ast$}]{overland\+\_\+dev, }
+\item[{{\bf Subsurface\+Flow\+Class} $\ast$}]{subsurface\+\_\+host, }
+\item[{{\bf Subsurface\+Flow\+Class} $\ast$}]{subsurface\+\_\+dev, }
+\item[{{\bf File\+Name\+Class} $\ast$}]{files, }
+\item[{{\bf Project\+Class} $\ast$}]{project, }
+\item[{{\bf Forcing\+Class} $\ast$\&}]{forcings, }
+\item[{{\bf Switch\+Class} $\ast$}]{switches, }
+\item[{{\bf Constant\+Class} $\ast$}]{constants, }
+\item[{{\bf Canopy\+Class} $\ast$}]{canopies, }
+\item[{{\bf Soil\+Class} $\ast$}]{soils, }
+\item[{{\bf Radiation\+Class} $\ast$}]{radiation, }
+\item[{{\bf Photosynthesis\+Class} $\ast$}]{photosynthesis, }
+\item[{{\bf Respiration\+Class} $\ast$}]{respiration, }
+\item[{{\bf Stoma\+Conduct\+Class} $\ast$}]{stomaconduct, }
+\item[{{\bf Micro\+Environment\+Class} $\ast$}]{microenviron, }
+\item[{{\bf Vertical\+Canopy\+Class} $\ast$}]{vertcanopies, }
+\item[{{\bf Vertical\+Soil\+Class} $\ast$}]{vertsoils, }
+\item[{{\bf Eigen\+Canopy\+Class} $\ast$}]{eigencanopies, }
+\item[{{\bf Eigen\+Soil\+Class} $\ast$}]{eigensoils, }
+\item[{{\bf Output\+Class} $\ast$}]{outmlcan, }
+\item[{int}]{rank, }
+\item[{int}]{procsize, }
+\item[{int3}]{globsize, }
+\item[{int3}]{domsize, }
+\item[{int2}]{topolsize, }
+\item[{int2}]{topolindex, }
+\item[{M\+P\+I\+\_\+\+Comm $\ast$}]{cart\+Comm}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8h_a35c9d3d3dc374ced7d701074e0b3b414}{}\label{main_8h_a35c9d3d3dc374ced7d701074e0b3b414}
+\index{main.\+h@{main.\+h}!Save\+Model\+Results@{Save\+Model\+Results}}
+\index{Save\+Model\+Results@{Save\+Model\+Results}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{Save\+Model\+Results(\+Project\+Class $\ast$project, Overland\+Flow\+Class $\ast$overland\+\_\+host, Overland\+Flow\+Class $\ast$overland\+\_\+dev, Subsurface\+Flow\+Class $\ast$subsurface\+\_\+host, Subsurface\+Flow\+Class $\ast$subsurface\+\_\+dev, int3 globsize, int t)}{SaveModelResults(ProjectClass *project, OverlandFlowClass *overland_host, OverlandFlowClass *overland_dev, SubsurfaceFlowClass *subsurface_host, SubsurfaceFlowClass *subsurface_dev, int3 globsize, int t)}}]{\setlength{\rightskip}{0pt plus 5cm}void Save\+Model\+Results (
+\begin{DoxyParamCaption}
+\item[{{\bf Project\+Class} $\ast$}]{project, }
+\item[{{\bf Overland\+Flow\+Class} $\ast$}]{overland\+\_\+host, }
+\item[{{\bf Overland\+Flow\+Class} $\ast$}]{overland\+\_\+dev, }
+\item[{{\bf Subsurface\+Flow\+Class} $\ast$}]{subsurface\+\_\+host, }
+\item[{{\bf Subsurface\+Flow\+Class} $\ast$}]{subsurface\+\_\+dev, }
+\item[{int3}]{globsize, }
+\item[{int}]{timestep}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8h_a06ccda7e927aad51714c254e703c7342}{}\label{main_8h_a06ccda7e927aad51714c254e703c7342}
+
+
+Copy to host and save 2D and 3D results to netcdf. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em project} & Class including project info \\
+\hline
+ & {\em overland\+\_\+host} & Overland flow class in host memory \\
+\hline
+ & {\em overland\+\_\+dev} & Overland flow class in device memory \\
+\hline
+ & {\em subsurface\+\_\+host} & Subsurface flow class in host memory \\
+\hline
+ & {\em subsurface\+\_\+dev} & Subsurface flow class in device memory \\
+\hline
+\mbox{\tt in}  & {\em globsize} & Size of the global domain \\
+\hline
+\mbox{\tt in}  & {\em timestep} & Current time step \\
+\hline
+\end{DoxyParams}
+\index{main.\+h@{main.\+h}!Save\+Result\+Entire\+Period@{Save\+Result\+Entire\+Period}}
+\index{Save\+Result\+Entire\+Period@{Save\+Result\+Entire\+Period}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{Save\+Result\+Entire\+Period(\+Project\+Class $\ast$project, Canopy\+Class $\ast$canopies, Subsurface\+Flow\+Class $\ast$subsurface\+\_\+host, Output\+Class $\ast$outmlcan, int rank, int procsize, int3 globsize, M\+P\+I\+\_\+\+Comm $\ast$cart\+Comm)}{SaveResultEntirePeriod(ProjectClass *project, CanopyClass *canopies, SubsurfaceFlowClass *subsurface_host, OutputClass *outmlcan, int rank, int procsize, int3 globsize, MPI_Comm *cartComm)}}]{\setlength{\rightskip}{0pt plus 5cm}void Save\+Result\+Entire\+Period (
+\begin{DoxyParamCaption}
+\item[{{\bf Project\+Class} $\ast$}]{project, }
+\item[{{\bf Canopy\+Class} $\ast$}]{canopies, }
+\item[{{\bf Subsurface\+Flow\+Class} $\ast$}]{subsurface\+\_\+host, }
+\item[{{\bf Output\+Class} $\ast$}]{outmlcan, }
+\item[{int}]{rank, }
+\item[{int}]{procsize, }
+\item[{int3}]{globsize, }
+\item[{M\+P\+I\+\_\+\+Comm $\ast$}]{cart\+Comm}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8h_a106808d5ba55a54cef12059a6af7f2cc}{}\label{main_8h_a106808d5ba55a54cef12059a6af7f2cc}
+
+
+Save mean results for entire simulation period. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em project} & Class including project info \\
+\hline
+ & {\em canopies} & Class including canopy variables \\
+\hline
+ & {\em subsurface\+\_\+host} & Subsurface flow class in host memory \\
+\hline
+ & {\em outmlcan} & Class including output for M\+L\+Can model \\
+\hline
+\mbox{\tt in}  & {\em rank} & Global rank of the current M\+PI process \\
+\hline
+\mbox{\tt in}  & {\em procsize} & Total number of M\+PI processes available \\
+\hline
+\mbox{\tt in}  & {\em globsize} & Size of the global domain \\
+\hline
+ & {\em cart\+Comm} & The cartesian communications \\
+\hline
+\end{DoxyParams}
+\index{main.\+h@{main.\+h}!Set\+Flow\+Model\+Conditions@{Set\+Flow\+Model\+Conditions}}
+\index{Set\+Flow\+Model\+Conditions@{Set\+Flow\+Model\+Conditions}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{Set\+Flow\+Model\+Conditions(\+Time\+Forcing\+Class $\ast$timeforcings, File\+Name\+Class $\ast$files, Overland\+Flow\+Class $\ast$overland, Subsurface\+Flow\+Class $\ast$\&subsurface, int num\+\_\+steps, int rank, int procsize, int3 globsize)}{SetFlowModelConditions(TimeForcingClass *timeforcings, FileNameClass *files, OverlandFlowClass *overland, SubsurfaceFlowClass *&subsurface, int num_steps, int rank, int procsize, int3 globsize)}}]{\setlength{\rightskip}{0pt plus 5cm}void Set\+Flow\+Model\+Conditions (
+\begin{DoxyParamCaption}
+\item[{{\bf Time\+Forcing\+Class} $\ast$}]{timeforcings, }
+\item[{{\bf File\+Name\+Class} $\ast$}]{files, }
+\item[{{\bf Overland\+Flow\+Class} $\ast$}]{overland, }
+\item[{{\bf Subsurface\+Flow\+Class} $\ast$\&}]{subsurface, }
+\item[{int}]{num\+\_\+steps, }
+\item[{int}]{rank, }
+\item[{int}]{procsize, }
+\item[{int3}]{globsize}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8h_a01482c18a453883899e7979fc631d459}{}\label{main_8h_a01482c18a453883899e7979fc631d459}
+
+
+Set conditions in host memory. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em forcings} & Class including forcings info \\
+\hline
+ & {\em overland} & Overland flow class \\
+\hline
+ & {\em subsurface} & Subsurface flow class \\
+\hline
+\mbox{\tt in}  & {\em num\+\_\+steps} & The number of timesteps \\
+\hline
+\mbox{\tt in}  & {\em rank} & Global rank of the current M\+PI process \\
+\hline
+\mbox{\tt in}  & {\em procsize} & Total number of M\+PI processes available \\
+\hline
+\mbox{\tt in}  & {\em globsize} & Size of the global domain \\
+\hline
+ & {\em cart\+Comm} & Carthesian M\+PI communicator \\
+\hline
+\end{DoxyParams}
+\index{main.\+h@{main.\+h}!Set\+M\+P\+I\+G\+P\+U\+Mapping@{Set\+M\+P\+I\+G\+P\+U\+Mapping}}
+\index{Set\+M\+P\+I\+G\+P\+U\+Mapping@{Set\+M\+P\+I\+G\+P\+U\+Mapping}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{Set\+M\+P\+I\+G\+P\+U\+Mapping(mpi\+Class $\ast$mpiobj, Subsurface\+Flow\+Class $\ast$\&subsurface, int procsize, int3 globsize, int2 topolsize)}{SetMPIGPUMapping(mpiClass *mpiobj, SubsurfaceFlowClass *&subsurface, int procsize, int3 globsize, int2 topolsize)}}]{\setlength{\rightskip}{0pt plus 5cm}void Set\+M\+P\+I\+G\+P\+U\+Mapping (
+\begin{DoxyParamCaption}
+\item[{{\bf mpi\+Class} $\ast$}]{mpiobj, }
+\item[{{\bf Subsurface\+Flow\+Class} $\ast$\&}]{subsurface, }
+\item[{int}]{procsize, }
+\item[{int3}]{globsize, }
+\item[{int2}]{topolsize}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8h_a98590f5891351f22d8c51d213bf483a7}{}\label{main_8h_a98590f5891351f22d8c51d213bf483a7}
+
+
+Sets the M\+PI map used for flow model in G\+PU. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em project} & Class including project info \\
+\hline
+ & {\em subsurface} & Subsurface flow class \\
+\hline
+\mbox{\tt in}  & {\em procsize} & Total number of M\+PI processes available \\
+\hline
+\mbox{\tt in}  & {\em globsize} & Size of the global domain \\
+\hline
+\mbox{\tt in}  & {\em topolsize} & Size of topology nodes (mpi) \\
+\hline
+\end{DoxyParams}
+\index{main.\+h@{main.\+h}!Set\+Topology\+Network@{Set\+Topology\+Network}}
+\index{Set\+Topology\+Network@{Set\+Topology\+Network}!main.\+h@{main.\+h}}
+\subsubsection[{\texorpdfstring{Set\+Topology\+Network(int rank, int procsize, Project\+Class $\ast$\&project, mpi\+Class $\ast$\&mpiobj)}{SetTopologyNetwork(int rank, int procsize, ProjectClass *&project, mpiClass *&mpiobj)}}]{\setlength{\rightskip}{0pt plus 5cm}int Set\+Topology\+Network (
+\begin{DoxyParamCaption}
+\item[{int}]{rank, }
+\item[{int}]{procsize, }
+\item[{{\bf Project\+Class} $\ast$\&}]{project, }
+\item[{{\bf mpi\+Class} $\ast$\&}]{mpiobj}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8h_ad0565c33ed351121f9cbd7bf1ddfbec8}{}\label{main_8h_ad0565c33ed351121f9cbd7bf1ddfbec8}
+
+
+Set up topolgy network (domain decomposition) and obtained neighbors. The size of topology must be matched with the size of M\+PI processes used. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em rank} & The global rank of the current M\+PI process \\
+\hline
+\mbox{\tt in}  & {\em procsize} & The total number of M\+PI processes available \\
+\hline
+ & {\em project} & Class including project info \\
+\hline
+ & {\em mpiobj} & message passing interface object class\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+function status 
+\end{DoxyReturn}

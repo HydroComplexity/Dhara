@@ -1,0 +1,47 @@
+\hypertarget{cusplib_8h}{}\section{include/cusplib.h File Reference}
+\label{cusplib_8h}\index{include/cusplib.\+h@{include/cusplib.\+h}}
+{\ttfamily \#include $<$cuda\+\_\+runtime.\+h$>$}\\*
+{\ttfamily \#include $<$cusp/array1d.\+h$>$}\\*
+{\ttfamily \#include $<$cusp/coo\+\_\+matrix.\+h$>$}\\*
+{\ttfamily \#include $<$cusp/hyb\+\_\+matrix.\+h$>$}\\*
+{\ttfamily \#include $<$cusp/monitor.\+h$>$}\\*
+{\ttfamily \#include $<$cusp/multiply.\+h$>$}\\*
+{\ttfamily \#include $<$cusp/elementwise.\+h$>$}\\*
+{\ttfamily \#include $<$cusp/gallery/poisson.\+h$>$}\\*
+{\ttfamily \#include $<$cusp/linear\+\_\+operator.\+h$>$}\\*
+{\ttfamily \#include $<$cusp/krylov/cg.\+h$>$}\\*
+{\ttfamily \#include $<$cusp/krylov/bicgstab.\+h$>$}\\*
+{\ttfamily \#include $<$cusp/print.\+h$>$}\\*
+{\ttfamily \#include $<$thrust/device\+\_\+ptr.\+h$>$}\\*
+{\ttfamily \#include $<$thrust/extrema.\+h$>$}\\*
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef cusp\+::array1d$<$ double, cusp\+::device\+\_\+memory $>$ \hyperlink{cusplib_8h_a37fafd0baa3ae059031f41e431635a59}{cuspdev\+\_\+1d}
+\item 
+typedef cusp\+::dia\+\_\+matrix$<$ int, double, cusp\+::device\+\_\+memory $>$ \hyperlink{cusplib_8h_ac01eb40e0aa9b453b4298e1ff122af5b}{cuspdev\+\_\+diamat}
+\item 
+typedef cusp\+::identity\+\_\+operator$<$double, cusp\+::device\+\_\+memory $>$ \hyperlink{cusplib_8h_ad81889079659395eacd66da4e935faed}{cuspdev\+\_\+idoper}
+\item 
+typedef thrust\+::device\+\_\+vector$<$ double $>$\+::iterator \hyperlink{cusplib_8h_a9c4b88f078061c3621576ed0ba5f8c2a}{thrustdev\+\_\+iter}
+\item 
+typedef thrust\+::device\+\_\+vector$<$ double $>$ \hyperlink{cusplib_8h_a522cf571ba82c8099efa91bf4e18d2a5}{thrustdev}
+\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\index{cusplib.\+h@{cusplib.\+h}!cuspdev\+\_\+1d@{cuspdev\+\_\+1d}}
+\index{cuspdev\+\_\+1d@{cuspdev\+\_\+1d}!cusplib.\+h@{cusplib.\+h}}
+\subsubsection[{\texorpdfstring{cuspdev\+\_\+1d}{cuspdev_1d}}]{\setlength{\rightskip}{0pt plus 5cm}typedef cusp\+::array1d$<$double, cusp\+::device\+\_\+memory$>$ {\bf cuspdev\+\_\+1d}}\hypertarget{cusplib_8h_a37fafd0baa3ae059031f41e431635a59}{}\label{cusplib_8h_a37fafd0baa3ae059031f41e431635a59}
+\index{cusplib.\+h@{cusplib.\+h}!cuspdev\+\_\+diamat@{cuspdev\+\_\+diamat}}
+\index{cuspdev\+\_\+diamat@{cuspdev\+\_\+diamat}!cusplib.\+h@{cusplib.\+h}}
+\subsubsection[{\texorpdfstring{cuspdev\+\_\+diamat}{cuspdev_diamat}}]{\setlength{\rightskip}{0pt plus 5cm}typedef cusp\+::dia\+\_\+matrix$<$int, double, cusp\+::device\+\_\+memory$>$ {\bf cuspdev\+\_\+diamat}}\hypertarget{cusplib_8h_ac01eb40e0aa9b453b4298e1ff122af5b}{}\label{cusplib_8h_ac01eb40e0aa9b453b4298e1ff122af5b}
+\index{cusplib.\+h@{cusplib.\+h}!cuspdev\+\_\+idoper@{cuspdev\+\_\+idoper}}
+\index{cuspdev\+\_\+idoper@{cuspdev\+\_\+idoper}!cusplib.\+h@{cusplib.\+h}}
+\subsubsection[{\texorpdfstring{cuspdev\+\_\+idoper}{cuspdev_idoper}}]{\setlength{\rightskip}{0pt plus 5cm}typedef cusp\+::identity\+\_\+operator$<$double, cusp\+::device\+\_\+memory$>$ {\bf cuspdev\+\_\+idoper}}\hypertarget{cusplib_8h_ad81889079659395eacd66da4e935faed}{}\label{cusplib_8h_ad81889079659395eacd66da4e935faed}
+\index{cusplib.\+h@{cusplib.\+h}!thrustdev@{thrustdev}}
+\index{thrustdev@{thrustdev}!cusplib.\+h@{cusplib.\+h}}
+\subsubsection[{\texorpdfstring{thrustdev}{thrustdev}}]{\setlength{\rightskip}{0pt plus 5cm}typedef thrust\+::device\+\_\+vector$<$double$>$ {\bf thrustdev}}\hypertarget{cusplib_8h_a522cf571ba82c8099efa91bf4e18d2a5}{}\label{cusplib_8h_a522cf571ba82c8099efa91bf4e18d2a5}
+\index{cusplib.\+h@{cusplib.\+h}!thrustdev\+\_\+iter@{thrustdev\+\_\+iter}}
+\index{thrustdev\+\_\+iter@{thrustdev\+\_\+iter}!cusplib.\+h@{cusplib.\+h}}
+\subsubsection[{\texorpdfstring{thrustdev\+\_\+iter}{thrustdev_iter}}]{\setlength{\rightskip}{0pt plus 5cm}typedef thrust\+::device\+\_\+vector$<$double$>$\+::iterator {\bf thrustdev\+\_\+iter}}\hypertarget{cusplib_8h_a9c4b88f078061c3621576ed0ba5f8c2a}{}\label{cusplib_8h_a9c4b88f078061c3621576ed0ba5f8c2a}

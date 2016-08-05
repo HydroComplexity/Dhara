@@ -1,0 +1,125 @@
+\hypertarget{subsurface_8h}{}\section{include/subsurface.h File Reference}
+\label{subsurface_8h}\index{include/subsurface.\+h@{include/subsurface.\+h}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\+\_\+\+\_\+global\+\_\+\+\_\+ void \hyperlink{subsurface_8h_a7d11beefbe583b7a75e23de8c8d84551}{Set\+Up\+Linear\+Systems\+Subsurface} (double $\ast$a3d, double $\ast$rhs, double $\ast$psinp1m, double $\ast$psin, double $\ast$thetanp1m, double $\ast$thetan, double $\ast$knp1m, double $\ast$cnp1m, int $\ast$wbc, int $\ast$ebc, int $\ast$sbc, int $\ast$nbc, int $\ast$tbc, int $\ast$bbc, double $\ast$psi\+\_\+w, double $\ast$psi\+\_\+e, double $\ast$psi\+\_\+s, double $\ast$psi\+\_\+n, double $\ast$psi\+\_\+t, double $\ast$psi\+\_\+b, double $\ast$qw, double $\ast$qe, double $\ast$qs, double $\ast$qn, double $\ast$qt, double $\ast$qb, int3 globsize)
+\item 
+\+\_\+\+\_\+global\+\_\+\+\_\+ void \hyperlink{subsurface_8h_a7170a7b156941a5c52680e7d36cf722b}{Get\+Iteration\+Difference} (double $\ast$psinp1m, double $\ast$psinp1mp1, double $\ast$deltam, int3 globsize)
+\item 
+\+\_\+\+\_\+global\+\_\+\+\_\+ void \hyperlink{subsurface_8h_a2c18d0259c0513ad058a686cf068fd7b}{Modified\+Picard\+Update} (double $\ast$psinp1m, double $\ast$psinp1mp1, int3 globsize)
+\item 
+\+\_\+\+\_\+global\+\_\+\+\_\+ void \hyperlink{subsurface_8h_aa50ab032645680562a4a012832f17021}{Subsurface\+Estimate\+Infiltration\+Ponding} (double $\ast$psinp1mp1, double $\ast$knp1m, double $\ast$qt, double $\ast$qss, double $\ast$psi\+\_\+top, double $\ast$ph, int $\ast$tbc, int3 globsize)
+\item 
+void \hyperlink{subsurface_8h_a681a82b548f52be802b1caa96b835bf5}{Gather\+Transpiration\+Domain} (\hyperlink{class_project_class}{Project\+Class} $\ast$project, \hyperlink{class_vertical_canopy_class}{Vertical\+Canopy\+Class} $\ast$vertcanopies, \hyperlink{class_subsurface_flow_class}{Subsurface\+Flow\+Class} $\ast$subsurface\+\_\+host, \hyperlink{class_subsurface_flow_class}{Subsurface\+Flow\+Class} $\ast$subsurface\+\_\+dev, int rank, int procsize, int3 globsize, int3 domsize, int2 topolsize, int2 topolindex, M\+P\+I\+\_\+\+Comm $\ast$cart\+Comm)
+\item 
+void \hyperlink{subsurface_8h_aa6e66f3574742d0fab8bc519dfd31e77}{Subsurface\+Flow\+Model} (\hyperlink{class_time_forcing_class}{Time\+Forcing\+Class} $\ast$\&timeforcings, \hyperlink{class_overland_flow_class}{Overland\+Flow\+Class} $\ast$\&overland\+\_\+host, \hyperlink{class_overland_flow_class}{Overland\+Flow\+Class} $\ast$\&overland\+\_\+dev, \hyperlink{class_subsurface_flow_class}{Subsurface\+Flow\+Class} $\ast$\&subsurface\+\_\+host, \hyperlink{class_subsurface_flow_class}{Subsurface\+Flow\+Class} $\ast$\&subsurface\+\_\+dev, \hyperlink{cusplib_8h_ac01eb40e0aa9b453b4298e1ff122af5b}{cuspdev\+\_\+diamat} \&a3d\+\_\+cusp, \hyperlink{cusplib_8h_a37fafd0baa3ae059031f41e431635a59}{cuspdev\+\_\+1d} \&psinp1mp1\+\_\+cusp, \hyperlink{cusplib_8h_a37fafd0baa3ae059031f41e431635a59}{cuspdev\+\_\+1d} \&rhs3d\+\_\+cusp, \hyperlink{cusplib_8h_ad81889079659395eacd66da4e935faed}{cuspdev\+\_\+idoper} \&id3d, \hyperlink{cusplib_8h_a37fafd0baa3ae059031f41e431635a59}{cuspdev\+\_\+1d} \&deltam\+\_\+cusp, \hyperlink{cusplib_8h_a9c4b88f078061c3621576ed0ba5f8c2a}{thrustdev\+\_\+iter} \&max\+Error, int rank, int procsize, int3 globsize, int t, int num\+\_\+steps)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{subsurface.\+h@{subsurface.\+h}!Gather\+Transpiration\+Domain@{Gather\+Transpiration\+Domain}}
+\index{Gather\+Transpiration\+Domain@{Gather\+Transpiration\+Domain}!subsurface.\+h@{subsurface.\+h}}
+\subsubsection[{\texorpdfstring{Gather\+Transpiration\+Domain(\+Project\+Class $\ast$project, Vertical\+Canopy\+Class $\ast$vertcanopies, Subsurface\+Flow\+Class $\ast$subsurface\+\_\+host, Subsurface\+Flow\+Class $\ast$subsurface\+\_\+dev, int rank, int procsize, int3 globsize, int3 domsize, int2 topolsize, int2 topolindex, M\+P\+I\+\_\+\+Comm $\ast$cart\+Comm)}{GatherTranspirationDomain(ProjectClass *project, VerticalCanopyClass *vertcanopies, SubsurfaceFlowClass *subsurface_host, SubsurfaceFlowClass *subsurface_dev, int rank, int procsize, int3 globsize, int3 domsize, int2 topolsize, int2 topolindex, MPI_Comm *cartComm)}}]{\setlength{\rightskip}{0pt plus 5cm}void Gather\+Transpiration\+Domain (
+\begin{DoxyParamCaption}
+\item[{{\bf Project\+Class} $\ast$}]{project, }
+\item[{{\bf Vertical\+Canopy\+Class} $\ast$}]{vertcanopies, }
+\item[{{\bf Subsurface\+Flow\+Class} $\ast$}]{subsurface\+\_\+host, }
+\item[{{\bf Subsurface\+Flow\+Class} $\ast$}]{subsurface\+\_\+dev, }
+\item[{int}]{rank, }
+\item[{int}]{procsize, }
+\item[{int3}]{globsize, }
+\item[{int3}]{domsize, }
+\item[{int2}]{topolsize, }
+\item[{int2}]{topolindex, }
+\item[{M\+P\+I\+\_\+\+Comm $\ast$}]{cart\+Comm}
+\end{DoxyParamCaption}
+)}\hypertarget{subsurface_8h_a681a82b548f52be802b1caa96b835bf5}{}\label{subsurface_8h_a681a82b548f52be802b1caa96b835bf5}
+\index{subsurface.\+h@{subsurface.\+h}!Get\+Iteration\+Difference@{Get\+Iteration\+Difference}}
+\index{Get\+Iteration\+Difference@{Get\+Iteration\+Difference}!subsurface.\+h@{subsurface.\+h}}
+\subsubsection[{\texorpdfstring{Get\+Iteration\+Difference(double $\ast$psinp1m, double $\ast$psinp1mp1, double $\ast$deltam, int3 globsize)}{GetIterationDifference(double *psinp1m, double *psinp1mp1, double *deltam, int3 globsize)}}]{\setlength{\rightskip}{0pt plus 5cm}\+\_\+\+\_\+global\+\_\+\+\_\+ void Get\+Iteration\+Difference (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{psinp1m, }
+\item[{double $\ast$}]{psinp1mp1, }
+\item[{double $\ast$}]{deltam, }
+\item[{int3}]{globsize}
+\end{DoxyParamCaption}
+)}\hypertarget{subsurface_8h_a7170a7b156941a5c52680e7d36cf722b}{}\label{subsurface_8h_a7170a7b156941a5c52680e7d36cf722b}
+\index{subsurface.\+h@{subsurface.\+h}!Modified\+Picard\+Update@{Modified\+Picard\+Update}}
+\index{Modified\+Picard\+Update@{Modified\+Picard\+Update}!subsurface.\+h@{subsurface.\+h}}
+\subsubsection[{\texorpdfstring{Modified\+Picard\+Update(double $\ast$psinp1m, double $\ast$psinp1mp1, int3 globsize)}{ModifiedPicardUpdate(double *psinp1m, double *psinp1mp1, int3 globsize)}}]{\setlength{\rightskip}{0pt plus 5cm}\+\_\+\+\_\+global\+\_\+\+\_\+ void Modified\+Picard\+Update (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{psinp1m, }
+\item[{double $\ast$}]{psinp1mp1, }
+\item[{int3}]{globsize}
+\end{DoxyParamCaption}
+)}\hypertarget{subsurface_8h_a2c18d0259c0513ad058a686cf068fd7b}{}\label{subsurface_8h_a2c18d0259c0513ad058a686cf068fd7b}
+\index{subsurface.\+h@{subsurface.\+h}!Set\+Up\+Linear\+Systems\+Subsurface@{Set\+Up\+Linear\+Systems\+Subsurface}}
+\index{Set\+Up\+Linear\+Systems\+Subsurface@{Set\+Up\+Linear\+Systems\+Subsurface}!subsurface.\+h@{subsurface.\+h}}
+\subsubsection[{\texorpdfstring{Set\+Up\+Linear\+Systems\+Subsurface(double $\ast$a3d, double $\ast$rhs, double $\ast$psinp1m, double $\ast$psin, double $\ast$thetanp1m, double $\ast$thetan, double $\ast$knp1m, double $\ast$cnp1m, int $\ast$wbc, int $\ast$ebc, int $\ast$sbc, int $\ast$nbc, int $\ast$tbc, int $\ast$bbc, double $\ast$psi\+\_\+w, double $\ast$psi\+\_\+e, double $\ast$psi\+\_\+s, double $\ast$psi\+\_\+n, double $\ast$psi\+\_\+t, double $\ast$psi\+\_\+b, double $\ast$qw, double $\ast$qe, double $\ast$qs, double $\ast$qn, double $\ast$qt, double $\ast$qb, int3 globsize)}{SetUpLinearSystemsSubsurface(double *a3d, double *rhs, double *psinp1m, double *psin, double *thetanp1m, double *thetan, double *knp1m, double *cnp1m, int *wbc, int *ebc, int *sbc, int *nbc, int *tbc, int *bbc, double *psi_w, double *psi_e, double *psi_s, double *psi_n, double *psi_t, double *psi_b, double *qw, double *qe, double *qs, double *qn, double *qt, double *qb, int3 globsize)}}]{\setlength{\rightskip}{0pt plus 5cm}\+\_\+\+\_\+global\+\_\+\+\_\+ void Set\+Up\+Linear\+Systems\+Subsurface (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{a3d, }
+\item[{double $\ast$}]{rhs, }
+\item[{double $\ast$}]{psinp1m, }
+\item[{double $\ast$}]{psin, }
+\item[{double $\ast$}]{thetanp1m, }
+\item[{double $\ast$}]{thetan, }
+\item[{double $\ast$}]{knp1m, }
+\item[{double $\ast$}]{cnp1m, }
+\item[{int $\ast$}]{wbc, }
+\item[{int $\ast$}]{ebc, }
+\item[{int $\ast$}]{sbc, }
+\item[{int $\ast$}]{nbc, }
+\item[{int $\ast$}]{tbc, }
+\item[{int $\ast$}]{bbc, }
+\item[{double $\ast$}]{psi\+\_\+w, }
+\item[{double $\ast$}]{psi\+\_\+e, }
+\item[{double $\ast$}]{psi\+\_\+s, }
+\item[{double $\ast$}]{psi\+\_\+n, }
+\item[{double $\ast$}]{psi\+\_\+t, }
+\item[{double $\ast$}]{psi\+\_\+b, }
+\item[{double $\ast$}]{qw, }
+\item[{double $\ast$}]{qe, }
+\item[{double $\ast$}]{qs, }
+\item[{double $\ast$}]{qn, }
+\item[{double $\ast$}]{qt, }
+\item[{double $\ast$}]{qb, }
+\item[{int3}]{globsize}
+\end{DoxyParamCaption}
+)}\hypertarget{subsurface_8h_a7d11beefbe583b7a75e23de8c8d84551}{}\label{subsurface_8h_a7d11beefbe583b7a75e23de8c8d84551}
+\index{subsurface.\+h@{subsurface.\+h}!Subsurface\+Estimate\+Infiltration\+Ponding@{Subsurface\+Estimate\+Infiltration\+Ponding}}
+\index{Subsurface\+Estimate\+Infiltration\+Ponding@{Subsurface\+Estimate\+Infiltration\+Ponding}!subsurface.\+h@{subsurface.\+h}}
+\subsubsection[{\texorpdfstring{Subsurface\+Estimate\+Infiltration\+Ponding(double $\ast$psinp1mp1, double $\ast$knp1m, double $\ast$qt, double $\ast$qss, double $\ast$psi\+\_\+top, double $\ast$ph, int $\ast$tbc, int3 globsize)}{SubsurfaceEstimateInfiltrationPonding(double *psinp1mp1, double *knp1m, double *qt, double *qss, double *psi_top, double *ph, int *tbc, int3 globsize)}}]{\setlength{\rightskip}{0pt plus 5cm}\+\_\+\+\_\+global\+\_\+\+\_\+ void Subsurface\+Estimate\+Infiltration\+Ponding (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{psinp1mp1, }
+\item[{double $\ast$}]{knp1m, }
+\item[{double $\ast$}]{qt, }
+\item[{double $\ast$}]{qss, }
+\item[{double $\ast$}]{psi\+\_\+top, }
+\item[{double $\ast$}]{ph, }
+\item[{int $\ast$}]{tbc, }
+\item[{int3}]{globsize}
+\end{DoxyParamCaption}
+)}\hypertarget{subsurface_8h_aa50ab032645680562a4a012832f17021}{}\label{subsurface_8h_aa50ab032645680562a4a012832f17021}
+\index{subsurface.\+h@{subsurface.\+h}!Subsurface\+Flow\+Model@{Subsurface\+Flow\+Model}}
+\index{Subsurface\+Flow\+Model@{Subsurface\+Flow\+Model}!subsurface.\+h@{subsurface.\+h}}
+\subsubsection[{\texorpdfstring{Subsurface\+Flow\+Model(\+Time\+Forcing\+Class $\ast$\&timeforcings, Overland\+Flow\+Class $\ast$\&overland\+\_\+host, Overland\+Flow\+Class $\ast$\&overland\+\_\+dev, Subsurface\+Flow\+Class $\ast$\&subsurface\+\_\+host, Subsurface\+Flow\+Class $\ast$\&subsurface\+\_\+dev, cuspdev\+\_\+diamat \&a3d\+\_\+cusp, cuspdev\+\_\+1d \&psinp1mp1\+\_\+cusp, cuspdev\+\_\+1d \&rhs3d\+\_\+cusp, cuspdev\+\_\+idoper \&id3d, cuspdev\+\_\+1d \&deltam\+\_\+cusp, thrustdev\+\_\+iter \&max\+Error, int rank, int procsize, int3 globsize, int t, int num\+\_\+steps)}{SubsurfaceFlowModel(TimeForcingClass *&timeforcings, OverlandFlowClass *&overland_host, OverlandFlowClass *&overland_dev, SubsurfaceFlowClass *&subsurface_host, SubsurfaceFlowClass *&subsurface_dev, cuspdev_diamat &a3d_cusp, cuspdev_1d &psinp1mp1_cusp, cuspdev_1d &rhs3d_cusp, cuspdev_idoper &id3d, cuspdev_1d &deltam_cusp, thrustdev_iter &maxError, int rank, int procsize, int3 globsize, int t, int num_steps)}}]{\setlength{\rightskip}{0pt plus 5cm}void Subsurface\+Flow\+Model (
+\begin{DoxyParamCaption}
+\item[{{\bf Time\+Forcing\+Class} $\ast$\&}]{timeforcings, }
+\item[{{\bf Overland\+Flow\+Class} $\ast$\&}]{overland\+\_\+host, }
+\item[{{\bf Overland\+Flow\+Class} $\ast$\&}]{overland\+\_\+dev, }
+\item[{{\bf Subsurface\+Flow\+Class} $\ast$\&}]{subsurface\+\_\+host, }
+\item[{{\bf Subsurface\+Flow\+Class} $\ast$\&}]{subsurface\+\_\+dev, }
+\item[{{\bf cuspdev\+\_\+diamat} \&}]{a3d\+\_\+cusp, }
+\item[{{\bf cuspdev\+\_\+1d} \&}]{psinp1mp1\+\_\+cusp, }
+\item[{{\bf cuspdev\+\_\+1d} \&}]{rhs3d\+\_\+cusp, }
+\item[{{\bf cuspdev\+\_\+idoper} \&}]{id3d, }
+\item[{{\bf cuspdev\+\_\+1d} \&}]{deltam\+\_\+cusp, }
+\item[{{\bf thrustdev\+\_\+iter} \&}]{max\+Error, }
+\item[{int}]{rank, }
+\item[{int}]{procsize, }
+\item[{int3}]{globsize, }
+\item[{int}]{t, }
+\item[{int}]{num\+\_\+steps}
+\end{DoxyParamCaption}
+)}\hypertarget{subsurface_8h_aa6e66f3574742d0fab8bc519dfd31e77}{}\label{subsurface_8h_aa6e66f3574742d0fab8bc519dfd31e77}

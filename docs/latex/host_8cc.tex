@@ -1,0 +1,199 @@
+\hypertarget{host_8cc}{}\section{src/host.cc File Reference}
+\label{host_8cc}\index{src/host.\+cc@{src/host.\+cc}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}../include/main.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../include/parser.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{host_8cc_a8c4be326316db9902a1bc84aef95a329}{Set\+Initial\+Conditions\+Host} (\hyperlink{class_time_forcing_class}{Time\+Forcing\+Class} $\ast$timeforcings, \hyperlink{class_file_name_class}{File\+Name\+Class} $\ast$files, \hyperlink{class_overland_flow_class}{Overland\+Flow\+Class} $\ast$overland, \hyperlink{class_subsurface_flow_class}{Subsurface\+Flow\+Class} $\ast$\&subsurface, int num\+\_\+steps, int rank, int procsize, int3 globsize)
+\begin{DoxyCompactList}\small\item\em Set the initial conditions in host memory. \end{DoxyCompactList}\item 
+void \hyperlink{host_8cc_a9395c7359209191d0627d4364fd757de}{Set\+Boundary\+Conditions\+Host} (\hyperlink{class_time_forcing_class}{Time\+Forcing\+Class} $\ast$timeforcings, \hyperlink{class_file_name_class}{File\+Name\+Class} $\ast$files, \hyperlink{class_overland_flow_class}{Overland\+Flow\+Class} $\ast$overland, \hyperlink{class_subsurface_flow_class}{Subsurface\+Flow\+Class} $\ast$\&subsurface, int num\+\_\+steps, int rank, int procsize, int3 globsize)
+\begin{DoxyCompactList}\small\item\em Set the boundary conditions host in host memory. \end{DoxyCompactList}\item 
+void \hyperlink{host_8cc_a01482c18a453883899e7979fc631d459}{Set\+Flow\+Model\+Conditions} (\hyperlink{class_time_forcing_class}{Time\+Forcing\+Class} $\ast$timeforcings, \hyperlink{class_file_name_class}{File\+Name\+Class} $\ast$files, \hyperlink{class_overland_flow_class}{Overland\+Flow\+Class} $\ast$overland, \hyperlink{class_subsurface_flow_class}{Subsurface\+Flow\+Class} $\ast$\&subsurface, int num\+\_\+steps, int rank, int procsize, int3 globsize)
+\begin{DoxyCompactList}\small\item\em Set conditions in host memory. \end{DoxyCompactList}\item 
+void \hyperlink{host_8cc_a98590f5891351f22d8c51d213bf483a7}{Set\+M\+P\+I\+G\+P\+U\+Mapping} (\hyperlink{classmpi_class}{mpi\+Class} $\ast$mpiobj, \hyperlink{class_subsurface_flow_class}{Subsurface\+Flow\+Class} $\ast$\&subsurface, int procsize, int3 globsize, int2 topolsize)
+\begin{DoxyCompactList}\small\item\em Sets the M\+PI map used for flow model in G\+PU. \end{DoxyCompactList}\item 
+void \hyperlink{host_8cc_afb3f68180a7899c43e060d4d4e091038}{Gather\+Root\+Density\+To\+Master\+And\+Filter} (\hyperlink{class_project_class}{Project\+Class} $\ast$project, \hyperlink{class_vertical_soil_class}{Vertical\+Soil\+Class} $\ast$vertsoils, \hyperlink{class_soil_class}{Soil\+Class} $\ast$soils, \hyperlink{class_subsurface_flow_class}{Subsurface\+Flow\+Class} $\ast$subsurface\+\_\+host, \hyperlink{class_subsurface_flow_class}{Subsurface\+Flow\+Class} $\ast$subsurface\+\_\+dev, int rank, int procsize, M\+P\+I\+\_\+\+Comm $\ast$cart\+Comm)
+\begin{DoxyCompactList}\small\item\em Collect root density profile from all processes to master. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{host.\+cc@{host.\+cc}!Gather\+Root\+Density\+To\+Master\+And\+Filter@{Gather\+Root\+Density\+To\+Master\+And\+Filter}}
+\index{Gather\+Root\+Density\+To\+Master\+And\+Filter@{Gather\+Root\+Density\+To\+Master\+And\+Filter}!host.\+cc@{host.\+cc}}
+\subsubsection[{\texorpdfstring{Gather\+Root\+Density\+To\+Master\+And\+Filter(\+Project\+Class $\ast$project, Vertical\+Soil\+Class $\ast$vertsoils, Soil\+Class $\ast$soils, Subsurface\+Flow\+Class $\ast$subsurface\+\_\+host, Subsurface\+Flow\+Class $\ast$subsurface\+\_\+dev, int rank, int procsize, M\+P\+I\+\_\+\+Comm $\ast$cart\+Comm)}{GatherRootDensityToMasterAndFilter(ProjectClass *project, VerticalSoilClass *vertsoils, SoilClass *soils, SubsurfaceFlowClass *subsurface_host, SubsurfaceFlowClass *subsurface_dev, int rank, int procsize, MPI_Comm *cartComm)}}]{\setlength{\rightskip}{0pt plus 5cm}void Gather\+Root\+Density\+To\+Master\+And\+Filter (
+\begin{DoxyParamCaption}
+\item[{{\bf Project\+Class} $\ast$}]{project, }
+\item[{{\bf Vertical\+Soil\+Class} $\ast$}]{vertsoils, }
+\item[{{\bf Soil\+Class} $\ast$}]{soils, }
+\item[{{\bf Subsurface\+Flow\+Class} $\ast$}]{subsurface\+\_\+host, }
+\item[{{\bf Subsurface\+Flow\+Class} $\ast$}]{subsurface\+\_\+dev, }
+\item[{int}]{rank, }
+\item[{int}]{procsize, }
+\item[{M\+P\+I\+\_\+\+Comm $\ast$}]{cart\+Comm}
+\end{DoxyParamCaption}
+)}\hypertarget{host_8cc_afb3f68180a7899c43e060d4d4e091038}{}\label{host_8cc_afb3f68180a7899c43e060d4d4e091038}
+
+
+Collect root density profile from all processes to master. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em project} & Class including project info \\
+\hline
+ & {\em vertsoils} & Class including vertical soil info \\
+\hline
+ & {\em soils} & Class including soil variables \\
+\hline
+ & {\em subsurface\+\_\+host} & Subsurface flow class in host memory \\
+\hline
+ & {\em subsurface\+\_\+dev} & Subsurface flow class in device memory \\
+\hline
+\mbox{\tt in}  & {\em rank} & Global rank of the current M\+PI process \\
+\hline
+\mbox{\tt in}  & {\em procsize} & Size of the global domain \\
+\hline
+ & {\em cart\+Comm} & Carthesian M\+PI communicator \\
+\hline
+\end{DoxyParams}
+\index{host.\+cc@{host.\+cc}!Set\+Boundary\+Conditions\+Host@{Set\+Boundary\+Conditions\+Host}}
+\index{Set\+Boundary\+Conditions\+Host@{Set\+Boundary\+Conditions\+Host}!host.\+cc@{host.\+cc}}
+\subsubsection[{\texorpdfstring{Set\+Boundary\+Conditions\+Host(\+Time\+Forcing\+Class $\ast$timeforcings, File\+Name\+Class $\ast$files, Overland\+Flow\+Class $\ast$overland, Subsurface\+Flow\+Class $\ast$\&subsurface, int num\+\_\+steps, int rank, int procsize, int3 globsize)}{SetBoundaryConditionsHost(TimeForcingClass *timeforcings, FileNameClass *files, OverlandFlowClass *overland, SubsurfaceFlowClass *&subsurface, int num_steps, int rank, int procsize, int3 globsize)}}]{\setlength{\rightskip}{0pt plus 5cm}void Set\+Boundary\+Conditions\+Host (
+\begin{DoxyParamCaption}
+\item[{{\bf Time\+Forcing\+Class} $\ast$}]{timeforcings, }
+\item[{{\bf File\+Name\+Class} $\ast$}]{files, }
+\item[{{\bf Overland\+Flow\+Class} $\ast$}]{overland, }
+\item[{{\bf Subsurface\+Flow\+Class} $\ast$\&}]{subsurface, }
+\item[{int}]{num\+\_\+steps, }
+\item[{int}]{rank, }
+\item[{int}]{procsize, }
+\item[{int3}]{globsize}
+\end{DoxyParamCaption}
+)}\hypertarget{host_8cc_a9395c7359209191d0627d4364fd757de}{}\label{host_8cc_a9395c7359209191d0627d4364fd757de}
+
+
+Set the boundary conditions host in host memory. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em forcings} & Class including forcings info \\
+\hline
+ & {\em overland} & Overland flow class \\
+\hline
+ & {\em subsurface} & Subsurface flow class \\
+\hline
+\mbox{\tt in}  & {\em num\+\_\+steps} & The number of timesteps \\
+\hline
+\mbox{\tt in}  & {\em rank} & Global rank of the current M\+PI process \\
+\hline
+\mbox{\tt in}  & {\em procsize} & Total number of M\+PI processes available \\
+\hline
+\mbox{\tt in}  & {\em globsize} & Size of the global domain \\
+\hline
+ & {\em cart\+Comm} & Carthesian M\+PI communicator \\
+\hline
+\end{DoxyParams}
+\index{host.\+cc@{host.\+cc}!Set\+Flow\+Model\+Conditions@{Set\+Flow\+Model\+Conditions}}
+\index{Set\+Flow\+Model\+Conditions@{Set\+Flow\+Model\+Conditions}!host.\+cc@{host.\+cc}}
+\subsubsection[{\texorpdfstring{Set\+Flow\+Model\+Conditions(\+Time\+Forcing\+Class $\ast$timeforcings, File\+Name\+Class $\ast$files, Overland\+Flow\+Class $\ast$overland, Subsurface\+Flow\+Class $\ast$\&subsurface, int num\+\_\+steps, int rank, int procsize, int3 globsize)}{SetFlowModelConditions(TimeForcingClass *timeforcings, FileNameClass *files, OverlandFlowClass *overland, SubsurfaceFlowClass *&subsurface, int num_steps, int rank, int procsize, int3 globsize)}}]{\setlength{\rightskip}{0pt plus 5cm}void Set\+Flow\+Model\+Conditions (
+\begin{DoxyParamCaption}
+\item[{{\bf Time\+Forcing\+Class} $\ast$}]{timeforcings, }
+\item[{{\bf File\+Name\+Class} $\ast$}]{files, }
+\item[{{\bf Overland\+Flow\+Class} $\ast$}]{overland, }
+\item[{{\bf Subsurface\+Flow\+Class} $\ast$\&}]{subsurface, }
+\item[{int}]{num\+\_\+steps, }
+\item[{int}]{rank, }
+\item[{int}]{procsize, }
+\item[{int3}]{globsize}
+\end{DoxyParamCaption}
+)}\hypertarget{host_8cc_a01482c18a453883899e7979fc631d459}{}\label{host_8cc_a01482c18a453883899e7979fc631d459}
+
+
+Set conditions in host memory. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em forcings} & Class including forcings info \\
+\hline
+ & {\em overland} & Overland flow class \\
+\hline
+ & {\em subsurface} & Subsurface flow class \\
+\hline
+\mbox{\tt in}  & {\em num\+\_\+steps} & The number of timesteps \\
+\hline
+\mbox{\tt in}  & {\em rank} & Global rank of the current M\+PI process \\
+\hline
+\mbox{\tt in}  & {\em procsize} & Total number of M\+PI processes available \\
+\hline
+\mbox{\tt in}  & {\em globsize} & Size of the global domain \\
+\hline
+ & {\em cart\+Comm} & Carthesian M\+PI communicator \\
+\hline
+\end{DoxyParams}
+\index{host.\+cc@{host.\+cc}!Set\+Initial\+Conditions\+Host@{Set\+Initial\+Conditions\+Host}}
+\index{Set\+Initial\+Conditions\+Host@{Set\+Initial\+Conditions\+Host}!host.\+cc@{host.\+cc}}
+\subsubsection[{\texorpdfstring{Set\+Initial\+Conditions\+Host(\+Time\+Forcing\+Class $\ast$timeforcings, File\+Name\+Class $\ast$files, Overland\+Flow\+Class $\ast$overland, Subsurface\+Flow\+Class $\ast$\&subsurface, int num\+\_\+steps, int rank, int procsize, int3 globsize)}{SetInitialConditionsHost(TimeForcingClass *timeforcings, FileNameClass *files, OverlandFlowClass *overland, SubsurfaceFlowClass *&subsurface, int num_steps, int rank, int procsize, int3 globsize)}}]{\setlength{\rightskip}{0pt plus 5cm}void Set\+Initial\+Conditions\+Host (
+\begin{DoxyParamCaption}
+\item[{{\bf Time\+Forcing\+Class} $\ast$}]{timeforcings, }
+\item[{{\bf File\+Name\+Class} $\ast$}]{files, }
+\item[{{\bf Overland\+Flow\+Class} $\ast$}]{overland, }
+\item[{{\bf Subsurface\+Flow\+Class} $\ast$\&}]{subsurface, }
+\item[{int}]{num\+\_\+steps, }
+\item[{int}]{rank, }
+\item[{int}]{procsize, }
+\item[{int3}]{globsize}
+\end{DoxyParamCaption}
+)}\hypertarget{host_8cc_a8c4be326316db9902a1bc84aef95a329}{}\label{host_8cc_a8c4be326316db9902a1bc84aef95a329}
+
+
+Set the initial conditions in host memory. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em forcings} & Class including forcings info \\
+\hline
+ & {\em overland} & Overland flow class \\
+\hline
+ & {\em subsurface} & Subsurface flow class \\
+\hline
+\mbox{\tt in}  & {\em num\+\_\+steps} & The number of timesteps \\
+\hline
+\mbox{\tt in}  & {\em rank} & Global rank of the current M\+PI process \\
+\hline
+\mbox{\tt in}  & {\em procsize} & Total number of M\+PI processes available \\
+\hline
+\mbox{\tt in}  & {\em globsize} & Size of the global domain \\
+\hline
+ & {\em cart\+Comm} & Carthesian M\+PI communicator \\
+\hline
+\end{DoxyParams}
+\index{host.\+cc@{host.\+cc}!Set\+M\+P\+I\+G\+P\+U\+Mapping@{Set\+M\+P\+I\+G\+P\+U\+Mapping}}
+\index{Set\+M\+P\+I\+G\+P\+U\+Mapping@{Set\+M\+P\+I\+G\+P\+U\+Mapping}!host.\+cc@{host.\+cc}}
+\subsubsection[{\texorpdfstring{Set\+M\+P\+I\+G\+P\+U\+Mapping(mpi\+Class $\ast$mpiobj, Subsurface\+Flow\+Class $\ast$\&subsurface, int procsize, int3 globsize, int2 topolsize)}{SetMPIGPUMapping(mpiClass *mpiobj, SubsurfaceFlowClass *&subsurface, int procsize, int3 globsize, int2 topolsize)}}]{\setlength{\rightskip}{0pt plus 5cm}void Set\+M\+P\+I\+G\+P\+U\+Mapping (
+\begin{DoxyParamCaption}
+\item[{{\bf mpi\+Class} $\ast$}]{mpiobj, }
+\item[{{\bf Subsurface\+Flow\+Class} $\ast$\&}]{subsurface, }
+\item[{int}]{procsize, }
+\item[{int3}]{globsize, }
+\item[{int2}]{topolsize}
+\end{DoxyParamCaption}
+)}\hypertarget{host_8cc_a98590f5891351f22d8c51d213bf483a7}{}\label{host_8cc_a98590f5891351f22d8c51d213bf483a7}
+
+
+Sets the M\+PI map used for flow model in G\+PU. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em project} & Class including project info \\
+\hline
+ & {\em subsurface} & Subsurface flow class \\
+\hline
+\mbox{\tt in}  & {\em procsize} & Total number of M\+PI processes available \\
+\hline
+\mbox{\tt in}  & {\em globsize} & Size of the global domain \\
+\hline
+\mbox{\tt in}  & {\em topolsize} & Size of topology nodes (mpi) \\
+\hline
+\end{DoxyParams}

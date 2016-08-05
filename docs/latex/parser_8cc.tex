@@ -1,0 +1,132 @@
+\hypertarget{parser_8cc}{}\section{src/parser.cc File Reference}
+\label{parser_8cc}\index{src/parser.\+cc@{src/parser.\+cc}}
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$functional$>$}\\*
+{\ttfamily \#include \char`\"{}../include/main.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../include/parser.\+h\char`\"{}}\\*
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_config_vars}{Config\+Vars}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{parser_8cc_ae47cdfc5b0e511bad19794a0b8a21209}{Print\+Parsing\+Warning} (std\+::string key)
+\item 
+void \hyperlink{parser_8cc_a1ce00f2a415010b43b1ea0c370b79677}{Parser\+Config\+File} (std\+::string file\+Name)
+\item 
+std\+::string \hyperlink{parser_8cc_a367ee1cbd911e78775aa22e8c9d2413e}{Get\+Option\+To\+String} (std\+::string key)
+\item 
+const char $\ast$ \hyperlink{parser_8cc_af7dac1dc7780ab229a92e08d56b18ee0}{Get\+Option\+To\+Char} (std\+::string key)
+\item 
+int \hyperlink{parser_8cc_a947c0ec72bbb2964d3adff8fbbf21fe4}{Get\+Option\+To\+Int} (std\+::string key)
+\item 
+double \hyperlink{parser_8cc_a98bd6be40f0ff45d11e2428a0de2022d}{Get\+Option\+To\+Double} (std\+::string key)
+\item 
+std\+::string \hyperlink{parser_8cc_ad1eec20e7697906820ed07c2ae631a0f}{Parse\+Name} (std\+::string value)
+\item 
+std\+::string \hyperlink{parser_8cc_adc3bdbf87cc8bac72c4eaa7f3ce2bfd0}{Parse\+Value} (std\+::string value)
+\item 
+std\+::string \hyperlink{parser_8cc_acbc9630bbabbfed7cd97b5e30f6b3261}{Trim} (std\+::string str)
+\item 
+std\+::string \hyperlink{parser_8cc_a2774f0cb49ae7b9abe7ab255fd3d984d}{L\+Trim} (std\+::string str)
+\item 
+std\+::string \hyperlink{parser_8cc_a1ec1463dafb2311bffbb3258f7fa2b0c}{R\+Trim} (std\+::string str)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{struct_config_vars}{Config\+Vars} $\ast$ \hyperlink{parser_8cc_ada1dee480b5132dd882edbf715f36108}{Init\+Var} \mbox{[}1024\mbox{]}
+\item 
+int \hyperlink{parser_8cc_a398396305df2e7bc9fc9c686407020ba}{numchar} = 0
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{parser.\+cc@{parser.\+cc}!Get\+Option\+To\+Char@{Get\+Option\+To\+Char}}
+\index{Get\+Option\+To\+Char@{Get\+Option\+To\+Char}!parser.\+cc@{parser.\+cc}}
+\subsubsection[{\texorpdfstring{Get\+Option\+To\+Char(std\+::string key)}{GetOptionToChar(std::string key)}}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ Get\+Option\+To\+Char (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{key}
+\end{DoxyParamCaption}
+)}\hypertarget{parser_8cc_af7dac1dc7780ab229a92e08d56b18ee0}{}\label{parser_8cc_af7dac1dc7780ab229a92e08d56b18ee0}
+\index{parser.\+cc@{parser.\+cc}!Get\+Option\+To\+Double@{Get\+Option\+To\+Double}}
+\index{Get\+Option\+To\+Double@{Get\+Option\+To\+Double}!parser.\+cc@{parser.\+cc}}
+\subsubsection[{\texorpdfstring{Get\+Option\+To\+Double(std\+::string key)}{GetOptionToDouble(std::string key)}}]{\setlength{\rightskip}{0pt plus 5cm}double Get\+Option\+To\+Double (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{key}
+\end{DoxyParamCaption}
+)}\hypertarget{parser_8cc_a98bd6be40f0ff45d11e2428a0de2022d}{}\label{parser_8cc_a98bd6be40f0ff45d11e2428a0de2022d}
+\index{parser.\+cc@{parser.\+cc}!Get\+Option\+To\+Int@{Get\+Option\+To\+Int}}
+\index{Get\+Option\+To\+Int@{Get\+Option\+To\+Int}!parser.\+cc@{parser.\+cc}}
+\subsubsection[{\texorpdfstring{Get\+Option\+To\+Int(std\+::string key)}{GetOptionToInt(std::string key)}}]{\setlength{\rightskip}{0pt plus 5cm}int Get\+Option\+To\+Int (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{key}
+\end{DoxyParamCaption}
+)}\hypertarget{parser_8cc_a947c0ec72bbb2964d3adff8fbbf21fe4}{}\label{parser_8cc_a947c0ec72bbb2964d3adff8fbbf21fe4}
+\index{parser.\+cc@{parser.\+cc}!Get\+Option\+To\+String@{Get\+Option\+To\+String}}
+\index{Get\+Option\+To\+String@{Get\+Option\+To\+String}!parser.\+cc@{parser.\+cc}}
+\subsubsection[{\texorpdfstring{Get\+Option\+To\+String(std\+::string key)}{GetOptionToString(std::string key)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string Get\+Option\+To\+String (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{key}
+\end{DoxyParamCaption}
+)}\hypertarget{parser_8cc_a367ee1cbd911e78775aa22e8c9d2413e}{}\label{parser_8cc_a367ee1cbd911e78775aa22e8c9d2413e}
+\index{parser.\+cc@{parser.\+cc}!L\+Trim@{L\+Trim}}
+\index{L\+Trim@{L\+Trim}!parser.\+cc@{parser.\+cc}}
+\subsubsection[{\texorpdfstring{L\+Trim(std\+::string str)}{LTrim(std::string str)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string L\+Trim (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{str}
+\end{DoxyParamCaption}
+)}\hypertarget{parser_8cc_a2774f0cb49ae7b9abe7ab255fd3d984d}{}\label{parser_8cc_a2774f0cb49ae7b9abe7ab255fd3d984d}
+\index{parser.\+cc@{parser.\+cc}!Parse\+Name@{Parse\+Name}}
+\index{Parse\+Name@{Parse\+Name}!parser.\+cc@{parser.\+cc}}
+\subsubsection[{\texorpdfstring{Parse\+Name(std\+::string value)}{ParseName(std::string value)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string Parse\+Name (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{value}
+\end{DoxyParamCaption}
+)}\hypertarget{parser_8cc_ad1eec20e7697906820ed07c2ae631a0f}{}\label{parser_8cc_ad1eec20e7697906820ed07c2ae631a0f}
+\index{parser.\+cc@{parser.\+cc}!Parser\+Config\+File@{Parser\+Config\+File}}
+\index{Parser\+Config\+File@{Parser\+Config\+File}!parser.\+cc@{parser.\+cc}}
+\subsubsection[{\texorpdfstring{Parser\+Config\+File(std\+::string file\+Name)}{ParserConfigFile(std::string fileName)}}]{\setlength{\rightskip}{0pt plus 5cm}void Parser\+Config\+File (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{file\+Name}
+\end{DoxyParamCaption}
+)}\hypertarget{parser_8cc_a1ce00f2a415010b43b1ea0c370b79677}{}\label{parser_8cc_a1ce00f2a415010b43b1ea0c370b79677}
+\index{parser.\+cc@{parser.\+cc}!Parse\+Value@{Parse\+Value}}
+\index{Parse\+Value@{Parse\+Value}!parser.\+cc@{parser.\+cc}}
+\subsubsection[{\texorpdfstring{Parse\+Value(std\+::string value)}{ParseValue(std::string value)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string Parse\+Value (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{value}
+\end{DoxyParamCaption}
+)}\hypertarget{parser_8cc_adc3bdbf87cc8bac72c4eaa7f3ce2bfd0}{}\label{parser_8cc_adc3bdbf87cc8bac72c4eaa7f3ce2bfd0}
+\index{parser.\+cc@{parser.\+cc}!Print\+Parsing\+Warning@{Print\+Parsing\+Warning}}
+\index{Print\+Parsing\+Warning@{Print\+Parsing\+Warning}!parser.\+cc@{parser.\+cc}}
+\subsubsection[{\texorpdfstring{Print\+Parsing\+Warning(std\+::string key)}{PrintParsingWarning(std::string key)}}]{\setlength{\rightskip}{0pt plus 5cm}void Print\+Parsing\+Warning (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{key}
+\end{DoxyParamCaption}
+)}\hypertarget{parser_8cc_ae47cdfc5b0e511bad19794a0b8a21209}{}\label{parser_8cc_ae47cdfc5b0e511bad19794a0b8a21209}
+\index{parser.\+cc@{parser.\+cc}!R\+Trim@{R\+Trim}}
+\index{R\+Trim@{R\+Trim}!parser.\+cc@{parser.\+cc}}
+\subsubsection[{\texorpdfstring{R\+Trim(std\+::string str)}{RTrim(std::string str)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string R\+Trim (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{str}
+\end{DoxyParamCaption}
+)}\hypertarget{parser_8cc_a1ec1463dafb2311bffbb3258f7fa2b0c}{}\label{parser_8cc_a1ec1463dafb2311bffbb3258f7fa2b0c}
+\index{parser.\+cc@{parser.\+cc}!Trim@{Trim}}
+\index{Trim@{Trim}!parser.\+cc@{parser.\+cc}}
+\subsubsection[{\texorpdfstring{Trim(std\+::string str)}{Trim(std::string str)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string Trim (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{str}
+\end{DoxyParamCaption}
+)}\hypertarget{parser_8cc_acbc9630bbabbfed7cd97b5e30f6b3261}{}\label{parser_8cc_acbc9630bbabbfed7cd97b5e30f6b3261}
+
+
+\subsection{Variable Documentation}
+\index{parser.\+cc@{parser.\+cc}!Init\+Var@{Init\+Var}}
+\index{Init\+Var@{Init\+Var}!parser.\+cc@{parser.\+cc}}
+\subsubsection[{\texorpdfstring{Init\+Var}{InitVar}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Config\+Vars}$\ast$ Init\+Var\mbox{[}1024\mbox{]}}\hypertarget{parser_8cc_ada1dee480b5132dd882edbf715f36108}{}\label{parser_8cc_ada1dee480b5132dd882edbf715f36108}
+\index{parser.\+cc@{parser.\+cc}!numchar@{numchar}}
+\index{numchar@{numchar}!parser.\+cc@{parser.\+cc}}
+\subsubsection[{\texorpdfstring{numchar}{numchar}}]{\setlength{\rightskip}{0pt plus 5cm}int numchar = 0}\hypertarget{parser_8cc_a398396305df2e7bc9fc9c686407020ba}{}\label{parser_8cc_a398396305df2e7bc9fc9c686407020ba}

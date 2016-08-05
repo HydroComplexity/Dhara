@@ -1,0 +1,76 @@
+\hypertarget{global_8h}{}\section{include/global.h File Reference}
+\label{global_8h}\index{include/global.\+h@{include/global.\+h}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\+\_\+\+\_\+global\+\_\+\+\_\+ void \hyperlink{global_8h_acb52f48c1e4a92ed8afb0108e403494a}{van\+Genuchten\+Inverse} (double $\ast$theta, double $\ast$psi, int size)
+\item 
+\+\_\+\+\_\+global\+\_\+\+\_\+ void \hyperlink{global_8h_a3d2d7db6a6392ee53e9fd7f691bedf91}{van\+Genuchten} (double $\ast$C, double $\ast$theta, double $\ast$Ksat, double $\ast$K, double $\ast$psi, int3 globsize)
+\item 
+\+\_\+\+\_\+global\+\_\+\+\_\+ void \hyperlink{global_8h_a210381e80d128184c909894b7ebc0d69}{Water\+Elevation\+Overland} (double $\ast$waterelev, double $\ast$waterdepth, double $\ast$ztopo, int size)
+\item 
+\+\_\+\+\_\+global\+\_\+\+\_\+ void \hyperlink{global_8h_a0b7e208f3c8e879d7e3f7e752f742564}{Estimate\+Fluxes} (double $\ast$ph, double $\ast$hpoten, double $\ast$qcapa, double $\ast$psinp1m, double $\ast$knp1m, double ppt, double et, int3 globsize)
+\item 
+\+\_\+\+\_\+global\+\_\+\+\_\+ void \hyperlink{global_8h_a5a0c451279640006ccf78eb281fbac9d}{Identify\+Top\+Boundary} (double $\ast$hpoten, double $\ast$qcapa, int $\ast$topbc, double $\ast$topqflux, double $\ast$psinp1m, double $\ast$Psi\+\_\+top, int3 globsize)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{global.\+h@{global.\+h}!Estimate\+Fluxes@{Estimate\+Fluxes}}
+\index{Estimate\+Fluxes@{Estimate\+Fluxes}!global.\+h@{global.\+h}}
+\subsubsection[{\texorpdfstring{Estimate\+Fluxes(double $\ast$ph, double $\ast$hpoten, double $\ast$qcapa, double $\ast$psinp1m, double $\ast$knp1m, double ppt, double et, int3 globsize)}{EstimateFluxes(double *ph, double *hpoten, double *qcapa, double *psinp1m, double *knp1m, double ppt, double et, int3 globsize)}}]{\setlength{\rightskip}{0pt plus 5cm}\+\_\+\+\_\+global\+\_\+\+\_\+ void Estimate\+Fluxes (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{ph, }
+\item[{double $\ast$}]{hpoten, }
+\item[{double $\ast$}]{qcapa, }
+\item[{double $\ast$}]{psinp1m, }
+\item[{double $\ast$}]{knp1m, }
+\item[{double}]{ppt, }
+\item[{double}]{et, }
+\item[{int3}]{globsize}
+\end{DoxyParamCaption}
+)}\hypertarget{global_8h_a0b7e208f3c8e879d7e3f7e752f742564}{}\label{global_8h_a0b7e208f3c8e879d7e3f7e752f742564}
+\index{global.\+h@{global.\+h}!Identify\+Top\+Boundary@{Identify\+Top\+Boundary}}
+\index{Identify\+Top\+Boundary@{Identify\+Top\+Boundary}!global.\+h@{global.\+h}}
+\subsubsection[{\texorpdfstring{Identify\+Top\+Boundary(double $\ast$hpoten, double $\ast$qcapa, int $\ast$topbc, double $\ast$topqflux, double $\ast$psinp1m, double $\ast$\+Psi\+\_\+top, int3 globsize)}{IdentifyTopBoundary(double *hpoten, double *qcapa, int *topbc, double *topqflux, double *psinp1m, double *Psi_top, int3 globsize)}}]{\setlength{\rightskip}{0pt plus 5cm}\+\_\+\+\_\+global\+\_\+\+\_\+ void Identify\+Top\+Boundary (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{hpoten, }
+\item[{double $\ast$}]{qcapa, }
+\item[{int $\ast$}]{topbc, }
+\item[{double $\ast$}]{topqflux, }
+\item[{double $\ast$}]{psinp1m, }
+\item[{double $\ast$}]{Psi\+\_\+top, }
+\item[{int3}]{globsize}
+\end{DoxyParamCaption}
+)}\hypertarget{global_8h_a5a0c451279640006ccf78eb281fbac9d}{}\label{global_8h_a5a0c451279640006ccf78eb281fbac9d}
+\index{global.\+h@{global.\+h}!van\+Genuchten@{van\+Genuchten}}
+\index{van\+Genuchten@{van\+Genuchten}!global.\+h@{global.\+h}}
+\subsubsection[{\texorpdfstring{van\+Genuchten(double $\ast$\+C, double $\ast$theta, double $\ast$\+Ksat, double $\ast$\+K, double $\ast$psi, int3 globsize)}{vanGenuchten(double *C, double *theta, double *Ksat, double *K, double *psi, int3 globsize)}}]{\setlength{\rightskip}{0pt plus 5cm}\+\_\+\+\_\+global\+\_\+\+\_\+ void van\+Genuchten (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{C, }
+\item[{double $\ast$}]{theta, }
+\item[{double $\ast$}]{Ksat, }
+\item[{double $\ast$}]{K, }
+\item[{double $\ast$}]{psi, }
+\item[{int3}]{globsize}
+\end{DoxyParamCaption}
+)}\hypertarget{global_8h_a3d2d7db6a6392ee53e9fd7f691bedf91}{}\label{global_8h_a3d2d7db6a6392ee53e9fd7f691bedf91}
+\index{global.\+h@{global.\+h}!van\+Genuchten\+Inverse@{van\+Genuchten\+Inverse}}
+\index{van\+Genuchten\+Inverse@{van\+Genuchten\+Inverse}!global.\+h@{global.\+h}}
+\subsubsection[{\texorpdfstring{van\+Genuchten\+Inverse(double $\ast$theta, double $\ast$psi, int size)}{vanGenuchtenInverse(double *theta, double *psi, int size)}}]{\setlength{\rightskip}{0pt plus 5cm}\+\_\+\+\_\+global\+\_\+\+\_\+ void van\+Genuchten\+Inverse (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{theta, }
+\item[{double $\ast$}]{psi, }
+\item[{int}]{size}
+\end{DoxyParamCaption}
+)}\hypertarget{global_8h_acb52f48c1e4a92ed8afb0108e403494a}{}\label{global_8h_acb52f48c1e4a92ed8afb0108e403494a}
+\index{global.\+h@{global.\+h}!Water\+Elevation\+Overland@{Water\+Elevation\+Overland}}
+\index{Water\+Elevation\+Overland@{Water\+Elevation\+Overland}!global.\+h@{global.\+h}}
+\subsubsection[{\texorpdfstring{Water\+Elevation\+Overland(double $\ast$waterelev, double $\ast$waterdepth, double $\ast$ztopo, int size)}{WaterElevationOverland(double *waterelev, double *waterdepth, double *ztopo, int size)}}]{\setlength{\rightskip}{0pt plus 5cm}\+\_\+\+\_\+global\+\_\+\+\_\+ void Water\+Elevation\+Overland (
+\begin{DoxyParamCaption}
+\item[{double $\ast$}]{waterelev, }
+\item[{double $\ast$}]{waterdepth, }
+\item[{double $\ast$}]{ztopo, }
+\item[{int}]{size}
+\end{DoxyParamCaption}
+)}\hypertarget{global_8h_a210381e80d128184c909894b7ebc0d69}{}\label{global_8h_a210381e80d128184c909894b7ebc0d69}
