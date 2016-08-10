@@ -34,7 +34,7 @@ void SaveOutput1D(const char *file, const char *dataname, type *data, nc_type nc
 void PrintUsage(const char * appName)
 {
     printf("\n");
-    printf("Multi-layer Canopy Flow 3D Model \n\n");
+    printf("Dhara Modeling System \n\n");
 
     printf("Usage: mpirun -np [numprocs] %s -[options] \n\n", appName);
 
@@ -55,15 +55,16 @@ void PrintUsage(const char * appName)
     printf("    -v,  --verbose          Enable and use verbose mode \n\n");
 
     printf("Documentation:\n");
-    printf("    https://github.com/levuvietphong/MLCan-Flow3D \n\n\n");
+    printf("    http://hydrocomplexity.github.io/Dhara \n");
+    printf("    https://github.com/HydroComplexity/Dhara \n\n\n");
 }
 
 
 // Print the usage information for this application
 void PrintVersion()
 {
-    printf("Multi-layer Canopy Flow 3D Model \n");
-    printf("version 1.0 (Build 1083) \n");
+    printf("Dhara Modeling System \n");
+    printf("version 1.0 (Build 0316) \n");
     printf("Copyright (c) 2016 HydroComplexity Group \n");
     printf("\n");
 }
