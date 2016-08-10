@@ -99,11 +99,11 @@ __device__ void SetUpBlockMatrixSubsurface(double *a3d, double *thetanp1m, doubl
 
 __device__ void SetUpRightHandSideSubsurface(double *rhs, double *thetan, double *thetanp1m, 
                 double *psinp1m, double *psin, double ku, double kd, double *cnp1m, double *tr,
-                int *trmap, double *root, int tid, int i, int j, int k, int glob_ind, 
+                int *procmap, double *root, int tid, int i, int j, int k, int glob_ind, 
                 int3 globsize)
 {
     int id2d = j*globsize.x+i;
-    int proc = trmap[id2d];
+    int proc = procmap[id2d];
     double trodz = -tr[id2d] * root[proc*globsize.z+k] * 3.6 / dz;
     rhs[tid] = Ss/dt * thetanp1m[glob_ind]/poros * psin[glob_ind] + cnp1m[glob_ind]/dt * psinp1m[glob_ind] - (ku - kd)/dz + (thetan[glob_ind] - thetanp1m[glob_ind])/dt + trodz/dt;
 }
@@ -340,7 +340,7 @@ __device__ void SetUpBoundaryConditionsSubsurface(double *a3d, double *rhs, int 
  * @param      TRmap     Map of process on the domain
  * @param[in]  globsize  Size of the global domain
  */
-__global__ void SendTranspirationToGrids(double *TR, double *TRroot, int *TRmap, int3 globsize)
+__global__ void SendFluxDataToGrids(double *data, double *dataroot, int *procmap, int3 globsize)
 {
     int tid = threadIdx.x + blockIdx.x * blockDim.x;
     int sizexy = globsize.x * globsize.y;    
@@ -348,8 +348,8 @@ __global__ void SendTranspirationToGrids(double *TR, double *TRroot, int *TRmap,
 
     while (tid < sizexy)
     {
-        ind = TRmap[tid];
-        TR[tid] = TRroot[ind];
+        ind = procmap[tid];
+        data[tid] = dataroot[ind];
 
         // Update threads if vector is long
         tid += blockDim.x * gridDim.x;
@@ -465,24 +465,29 @@ __global__ void SubsurfaceEstimateInfiltrationPonding(double *psinp1mp1, double 
 }
 
 
-void GatherTranspirationDomain(ProjectClass *project, VerticalCanopyClass *vertcanopies,
-                               SubsurfaceFlowClass *subsurface_host, 
-                               SubsurfaceFlowClass *subsurface_dev,
-                               int rank, int procsize, int3 globsize, int3 domsize, int2 topolsize,
-                               int2 topolindex, MPI_Comm *cartComm)
+void GatherFluxesDomain(ProjectClass *project, VerticalCanopyClass *vertcanopies,
+                        VerticalSoilClass *vertsoils, SubsurfaceFlowClass *subsurface_host, 
+                        SubsurfaceFlowClass *subsurface_dev, int rank, int procsize, int3 globsize,
+                        int3 domsize, int2 topolsize, int2 topolindex, MPI_Comm *cartComm)
 {
     int isroot = rank == MPI_MASTER_RANK;
 
     MPI_Gather(vertcanopies->TR_can, 1, MPI_DOUBLE, subsurface_host->TR_root, 1, MPI_DOUBLE, 0, *cartComm);
+    MPI_Gather(vertsoils->ppt_ground, 1, MPI_DOUBLE, subsurface_host->ppt_root, 1, MPI_DOUBLE, 0, *cartComm);
 
     if (isroot)
     {
         SafeCudaCall( cudaMemcpy(subsurface_dev->TR_root, subsurface_host->TR_root, 
-                  procsize*sizeof(double), cudaMemcpyHostToDevice) );
+                      procsize*sizeof(double), cudaMemcpyHostToDevice) );
+        SendFluxDataToGrids<<<TSZ,BSZ>>>(subsurface_dev->TR, subsurface_dev->TR_root,
+                                         subsurface_dev->procmap, globsize);
 
-        SendTranspirationToGrids<<<TSZ,BSZ>>>(subsurface_dev->TR, subsurface_dev->TR_root,
-                                subsurface_dev->TRmap, globsize);
-        cudaCheckError("SendTranspirationToGrids");
+        SafeCudaCall( cudaMemcpy(subsurface_dev->ppt_root, subsurface_host->ppt_root, 
+                      procsize*sizeof(double), cudaMemcpyHostToDevice) );        
+        SendFluxDataToGrids<<<TSZ,BSZ>>>(subsurface_dev->ppt_ground, subsurface_dev->ppt_root,
+                                         subsurface_dev->procmap, globsize);
+
+        cudaCheckError("SendFluxDataToGrids");
     }
 
 }
@@ -531,7 +536,7 @@ void SubsurfaceFlowModel(TimeForcingClass * &timeforcings, OverlandFlowClass * &
     niter = 0;
 
     EstimateFluxes<<<TSZ,BSZ>>>(overland_dev->ph, overland_dev->hpoten, overland_dev->qcapa,
-                  subsurface_dev->psinp1m, subsurface_dev->knp1m, timeforcings->ppt[t], 
+                  subsurface_dev->psinp1m, subsurface_dev->knp1m, subsurface_dev->ppt_ground, 
                   0., globsize);
     cudaCheckError("EstimateFluxes");
 
@@ -563,7 +568,7 @@ void SubsurfaceFlowModel(TimeForcingClass * &timeforcings, OverlandFlowClass * &
                                     subsurface_dev->bcqw, subsurface_dev->bcqe,
                                     subsurface_dev->bcqs, subsurface_dev->bcqn,
                                     subsurface_dev->bcqt, subsurface_dev->bcqb, 
-                                    subsurface_dev->TR, subsurface_dev->TRmap, 
+                                    subsurface_dev->TR, subsurface_dev->procmap, 
                                     subsurface_dev->rda, globsize );
         cudaCheckError("SetUpLinearSystemsSubsurface");
 

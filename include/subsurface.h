@@ -22,11 +22,10 @@ __global__ void SubsurfaceEstimateInfiltrationPonding(
                 double *psinp1mp1, double *knp1m, double *qt, double *qss, double *psi_top, 
                 double *ph, int *tbc, int3 globsize);
 
-void GatherTranspirationDomain(ProjectClass *project, VerticalCanopyClass *vertcanopies,
-                               SubsurfaceFlowClass *subsurface_host, 
-                               SubsurfaceFlowClass *subsurface_dev,
-                               int rank, int procsize, int3 globsize, int3 domsize, int2 topolsize,
-                               int2 topolindex, MPI_Comm *cartComm);
+void GatherFluxesDomain(ProjectClass *project, VerticalCanopyClass *vertcanopies,
+                        VerticalSoilClass *vertsoils, SubsurfaceFlowClass *subsurface_host, 
+                        SubsurfaceFlowClass *subsurface_dev, int rank, int procsize, int3 globsize,
+                        int3 domsize, int2 topolsize, int2 topolindex, MPI_Comm *cartComm);
 
 void SubsurfaceFlowModel(TimeForcingClass * &timeforcings, OverlandFlowClass * &overland_host,
                          OverlandFlowClass * &overland_dev, SubsurfaceFlowClass * &subsurface_host,

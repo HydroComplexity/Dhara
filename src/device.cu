@@ -239,7 +239,7 @@ void CopyDataToDevice(ProjectClass *project, TimeForcingClass *timeforcings,
     ///////////////////////////////////////
 
     // Vegetation mapping
-    SafeCudaCall( cudaMemcpy(subsurface_dev->TRmap, subsurface_host->TRmap,
+    SafeCudaCall( cudaMemcpy(subsurface_dev->procmap, subsurface_host->procmap,
             sizexy*sizeof(int), cudaMemcpyHostToDevice) );
 
     // Boundary types and conditions
@@ -413,8 +413,8 @@ void RunCoupledFlowModel(TimeForcingClass *timeforcings, OverlandFlowClass *over
         MPI_Barrier(*cartComm);              // Synchronize all MPIs
 
         // Gather transpiration to master
-        GatherTranspirationDomain(project, vertcanopies, subsurface_host, subsurface_dev, rank,
-                                  procsize, globsize, domsize, topolsize, topolindex, cartComm);
+        GatherFluxesDomain(project, vertcanopies, vertsoils, subsurface_host, subsurface_dev, rank,
+                           procsize, globsize, domsize, topolsize, topolindex, cartComm);
 
         MPI_Barrier(*cartComm);              // Synchronize all MPIs
 

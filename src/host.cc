@@ -60,11 +60,6 @@ void SetInitialConditionsHost(TimeForcingClass *timeforcings, FileNameClass *fil
     }
 
     // Soil moisture and hydraulic conductivity
-    for (int i = 0; i < sizexyz; i++)
-    {
-        //subsurface->thetan[i] = 0.3;
-    }
-
     double ksat = 5e-3;
     for (int k = 0; k < sizez; k++)
     {
@@ -232,7 +227,7 @@ void SetMPIGPUMapping(mpiClass *mpiobj, SubsurfaceFlowClass * &subsurface, int p
                 for (int i = mpiobj->xdispls[io]; i < imax; ++i)
                 {
                     globind = j * globsize.x + i;           // global index in the entire domain
-                    subsurface->TRmap[globind] = proc;      // assign process id to the map
+                    subsurface->procmap[globind] = proc;      // assign process id to the map
                 }
             }
             proc = proc + 1;

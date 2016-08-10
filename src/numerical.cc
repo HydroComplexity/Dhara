@@ -62,59 +62,61 @@ void AllocateMemoryFlowModel(TimeForcingClass *timeforcings,
     ///////////////////////////////////////////////
 
     /* 2D spatial variables. */
-    overland_host->a2d         = new double[5*sizexy];
-    overland_host->hpoten      = new double[sizexy];
-    overland_host->mann        = new double[sizexy];
-    overland_host->ph          = new double[sizexy];
-    overland_host->qcapa       = new double[sizexy];
-    overland_host->rhs2d       = new double[sizexy];
-    overland_host->ztopo       = new double[sizexy];
-    overland_host->waterdepth  = new double[sizexy];
-    overland_host->waterelev   = new double[sizexy];
+    overland_host->a2d          = new double[5*sizexy];
+    overland_host->hpoten       = new double[sizexy];
+    overland_host->mann         = new double[sizexy];
+    overland_host->ph           = new double[sizexy];
+    overland_host->qcapa        = new double[sizexy];
+    overland_host->rhs2d        = new double[sizexy];
+    overland_host->ztopo        = new double[sizexy];
+    overland_host->waterdepth   = new double[sizexy];
+    overland_host->waterelev    = new double[sizexy];
 
-    subsurface_host->bcpsib    = new double[sizexy];
-    subsurface_host->bcpsit    = new double[sizexy];
-    subsurface_host->bcqb      = new double[sizexy];
-    subsurface_host->bcqt      = new double[sizexy];
-    subsurface_host->bcpsie    = new double[sizeyz];
-    subsurface_host->bcpsiw    = new double[sizeyz];
-    subsurface_host->bcqe      = new double[sizeyz];
-    subsurface_host->bcqw      = new double[sizeyz];
-    subsurface_host->bcpsin    = new double[sizexz];
-    subsurface_host->bcpsis    = new double[sizexz];
-    subsurface_host->bcqn      = new double[sizexz];
-    subsurface_host->bcqs      = new double[sizexz];
-    subsurface_host->qss       = new double[sizexy];
+    subsurface_host->bcpsib     = new double[sizexy];
+    subsurface_host->bcpsit     = new double[sizexy];
+    subsurface_host->bcqb       = new double[sizexy];
+    subsurface_host->bcqt       = new double[sizexy];
+    subsurface_host->bcpsie     = new double[sizeyz];
+    subsurface_host->bcpsiw     = new double[sizeyz];
+    subsurface_host->bcqe       = new double[sizeyz];
+    subsurface_host->bcqw       = new double[sizeyz];
+    subsurface_host->bcpsin     = new double[sizexz];
+    subsurface_host->bcpsis     = new double[sizexz];
+    subsurface_host->bcqn       = new double[sizexz];
+    subsurface_host->bcqs       = new double[sizexz];
+    subsurface_host->qss        = new double[sizexy];
+    subsurface_host->ppt_ground = new double[sizexy];
+    subsurface_host->TR         = new double[sizexy];
 
-    subsurface_host->bcb       = new int[sizexy];
-    subsurface_host->bct       = new int[sizexy];
-    subsurface_host->bce       = new int[sizeyz];
-    subsurface_host->bcw       = new int[sizeyz];
-    subsurface_host->bcn       = new int[sizexz];
-    subsurface_host->bcs       = new int[sizexz];
-    subsurface_host->TRmap     = new int[sizexy];
-    subsurface_host->type      = new int[procsize];
+    subsurface_host->bcb        = new int[sizexy];
+    subsurface_host->bct        = new int[sizexy];
+    subsurface_host->bce        = new int[sizeyz];
+    subsurface_host->bcw        = new int[sizeyz];
+    subsurface_host->bcn        = new int[sizexz];
+    subsurface_host->bcs        = new int[sizexz];
+    subsurface_host->procmap    = new int[sizexy];
+    subsurface_host->type       = new int[procsize];
 
     /* 2D temporal variables. */
-    subsurface_host->psi_col   = new double[num_steps*sizez];
-    subsurface_host->theta_col = new double[num_steps*sizez];
-    subsurface_host->rda       = new double[procsize*sizez];
+    subsurface_host->psi_col    = new double[num_steps*sizez];
+    subsurface_host->theta_col  = new double[num_steps*sizez];
+    subsurface_host->rda        = new double[procsize*sizez];
 
     /* 3D spatial variables. */
-    subsurface_host->a3d       = new double[7*sizexyz];
-    subsurface_host->cnp1m     = new double[sizexyz];
-    subsurface_host->knp1m     = new double[sizexyz];
-    subsurface_host->ksat      = new double[sizexyz];
-    subsurface_host->psin      = new double[sizexyz];
-    subsurface_host->psinp1m   = new double[sizexyz];
-    subsurface_host->psinp1mp1 = new double[sizexyz];
-    subsurface_host->psin      = new double[sizexyz];
-    subsurface_host->rhs3d     = new double[sizexyz];
-    subsurface_host->thetan    = new double[sizexyz];
-    subsurface_host->psiout    = new double[sizexyz];
-    subsurface_host->thetaout  = new double[sizexyz];
-    subsurface_host->TR        = new double[sizexyz];
-    subsurface_host->TR_root   = new double[procsize];
+    subsurface_host->a3d        = new double[7*sizexyz];
+    subsurface_host->cnp1m      = new double[sizexyz];
+    subsurface_host->knp1m      = new double[sizexyz];
+    subsurface_host->ksat       = new double[sizexyz];
+    subsurface_host->psin       = new double[sizexyz];
+    subsurface_host->psinp1m    = new double[sizexyz];
+    subsurface_host->psinp1mp1  = new double[sizexyz];
+    subsurface_host->psin       = new double[sizexyz];
+    subsurface_host->rhs3d      = new double[sizexyz];
+    subsurface_host->thetan     = new double[sizexyz];
+    subsurface_host->psiout     = new double[sizexyz];
+    subsurface_host->thetaout   = new double[sizexyz];
+    subsurface_host->TR_root    = new double[procsize];
+    subsurface_host->ppt_root   = new double[procsize];
 
     /* If reach this point, print out info. */
     printf("\t Flow model - host memory . . . . . . . . . . . . . . . completed! \n");
@@ -125,47 +127,49 @@ void AllocateMemoryFlowModel(TimeForcingClass *timeforcings,
     ///////////////////////////////////////////////
 
     /* 2D spatial variables. */
-    SafeCudaCall(cudaMalloc((void**)&overland_dev->a2d     , 5*sizexy*sizeof(double)));
-    SafeCudaCall(cudaMalloc((void**)&overland_dev->hpoten    , sizexy*sizeof(double)));
-    SafeCudaCall(cudaMalloc((void**)&overland_dev->ke        , sizexy*sizeof(double)));
-    SafeCudaCall(cudaMalloc((void**)&overland_dev->kw        , sizexy*sizeof(double)));
-    SafeCudaCall(cudaMalloc((void**)&overland_dev->kn        , sizexy*sizeof(double)));
-    SafeCudaCall(cudaMalloc((void**)&overland_dev->ks        , sizexy*sizeof(double)));
-    SafeCudaCall(cudaMalloc((void**)&overland_dev->mann      , sizexy*sizeof(double)));
-    SafeCudaCall(cudaMalloc((void**)&overland_dev->ph        , sizexy*sizeof(double)));
-    SafeCudaCall(cudaMalloc((void**)&overland_dev->qcapa     , sizexy*sizeof(double)));
-    SafeCudaCall(cudaMalloc((void**)&overland_dev->rhs2d     , sizexy*sizeof(double)));
-    SafeCudaCall(cudaMalloc((void**)&overland_dev->u         , sizexy*sizeof(double)));
-    SafeCudaCall(cudaMalloc((void**)&overland_dev->v         , sizexy*sizeof(double)));
-    SafeCudaCall(cudaMalloc((void**)&overland_dev->waterdepth, sizexy*sizeof(double)));
-    SafeCudaCall(cudaMalloc((void**)&overland_dev->waterelev , sizexy*sizeof(double)));
-    SafeCudaCall(cudaMalloc((void**)&overland_dev->ztopo     , sizexy*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&overland_dev->a2d        , 5*sizexy*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&overland_dev->hpoten       , sizexy*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&overland_dev->ke           , sizexy*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&overland_dev->kw           , sizexy*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&overland_dev->kn           , sizexy*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&overland_dev->ks           , sizexy*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&overland_dev->mann         , sizexy*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&overland_dev->ph           , sizexy*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&overland_dev->qcapa        , sizexy*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&overland_dev->rhs2d        , sizexy*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&overland_dev->u            , sizexy*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&overland_dev->v            , sizexy*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&overland_dev->waterdepth   , sizexy*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&overland_dev->waterelev    , sizexy*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&overland_dev->ztopo        , sizexy*sizeof(double)));
 
-    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcb    , sizexy*sizeof(int)));
-    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bct    , sizexy*sizeof(int)));
-    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bce    , sizeyz*sizeof(int)));
-    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcw    , sizeyz*sizeof(int)));
-    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcn    , sizexz*sizeof(int)));
-    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcs    , sizexz*sizeof(int)));
-    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->TRmap  , sizexy*sizeof(int)));
+    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcb        , sizexy*sizeof(int)));
+    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bct        , sizexy*sizeof(int)));
+    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bce        , sizeyz*sizeof(int)));
+    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcw        , sizeyz*sizeof(int)));
+    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcn        , sizexz*sizeof(int)));
+    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcs        , sizexz*sizeof(int)));
+    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->procmap    , sizexy*sizeof(int)));
 
-    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->qss    , sizexy*sizeof(double)));
-    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcpsib , sizexy*sizeof(double)));
-    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcpsit , sizexy*sizeof(double)));
-    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcqb   , sizexy*sizeof(double)));
-    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcqt   , sizexy*sizeof(double)));
-    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcpsie , sizeyz*sizeof(double)));
-    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcpsiw , sizeyz*sizeof(double)));
-    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcqe   , sizeyz*sizeof(double)));
-    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcqw   , sizeyz*sizeof(double)));
-    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcpsin , sizexz*sizeof(double)));
-    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcpsis , sizexz*sizeof(double)));
-    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcqn   , sizexz*sizeof(double)));
-    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcqs   , sizexz*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->qss        , sizexy*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcpsib     , sizexy*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcpsit     , sizexy*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcqb       , sizexy*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcqt       , sizexy*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcpsie     , sizeyz*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcpsiw     , sizeyz*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcqe       , sizeyz*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcqw       , sizeyz*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcpsin     , sizexz*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcpsis     , sizexz*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcqn       , sizexz*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->bcqs       , sizexz*sizeof(double)));
 
-    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->TR      , sizexy*sizeof(double)));
-    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->TR_root , procsize*sizeof(double)));
-    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->rda     , procsize*sizez*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->TR         , sizexy*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->ppt_ground , sizexy*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->TR_root    , procsize*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->ppt_root   , procsize*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->rda        , procsize*sizez*sizeof(double)));
 
     /* 3D spatial variables. */
     SafeCudaCall(cudaMalloc((void**)&subsurface_dev->a3d      , 7*sizexyz*sizeof(double)));

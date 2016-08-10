@@ -173,13 +173,13 @@ void SubsurfaceSetBoundaryConditionType(int *west_bc, int *east_bc, int *south_b
  */
 __global__ 
 void EstimateFluxes(double *ph, double *hpoten, double *qcapa, double *psinp1m, double *knp1m,
-                    double ppt, double et, int3 globsize)
+                    double *ppt, double et, int3 globsize)
 {
     int tid = threadIdx.x + blockIdx.x * blockDim.x;
     int sizexy = globsize.x * globsize.y;
 
     while (tid < sizexy) {
-        hpoten[tid] = ph[tid] + ppt + et;
+        hpoten[tid] = ph[tid] + ppt[tid] + et;
         qcapa[tid] = -knp1m[tid]*(psinp1m[tid]-hpoten[tid]-0.5*dz) / (0.5*dz);
 
         // Update threads if vector is long

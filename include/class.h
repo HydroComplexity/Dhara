@@ -141,7 +141,7 @@
         int *bct;               // Top
         int *bcw;               // West
         int *type;
-        int *TRmap;             // Vegetation map        
+        int *procmap;           // Map of MPI processes
 
         /* BC values */
         double *bcpsib;         // pressure bottom
@@ -175,6 +175,8 @@
 
         double *TR;             // Transpiration entire domain
         double *TR_root;        // Transpiration gather MPI
+        double *ppt_ground;     // Throughfall entire domain
+        double *ppt_root;       // Throughfall gather MPI
         double *rda;            // Root density from all process
         double *psi_col;        // column average
         double *theta_col;
