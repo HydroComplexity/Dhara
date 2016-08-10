@@ -226,7 +226,7 @@ fieldset[disabled] .btn-xl.active {
 header {  
   background:#261c3e;
   /* background-image: url('../img/intro.svg'); */
-  background-image: url('../img/12.jpg');
+  background-image: url('../img/4.jpg');
   background-repeat: none;
   background-attachment: scroll;
   background-position: center center;
@@ -277,8 +277,17 @@ header .intro-text .intro-heading {
     font-weight: 700;
     font-size: 75px;
     line-height: 75px;
-    margin-bottom: 50px;
+    margin-bottom: 0px;
   }
+  header .intro-text .subintro-heading {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-transform:none;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 22px;
+    line-height: 22px;
+    margin-bottom: 50px;
+  }  
 }
 
 /* Features
