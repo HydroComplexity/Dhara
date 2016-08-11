@@ -1,20 +1,14 @@
 /*
- * Copyright (C) 2016, HydroComplexity Group
- * All rights reserved.
- *
- * MLCan-Flow3D is free; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or
- * (at your option) any later version.
- *
- * MLCan-Flow3D is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- * for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with the software; if not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (C) 2016, HydroComplexity Group
+// All rights reserved.
+//
+// Distributed Hydrologicc and Regional Analysis (DHARA) Model
+// DHARA model is made available as a restricted, non-exclusive, 
+// non-transferable license for education and research purpose only, 
+// and not for commercial use. See the LICENSE.txt for more details.
+//
+// Author: levuvietphong@gmail.com (Phong Le)
+*/
 
 #include <Eigen/Dense>
 #include <iostream>
