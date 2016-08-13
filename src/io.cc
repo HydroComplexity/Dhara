@@ -189,17 +189,24 @@ void LoadConfigMLCanModel(ProjectClass *project, FileNameClass *files, SwitchCla
     radiation->trans_NIR   = 1.0 - radiation->absorp_NIR - radiation->refl_NIR;;
 
     // PHOTOSYNTHESIS . . . . . . . .
-    photosynthesis->ph_type   = switches->PH_type;
-    photosynthesis->Vmax_C4   = GetOptionToDouble("SATURATED_RUBISCO_CAPACITY");
-    photosynthesis->Rd_C4     = GetOptionToDouble("LEAF_RESPIRATION");
-    photosynthesis->Q10_C4    = GetOptionToDouble("Q10_C4");
-    photosynthesis->kk_C4     = GetOptionToDouble("KK_C4");
-    photosynthesis->theta_C4  = GetOptionToDouble("THETA_C4");
-    photosynthesis->beta_C4   = GetOptionToDouble("BETA_C4");
-    photosynthesis->al_C4     = GetOptionToDouble("AL_C4");
-    photosynthesis->kn_canopy = GetOptionToDouble("KN_CANOPY");
-    photosynthesis->ap        = GetOptionToDouble("AP");
-    photosynthesis->bp        = GetOptionToDouble("BP");
+    photosynthesis->ph_type      = switches->PH_type;
+    photosynthesis->Vmax_C4      = GetOptionToDouble("SATURATED_RUBISCO_CAPACITY");
+    photosynthesis->Rd_C4        = GetOptionToDouble("LEAF_RESPIRATION_C4");
+    photosynthesis->Q10_C4       = GetOptionToDouble("Q10_C4");
+    photosynthesis->kk_C4        = GetOptionToDouble("KK_C4");
+    photosynthesis->theta_C4     = GetOptionToDouble("THETA_C4");
+    photosynthesis->beta_C4      = GetOptionToDouble("BETA_C4");
+    photosynthesis->al_C4        = GetOptionToDouble("AL_C4");
+    photosynthesis->kn_canopy    = GetOptionToDouble("KN_CANOPY");
+    photosynthesis->ap           = GetOptionToDouble("AP");
+    photosynthesis->bp           = GetOptionToDouble("BP");
+
+    photosynthesis->beta_ph_C3   = GetOptionToDouble("FRACTION_ABSORP_Q");
+    photosynthesis->Vcmax25_C3   = GetOptionToDouble("MAXIMUM_RUBISCO_AT_25");
+    photosynthesis->Vcmax25_fact = GetOptionToDouble("MAXIMUM_RUBISCO25_FACTOR");
+    photosynthesis->Jmax25_C3    = 2.0 * photosynthesis->Vcmax25_C3;
+    photosynthesis->Rd25         = 0.015 * photosynthesis->Vcmax25_C3;
+    photosynthesis->Oi           = GetOptionToDouble("INTERNAL_OXYGEN_CONCENTRATION");
 
     // RESPIRATION . . . . . . . . . . .
     respiration->Ro           = GetOptionToDouble("RESPIRATION_RATE_10C");

@@ -364,6 +364,12 @@
         double kn_canopy;
         double ap;
         double bp;
+        double beta_ph_C3;
+        double Vcmax25_C3;
+        double Vcmax25_fact;
+        double Jmax25_C3;
+        double Rd25;
+        double Oi;        
     };
 #endif
 

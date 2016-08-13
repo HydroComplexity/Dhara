@@ -1113,6 +1113,82 @@ double Polynomial_Root(double a, double b, double c)
     return x1;
 }
 
+void photosynthesis_C3(PhotosynthesisClass *photosynthesis, VerticalCanopyClass *vertcanopies, 
+                       ConstantClass *constants, Ref<VectorXd> Ph, Ref<VectorXd> An, int nl_can,
+                       int sunlit)
+{
+    double Vcmax25, Jmax25, Rd25, beta, O, R_J, R;
+    double Ko, Kc, phiPSIImax, thetaPSII, Q2, J, Jc, Jj, Js, Jp, tt, bb;
+
+    // Mapping array to eigen vector
+    Map<VectorXd> Vz(vertcanopies->Vz, nl_can);
+
+    // Initializing eigen vector;
+    VectorXd Qabs(nl_can), Tl(nl_can), Ci(nl_can);
+    VectorXd Vcmax25_vec(nl_can), Jmax25_vec(nl_can), TlK(nl_can), Rd(nl_can);
+    VectorXd Phtype(nl_can), gamstar(nl_can), Wc(nl_can), Wj(nl_can), Vcmax(nl_can), Jmax(nl_can);
+
+    // Copy array structs to eigen vectors
+    if (sunlit == 1)
+    {      
+        Qabs = Map<VectorXd>(vertcanopies->PARabs_sun, nl_can);
+        Tl = Map<VectorXd>(vertcanopies->Tl_sun, nl_can);
+        Ci = Map<VectorXd>(vertcanopies->Ci_sun, nl_can);
+    } else {      
+        Qabs = Map<VectorXd>(vertcanopies->PARabs_shade, nl_can);
+        Tl = Map<VectorXd>(vertcanopies->Tl_shade, nl_can);
+        Ci = Map<VectorXd>(vertcanopies->Ci_shade, nl_can);
+    }
+
+    R_J = constants->R;
+    Vcmax25 = photosynthesis->Vcmax25_C3 * photosynthesis->Vcmax25_fact;
+    Jmax25 = photosynthesis->Jmax25_C3 * photosynthesis->Vcmax25_fact;
+    Rd25 =photosynthesis->Rd25 * photosynthesis->Vcmax25_fact;
+    beta = photosynthesis->beta_ph_C3;  
+    O = photosynthesis->Oi;
+    R = R_J / 1000.;
+
+    for (int i=0; i<nl_can; i++)
+    {
+        TlK[i] = Tl[i] + 273.15;
+        Vcmax25_vec[i] = Vz[i] * Vcmax25;
+        Jmax25_vec[i] = Vz[i] * Jmax25;
+        gamstar[i] = exp(19.02 - 37.83/(R*TlK[i]));
+        Ko = exp(20.30 - 36.38/(R*TlK[i]));
+        Kc = exp(38.05 - 79.43/(R*TlK[i]));    
+        Rd[i] = Rd25 * exp(18.72 - 46.39/(R*TlK[i]));
+        Vcmax[i] = Vcmax25_vec[i] * exp(26.35 - 65.33/(R*TlK[i]));
+
+        phiPSIImax = 0.352 + 0.022*Tl[i] - 0.00034*Tl[i]*Tl[i];
+        Q2 = Qabs[i] * phiPSIImax * beta;
+        thetaPSII = 0.76 + 0.018*Tl[i] - 0.00037*Tl[i]*Tl[i];
+        Jmax[i] = Jmax25_vec[i] * exp(17.57 - 43.54/(R*TlK[i]));
+        J = (Q2 + Jmax[i] - sqrt((Q2+Jmax[i])*(Q2+Jmax[i]) - 4*thetaPSII*Q2*Jmax[i])) / (2*thetaPSII);
+
+        Wc[i] = (Vcmax[i] * Ci[i]) / (Ci[i] + Kc*(1+O/Ko));
+        Wj[i] = (J * Ci[i]) / (4.5*Ci[i] + 10.5*gamstar[i]);
+
+        // Limiting Rates
+        Jc = (1. - gamstar[i] / Ci[i]) * Wc[i];
+        Jj = (1. - gamstar[i] / Ci[i]) * Wj[i];
+        Js = Vcmax[i] / 2; 
+
+        // Solve quadratics from [Collatz et al, ] to account for co-limitation between rates
+        tt = 0.98;
+        bb = 0.96;
+        Jp = ( (Jc+Jj) - sqrt( (-(Jc+Jj))*(-(Jc+Jj)) - 4*tt*Jc*Jj ) ) / (2*tt);
+        Ph[i] = ( (Jp+Js) - sqrt( (-(Jp+Js))*(-(Jp+Js)) - 4*bb*Jp*Js ) ) / (2*bb);
+
+        An[i] =  Ph[i] - Rd[i];    
+
+        if (Jc < Jj && Jc < Js) 
+            Phtype[i] = 1;
+        else if (Jj <= Jc && Jj <= Js)
+              Phtype[i] = 2;
+        else
+            Phtype[i] = 3;
+    }
+}
 
 void photosynthesis_C4(PhotosynthesisClass *photosynthesis, VerticalCanopyClass *vertcanopies,
                        Ref<VectorXd> Ph, Ref<VectorXd> An, int nl_can, int sunlit)
@@ -1513,8 +1589,14 @@ void LeafSolution(ForcingClass *forcings, CanopyClass *canopies, VerticalCanopyC
 
     while (converged == 0)
     {
-        // pHOTOSYNTHESIS
-        photosynthesis_C4(photosynthesis, vertcanopies, Ph, An, nl_can, sunlit);
+        // PHOTOSYNTHESIS
+        if (ph_type == 1) 
+        {
+            photosynthesis_C3(photosynthesis, vertcanopies, constants, Ph, An, nl_can, sunlit);
+        } else {
+            photosynthesis_C4(photosynthesis, vertcanopies, Ph, An, nl_can, sunlit);
+        }
+
         if (cnt > 0)
         {
             Ph = Ph - relax * (Ph-Ph_prev);
