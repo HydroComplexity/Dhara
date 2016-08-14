@@ -9,7 +9,7 @@
 
 This project aims to provide a consistent framework for scientists to use and futher develop  modules for their modeling purposes. By participating, you are expected to uphold this code and contribute your model to the community.
 
-Visit [http://hydrocomplexity.github.io/Dhara](http://hydrocomplexity.github.io/Dhara) to learn more.
+Visit [http://hydrocomplexity.github.io/Dhara](http://hydrocomplexity.github.io/Dhara) to learn more information.
 
 ## Getting Started
 
@@ -38,11 +38,11 @@ $ make
 
 ## Documentation
 
-See our tutorial [here]() to learn about DHARA and run examples.
+See our tutorials [here](https://github.com/HydroComplexity/Dhara/blob/master/docs/notebooks/Dhara_model.ipynb) to learn about DHARA and run examples.
 
 
 ## License
-This software is freeware and is released under LGPL. See LICENSE file for more information. 
+This software is freeware and is released under restricted licence. See LICENSE file for more information. 
 
 
 ## Contact Authors
