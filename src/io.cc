@@ -160,8 +160,6 @@ void LoadConfigMLCanModel(ProjectClass *project, FileNameClass *files, SwitchCla
     canopies->leaftype     = GetOptionToInt("LEAF_TYPE");
     canopies->ld           = GetOptionToDouble("LEAF_DIMENSION");
     canopies->lw           = GetOptionToDouble("LEAF_WIDTH");
-    canopies->Zopt         = GetOptionToDouble("OPTIMAL_CANOPY_HEIGHT");
-    canopies->sigsqd       = GetOptionToDouble("SIGSQD");
     canopies->Smax         = GetOptionToDouble("STORAGE_MAX");
     canopies->Ffact        = GetOptionToDouble("WET_FRACTION");
     canopies->pptintfact   = GetOptionToDouble("PPT_EXTINCTION_COEFF");
@@ -174,7 +172,7 @@ void LoadConfigMLCanModel(ProjectClass *project, FileNameClass *files, SwitchCla
 
     // RADIATION . . . . . . . . . .
     radiation->transmiss   = GetOptionToDouble("ATMOSPHERIC_TRANSMISSIVITY");
-    radiation->epsv        = GetOptionToDouble("ATMOSPHERIC_TRANSMISSIVITY");
+    radiation->epsv        = GetOptionToDouble("VEGETATION_EMISSIVITY");
     radiation->epss        = GetOptionToDouble("SOIL_EMISSIVITY");
     radiation->epsa        = GetOptionToDouble("ATMOSPHERIC_EMISSIVITY");
     radiation->xx          = GetOptionToDouble("LEAF_ANGLE_DISTRIBUTION");
@@ -197,15 +195,16 @@ void LoadConfigMLCanModel(ProjectClass *project, FileNameClass *files, SwitchCla
     photosynthesis->theta_C4     = GetOptionToDouble("THETA_C4");
     photosynthesis->beta_C4      = GetOptionToDouble("BETA_C4");
     photosynthesis->al_C4        = GetOptionToDouble("AL_C4");
-    photosynthesis->kn_canopy    = GetOptionToDouble("KN_CANOPY");
-    photosynthesis->ap           = GetOptionToDouble("AP");
-    photosynthesis->bp           = GetOptionToDouble("BP");
 
     photosynthesis->beta_ph_C3   = GetOptionToDouble("FRACTION_ABSORP_Q");
     photosynthesis->Vcmax25_C3   = GetOptionToDouble("MAXIMUM_RUBISCO_AT_25");
     photosynthesis->Vcmax25_fact = GetOptionToDouble("MAXIMUM_RUBISCO25_FACTOR");
     photosynthesis->Jmax25_C3    = 2.0 * photosynthesis->Vcmax25_C3;
     photosynthesis->Rd25         = 0.015 * photosynthesis->Vcmax25_C3;
+    
+    photosynthesis->kn_canopy    = GetOptionToDouble("KN_CANOPY");
+    photosynthesis->ap           = GetOptionToDouble("AP");
+    photosynthesis->bp           = GetOptionToDouble("BP");
     photosynthesis->Oi           = GetOptionToDouble("INTERNAL_OXYGEN_CONCENTRATION");
 
     // RESPIRATION . . . . . . . . . . .

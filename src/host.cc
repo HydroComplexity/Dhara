@@ -35,8 +35,7 @@ void SetInitialConditionsHost(TimeForcingClass *timeforcings, FileNameClass *fil
 {
     // Get sizes of domain
     int sizez   = globsize.z;
-    int sizexy  = globsize.x * globsize.y;
-    int sizexyz = globsize.x * globsize.y * globsize.z;
+    int sizexy  = globsize.x * globsize.y;    
 
     printf("\nSETTING UP INITIAL CONDITIONS IN HOST \n");
     printf("--------------------------------------- \n");

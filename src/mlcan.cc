@@ -1505,8 +1505,8 @@ void LEB_Quartic(CanopyClass *canopies, VerticalCanopyClass *vertcanopies,
 
         num_real = quarticSolver(ce, roots);
         if (num_real == 0)
-        {   // No real root
-            // printf("NO REAL ROOTS FOUND IN LEAF ENERGY BALANCE -- %s \n", leb);
+        {   // No real root found
+            // printf("WARNING: NO REAL ROOTS FOUND IN LEAF ENERGY BALANCE -- %s \n", leb);
             Tl[i] = Taz[i];
         }
         else
@@ -1524,7 +1524,7 @@ void LEB_Quartic(CanopyClass *canopies, VerticalCanopyClass *vertcanopies,
 
             if (ind == 0)
             {
-                //printf("NO REAL POSITIVE ROOTS FOUND IN LEAF ENERGY BALANCE -- %s\n", leb);
+                //printf("WARNING: NO REAL POSITIVE ROOTS FOUND IN LEAF ENERGY BALANCE -- %s\n", leb);
                 Tl[i] = Taz[i];
             }
             else

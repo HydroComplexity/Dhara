@@ -284,8 +284,6 @@
         double leaftype;
         double ld;
         double lw;
-        double Zopt;
-        double sigsqd;
         double Smax;
         double Ffact;
         double pptintfact;
