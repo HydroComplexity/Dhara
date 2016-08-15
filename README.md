@@ -42,8 +42,17 @@ See our tutorials [here](https://github.com/HydroComplexity/Dhara/blob/master/do
 
 
 ## License
-This software is freeware and is released under restricted licence. See LICENSE file for more information. 
+This software is freeware and is released under restricted licences. See LICENSE.txt for more information. 
 
+## Contributions
+Patches, bug fixes, developing new modules, and pull request are welcome on the GitHub page for this project.
+
+## Acknowledgements
+Big thanks to the following people for contributing to this project in myriad ways:
+* Darren Drewry: Multi-layer canopy module development
+* Juan Quijano: Multi-species modeling
+* Venkatraman Srinivasan: Multi-layer canopy modeling 
+* Hoang-Vu Dang: Parallel computing integration and development
 
 ## Contact Authors
 * Phong Le: <mailto:levuvietphong@gmail.com>
