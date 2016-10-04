@@ -1992,13 +1992,20 @@ void Micro_Environment(VerticalCanopyClass *vertcanopies, CanopyClass *canopies,
 }
 
 
+//void Evap_Condensation_Adjust(VerticalCanopyClass *vertcanopies, CanopyClass *canopies,
+//                              VerticalSoilClass *vertsoils, Ref<VectorXd> Sh2o_prof,
+//                              double *Sh2o_can, int nl_can)
 void Evap_Condensation_Adjust(VerticalCanopyClass *vertcanopies, CanopyClass *canopies,
-                              VerticalSoilClass *vertsoils, Ref<VectorXd> Sh2o_prof,
-                              double *Sh2o_can, int nl_can)
+	VerticalSoilClass *vertsoils, Ref<VectorXd> Sh2o_prof,
+	double *Sh2o_can, Ref<VectorXd> wetfrac, Ref<VectorXd> dryfrac, int nl_can)							  
 {
-    double Ffact, ppt_ground, drip;
+    //double Ffact, ppt_ground, drip;
+	double Ffact, ppt_ground;
     VectorXd znc(nl_can), H2oinc(nl_can), Smaxz(nl_can);
     VectorXd Ch2o_prof(nl_can), Evap_prof(nl_can);
+
+	double dripout;
+	VectorXd dripv(nl_can);
 
     znc        = Map<VectorXd>(vertcanopies->znc, nl_can);
     Ch2o_prof  = Map<VectorXd>(vertcanopies->Ch2o_prof, nl_can);
@@ -2007,26 +2014,51 @@ void Evap_Condensation_Adjust(VerticalCanopyClass *vertcanopies, CanopyClass *ca
     Ffact      = canopies->Ffact;
     ppt_ground = *vertsoils->ppt_ground;
     H2oinc     = Ch2o_prof - Evap_prof;
-    drip       = 0;
+    
+	// Dongkook: to correct the error
+	//drip = 0;
+	dripout = 0;
+	dripv = VectorXd::Zero(nl_can);
+	// Dongkook: End
 
     for (int i=nl_can-1; i>=0; i--)
     {
-        Sh2o_prof[i] += H2oinc[i] + drip;
-        if (Sh2o_prof[i] < 0)
-        {
-            Sh2o_prof[i] = 0;
-        } 
-        else if (Sh2o_prof[i] >= Smaxz[i])
-        {
-            drip = Sh2o_prof[i] - Smaxz[i];
-            Sh2o_prof[i] = Smaxz[i];
-        }
+		// Dongkook: to correct the error
+		//Sh2o_prof[i] += H2oinc[i] + drip;
+		Sh2o_prof[i] += H2oinc[i] + dripv[i];
+		// Dongkook: End
+		if (Sh2o_prof[i] < 0) {
+			// Dongkook: Massbalance error- Correct it based on Juan's code
+			Evap_prof[i] += Sh2o_prof[i];
+			// Dongkook
+			Sh2o_prof[i] = 0;
+		}
+		else if (Sh2o_prof[i] >= Smaxz[i]){
+			// Dongkook: to correct the error
+			//drip = Sh2o_prof[i] - Smaxz[i];
+			//Sh2o_prof[i] = Smaxz[i];
+			if (i == 0){
+				dripout = Sh2o_prof[i] - Smaxz[i];
+			}
+			else{
+				dripv[i - 1] = Sh2o_prof[i] - Smaxz[i];
+			}
+			Sh2o_prof[i] = Smaxz[i];
+			// Dongkook: End
+		}
     }
 
+	Map<VectorXd>(vertcanopies->Evap_prof, nl_can) = Evap_prof;
     *Sh2o_can = Sh2o_prof.sum();
     //ppt_ground = ppt_ground + drip;
     //wetfrac = Ffact * (Sh2o_prof.cwiseQuotient(Smaxz));
     //dryfrac = VectorXd::Ones(nl_can) - wetfrac;
+
+	ppt_ground = ppt_ground + dripout;
+	*vertcanopies->ppt_ground = ppt_ground;
+	wetfrac = Ffact * (Sh2o_prof.cwiseQuotient(Smaxz));
+	dryfrac = VectorXd::Ones(nl_can) - wetfrac;
+	// Dongkook: End
 }
 
 
@@ -2286,7 +2318,20 @@ void CanopyModel(ProjectClass *project, SwitchClass *Switches, ConstantClass *co
     *vertcanopies->Evap_can = Evap_can;
     *vertcanopies->Ch2o_can = Ch2o_can;
 
-    Evap_Condensation_Adjust(vertcanopies, canopies, vertsoils, Sh2o_prof, &Sh2o_can, nl_can);
+	//-------------------------------
+    //Evap_Condensation_Adjust(vertcanopies, canopies, vertsoils, Sh2o_prof, &Sh2o_can, nl_can);
+	Evap_Condensation_Adjust(vertcanopies, canopies, vertsoils, Sh2o_prof, &Sh2o_can, wetfrac, dryfrac, nl_can);
+
+	*vertcanopies->Sh2o_can = Sh2o_can;
+
+	Ch2o_prof = Map<VectorXd>(vertcanopies->Ch2o_prof, nl_can);
+	Ch2o_can = Ch2o_prof.sum();                                  // Condensation water in the canopy [mm] 
+	*vertcanopies->Ch2o_can = Ch2o_can;
+
+	Evap_prof = Map<VectorXd>(vertcanopies->Evap_prof, nl_can);
+	Evap_can = Evap_prof.sum();                                  // Total canopy evaporation [mm] 
+	*vertcanopies->Evap_can = Evap_can;
+	//-------------------------------
 
     An_can    = (An_sun.cwiseProduct(LAIsun)+An_shade.cwiseProduct(LAIshade)).sum();
     LE_can    = (LE_sun.cwiseProduct(LAIsun)+LE_shade.cwiseProduct(LAIshade)).sum();
