@@ -2000,7 +2000,7 @@ void Evap_Condensation_Adjust(VerticalCanopyClass *vertcanopies, CanopyClass *ca
     VectorXd znc(nl_can), H2oinc(nl_can), Smaxz(nl_can);
     VectorXd Ch2o_prof(nl_can), Evap_prof(nl_can);
     
-    double dripout, dripout2;
+    double dripout;
     VectorXd dripv(nl_can);
 
     znc        = Map<VectorXd>(vertcanopies->znc, nl_can);
