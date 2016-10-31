@@ -2036,7 +2036,7 @@ void Evap_Condensation_Adjust(VerticalCanopyClass *vertcanopies, CanopyClass *ca
     *Sh2o_can = Sh2o_prof.sum();
 
     ppt_ground = ppt_ground + dripout;
-    *vertcanopies->ppt_ground = ppt_ground;
+    *vertsoils->ppt_ground = ppt_ground;
     wetfrac = Ffact * (Sh2o_prof.cwiseQuotient(Smaxz));
     dryfrac = VectorXd::Ones(nl_can) - wetfrac;
 }
