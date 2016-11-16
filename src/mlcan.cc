@@ -2017,18 +2017,18 @@ void Evap_Condensation_Adjust(VerticalCanopyClass *vertcanopies, CanopyClass *ca
     for (int i=nl_can-1; i>=0; i--)
     {
         Sh2o_prof[i] += H2oinc[i] + dripv[i];
-        if (Sh2o_prof[i] < 0) {
+        if (Sh2o_prof[i] < 0) 
+        {
             Evap_prof[i] += Sh2o_prof[i];
             Sh2o_prof[i] = 0;
         }
-        else if (Sh2o_prof[i] >= Smaxz[i]){
-            if (i == 0){
+        else if (Sh2o_prof[i] >= Smaxz[i])
+        {
+            if (i == 0)
                 dripout = Sh2o_prof[i] - Smaxz[i];
-            }
-            else{
+            else
                 dripv[i - 1] = Sh2o_prof[i] - Smaxz[i];
-            }
-        Sh2o_prof[i] = Smaxz[i];
+            Sh2o_prof[i] = Smaxz[i];
         }
     }
 
@@ -2036,7 +2036,7 @@ void Evap_Condensation_Adjust(VerticalCanopyClass *vertcanopies, CanopyClass *ca
     *Sh2o_can = Sh2o_prof.sum();
 
     ppt_ground = ppt_ground + dripout;
-    *vertsoils->ppt_ground = ppt_ground;
+    //*vertsoils->ppt_ground = ppt_ground;
     wetfrac = Ffact * (Sh2o_prof.cwiseQuotient(Smaxz));
     dryfrac = VectorXd::Ones(nl_can) - wetfrac;
 }
