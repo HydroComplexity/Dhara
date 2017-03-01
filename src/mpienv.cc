@@ -147,7 +147,7 @@ void PartitionDomainToProcess(int rank, int procsize, int *colx, int *xoffset, i
                 *xoffset += *colx;
                 xdispls[i] = 0;
             } else {
-                dest = i;                
+                dest = i;
                 MPI_Send(xoffset, 1, MPI_INT, dest, tag, xcomm);
                 MPI_Send(colx, 1, MPI_INT, dest, tag, xcomm);
                 *xoffset += *colx;
@@ -214,10 +214,6 @@ void PartitionDomainToProcess(int rank, int procsize, int *colx, int *xoffset, i
         MPI_Recv(rowy, 1, MPI_INT, source, msgtype, ycomm, &status);
     }
     MPI_Barrier(*cartComm);
-
-    // Test of mpi decomposition
-    //printf("rank = %d, xoffset = %d, colx = %d, xcolor = %d \n", rank, *xoffset, *colx, xcolor);
-    //printf("rank = %d, yoffset = %d, rowy = %d, ycomm_size = %d, sizey = %d, averowy = %d, extrarowy = %d, ycolor = %d \n", rank, *yoffset, *rowy, ycomm_size, sizey, averowy, extrarowy, ycolor);
 
     MPI_Comm_free(&xcomm);
     MPI_Comm_free(&ycomm);
