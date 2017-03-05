@@ -32,34 +32,49 @@ __device__ void HydraulicConductivityAtInterface(double *knp1m, double *ke, doub
     int sizez  = globsize.z;
     int sizexy = sizex * sizey;
 
-    if ( k==0 || k==sizez-1 )
+    if ( k==0)
     {
-        // top and bottom
-        *ku = knp1m[glob_ind];
-        *kd = knp1m[glob_ind];
+        // top
+        *kd = 0; //knp1m[glob_ind];
     } else {
-        *ku = 0.5 * (knp1m[glob_ind] + knp1m[glob_ind+sizexy]);
         *kd = 0.5 * (knp1m[glob_ind] + knp1m[glob_ind-sizexy]);
     }
-    
-    if ( j==0 || j==sizey-1 )
+    if (k==sizez-1 )
     {
-        // north and south
-        *kn = knp1m[glob_ind];
-        *ks = knp1m[glob_ind];
+        // bottom
+        *ku = 0; //knp1m[glob_ind];
     } else {
-        *kn = 0.5 * (knp1m[glob_ind] + knp1m[glob_ind+sizex]);
+        *ku = 0.5 * (knp1m[glob_ind] + knp1m[glob_ind+sizexy]);
+    }
+
+    if ( j==0 )
+    {
+        // south
+        *ks = 0; //knp1m[glob_ind];
+    } else {
         *ks = 0.5 * (knp1m[glob_ind] + knp1m[glob_ind-sizex]);
     }
-    
-    if ( i==0 || i==sizex-1 )
+    if ( j==sizey-1 )
     {
-        // east and west
-        *ke = knp1m[glob_ind];
-        *kw = knp1m[glob_ind];
+        // north
+        *kn =0; // knp1m[glob_ind];
+    } else {
+        *kn = 0.5 * (knp1m[glob_ind] + knp1m[glob_ind+sizex]);
+    }
+
+    if ( i==0 )
+    {
+        //  west
+        *kw = 0; //knp1m[glob_ind];
+    } else {
+        *kw = 0.5 * (knp1m[glob_ind] + knp1m[glob_ind-1]);
+    }
+    if ( i==sizex-1 )
+    {
+        // east 
+        *ke = 0; // knp1m[glob_ind];
     } else {
         *ke = 0.5 * (knp1m[glob_ind] + knp1m[glob_ind+1]);
-        *kw = 0.5 * (knp1m[glob_ind] + knp1m[glob_ind-1]);
     }
 }
 
@@ -95,7 +110,14 @@ __device__ void SetUpRightHandSideSubsurface(double *rhs, double *thetan, double
 {
     int id2d = j*globsize.x+i;
     int proc = procmap[id2d];
-    double trodz = -tr[id2d] * root[proc*globsize.z+k] * 3.6 / dz;
+    double trodz;
+    if (tr[id2d] > 0) {
+        trodz = - tr[id2d] * root[proc*globsize.z+k] * sec_p_mm2dt_p_m / dz; // total amount during this time period       
+    } 
+    else {
+        trodz = 0;
+    }
+
     rhs[tid] = Ss/dt * thetanp1m[glob_ind]/poros * psin[glob_ind] + cnp1m[glob_ind]/dt * psinp1m[glob_ind] - (ku - kd)/dz + (thetan[glob_ind] - thetanp1m[glob_ind])/dt + trodz/dt;
 }
 
@@ -105,7 +127,7 @@ __device__ void SetUpBoundaryConditionsSubsurface(double *a3d, double *rhs, int 
                 int *sbc, int *nbc, int *wbc, int *ebc, double kd, double ku, double ks,
                 double kn, double kw, double ke, double dx2inv, double dy2inv, double dz2inv,
                 double *Psi_t, double *Psi_b, double *Psi_s, double *Psi_n, double *Psi_w,
-                double *Psi_e, double *qw, double *qe,  double *qs, double *qn, double *qt,
+                double *Psi_e, double *Knp1m, double *qw, double *qe,  double *qs, double *qn, double *qt,
                 double *qb, int tid, int i, int j, int k, int3 globsize)
 {
     int sizex   = globsize.x;
@@ -148,8 +170,9 @@ __device__ void SetUpBoundaryConditionsSubsurface(double *a3d, double *rhs, int 
         // Neumann Boundary
         if (k == 0) 
         {
-            a3d[3 * sizexyz + tid] += dz2inv * ku;
-            rhs[tid] += (dz - qt[bk]*dz/ku) * dz2inv * ku;
+            //a3d[3 * sizexyz + tid] += dz2inv * ku;
+            //rhs[tid] += (dz - qt[bk]*dz/ku) * dz2inv * ku;
+            rhs[tid] += (-qt[bk] * dz) * dz2inv;
         }
     }
 
@@ -180,9 +203,11 @@ __device__ void SetUpBoundaryConditionsSubsurface(double *a3d, double *rhs, int 
         // Neumann Boundary
         if (k == sizez-1) 
         {
-            qb[bk] = kd;
-            a3d[3 * sizexyz + tid] += dz2inv * kd;
-            rhs[tid] += (-dz + qb[bk] * dz / kd) * dz2inv * kd;
+            //qb[bk] = kd;
+            //a3d[3 * sizexyz + tid] += dz2inv * kd;
+            //rhs[tid] += (-dz + qb[bk] * dz / kd) * dz2inv * kd;
+            qb[bk] = Knp1m[tid];
+            rhs[tid] += (qb[bk]*dz) * dz2inv;
         }
     }
 
@@ -215,9 +240,11 @@ __device__ void SetUpBoundaryConditionsSubsurface(double *a3d, double *rhs, int 
     {   
         // Neumann Boundary
         if (j == 0)
-        {   qs[bj] = ks;
-            a3d[3 * sizexyz + tid] += dy2inv * ks;
-            rhs[tid] += (-qs[bj] * dy / ks) * dy2inv * ks;
+        {   
+            //qs[bj] = ks;
+            //a3d[3 * sizexyz + tid] += dy2inv * ks;
+            //rhs[tid] += (-qs[bj] * dy / ks) * dy2inv * ks;
+            rhs[tid] += (-qs[bj] * dy) * dy2inv;
         }
     }
 
@@ -250,8 +277,9 @@ __device__ void SetUpBoundaryConditionsSubsurface(double *a3d, double *rhs, int 
         // Neumann Boundary
         if (j == sizey-1) 
         {
-            a3d[3 * sizexyz + tid] += dy2inv * kn;
-            rhs[tid] += (qn[bj] * dy / kn) * dy2inv * kn;
+            //a3d[3 * sizexyz + tid] += dy2inv * kn;
+            //rhs[tid] += (qn[bj] * dy / kn) * dy2inv * kn;
+            rhs[tid] += (qn[bj] * dy) * dy2inv;
         }
     }
 
@@ -283,8 +311,9 @@ __device__ void SetUpBoundaryConditionsSubsurface(double *a3d, double *rhs, int 
     {
         if (i == 0)
         {
-            a3d[3 * sizexyz + tid] += dx2inv * kw;
-            rhs[tid] += (-qw[bi] * dx / kw) * dx2inv * kw;
+            //a3d[3 * sizexyz + tid] += dx2inv * kw;
+            //rhs[tid] += (-qw[bi] * dx / kw) * dx2inv * kw;
+            rhs[tid] += (-qw[bi] * dx) * dx2inv;
         }
     }
 
@@ -316,8 +345,9 @@ __device__ void SetUpBoundaryConditionsSubsurface(double *a3d, double *rhs, int 
     {
         if (i == sizex-1)
         {
-            a3d[3 * sizexyz + tid] += dx2inv * ke;
-            rhs[tid] += (qe[bi] * dx / ke) * dx2inv * ke;
+            //a3d[3 * sizexyz + tid] += dx2inv * ke;
+            //rhs[tid] += (qe[bi] * dx / ke) * dx2inv * ke;
+            rhs[tid] += (qe[bi] * dx) * dx2inv;
         }
     }
 }
@@ -390,7 +420,7 @@ __global__ void SetUpLinearSystemsSubsurface(double *a3d, double *rhs, double *p
 
         SetUpBoundaryConditionsSubsurface(a3d, rhs, bbc, tbc, sbc, nbc, wbc, ebc, 
                                           kd, ku, ks, kn, kw, ke, dx2inv, dy2inv, dz2inv,
-                                          psi_t, psi_b, psi_s, psi_n, psi_w, psi_e, 
+                                          psi_t, psi_b, psi_s, psi_n, psi_w, psi_e, knp1m,
                                           qw, qe,  qs, qn, qt, qb, tid, i, j, k, globsize);
 
         __syncthreads();    // All thread must sync at this point
@@ -406,7 +436,9 @@ __global__ void GetIterationDifference( double *psinp1m, double *psinp1mp1, doub
     int sizexyz = globsize.x * globsize.y * globsize.z;
 
     while (tid < sizexyz){
-        deltam[tid] = abs(psinp1mp1[tid] - psinp1m[tid]);
+        // Shuold be percentage difference
+        //deltam[tid] = abs(psinp1mp1[tid] - psinp1m[tid]);
+        deltam[tid] = abs((psinp1mp1[tid] - psinp1m[tid])/psinp1mp1[tid]);        
         
         // Update threads if vector is long
         tid += blockDim.x * gridDim.x;
@@ -431,7 +463,8 @@ __global__ void ModifiedPicardUpdate(double *psinp1m, double *psinp1mp1, int3 gl
 
 
 __global__ void SubsurfaceEstimateInfiltrationPonding(double *psinp1mp1, double *knp1m, 
-                double *qt, double *qss, double *psi_top, double *ph, int *tbc, int3 globsize)
+                double *qt, double *qss, double *psi_top, double *ph, int *tbc, double *hpoten,
+                int3 globsize)
 {
     int tid = threadIdx.x + blockIdx.x * blockDim.x;
     int sizex = globsize.x;
@@ -442,7 +475,9 @@ __global__ void SubsurfaceEstimateInfiltrationPonding(double *psinp1mp1, double 
         {  
             // Flux boundary
             qss[tid] = qt[tid];
-            ph[tid]  = 0.0;
+            // surface poinding is not zero.
+            //ph[tid]  = 0.0;
+            ph[tid] = maxcompssf(hpoten[tid] - qss[tid] * dt, 0.0);
         }
         else
         {
@@ -451,6 +486,144 @@ __global__ void SubsurfaceEstimateInfiltrationPonding(double *psinp1mp1, double 
             ph[tid]  = maxcompssf(psi_top[tid] - qss[tid]*dt, 0.0);
         }
 
+        tid += blockDim.x * gridDim.x;
+    }
+}
+
+
+__global__ void WaterFluxEstimate (double *knp1m, double *psinp1mp1, double *psin, double *thetanp1mp1, double *thetan, double *E_soil, double *TR, double *qss,
+                double *bcqw, double *bcqe, double *bcqs, double *bcqn, double *bcqt, double *bcqb,
+                double *quflux, double *qdflux, double *qwflux, double *qeflux, double *qsflux, double *qnflux,
+                double *dtheta, double *transp, double *evapo, double *ssflux, 
+                int *wbc, int *ebc, int *sbc, int *nbc, int *tbc, int *bbc,
+                int *procmap, double *root, int3 globsize)
+{
+    int tid     = threadIdx.x + blockIdx.x * blockDim.x;
+    int sizex   = globsize.x;
+    int sizey   = globsize.y;
+    int sizez   = globsize.z;
+    int sizexy  = sizex * sizey;
+    int sizexyz = sizex * sizey * sizez;
+    int i, j, k, id2d, glob_ind;
+    int N = globsize.x;
+    int M = globsize.y;
+    int P = globsize.z;
+    double ke, kw, kn, ks, ku, kd;
+    int proc;
+    int bi, bj, bk;
+
+
+    while (tid < sizexyz){
+        k = tid / sizexy;
+        j = ( tid % sizexy ) / sizex;
+        i = ( tid % sizexy ) % sizex;         
+
+        // Mapping to real 3D domain
+        glob_ind = k * sizexy + j * sizex + i;
+
+        // Maping to real 2D doamin
+        id2d = j*globsize.x+i;
+        proc = procmap[id2d];
+
+        // Mapping to real boundary faces
+        bi = k * sizey + j;
+        bj = k * sizex + i;
+        bk = j * sizex + i;
+
+        // Calculate Hydraulic conductivity at interfaces
+        HydraulicConductivityAtInterface(knp1m, &ke, &kw, &kn, &ks, &ku, &kd, glob_ind, i, j, k,
+                                         globsize);
+
+
+        // 1. Estimate water flux: Down, east, and north-ward positive.
+        // Initialization
+        qdflux[glob_ind] = 0; 
+        quflux[glob_ind] = 0;
+        qwflux[glob_ind] = 0;
+        qeflux[glob_ind] = 0;
+        qsflux[glob_ind] = 0;
+        qnflux[glob_ind] = 0;        
+
+        if (k != 0){
+            qdflux[glob_ind] = kd * ((psinp1mp1[glob_ind - M*N] - psinp1mp1[glob_ind]) / dz + 1); // [m/dtime]
+        }
+        if (k != P - 1){
+            quflux[glob_ind] = ku * ((psinp1mp1[glob_ind] - psinp1mp1[glob_ind + M*N]) / dz + 1);
+
+            if (bbc[bk] == 0)
+                quflux[glob_ind + M*N] = ku * ((psinp1mp1[glob_ind] - psinp1mp1[glob_ind + M*N]) / dz + 1);
+        }
+
+        if (i != 0){
+            qwflux[glob_ind] = kw * (psinp1mp1[glob_ind - 1] - psinp1mp1[glob_ind]) / dx;
+
+            if (wbc[bi] == 0)
+                qwflux[glob_ind-1] = kw * (psinp1mp1[glob_ind - 1] - psinp1mp1[glob_ind]) / dx;
+        }
+        if (i != N - 1){
+            qeflux[glob_ind] = ke * (psinp1mp1[glob_ind] - psinp1mp1[glob_ind + 1]) / dx;
+
+            if (ebc[bi] == 0)
+                qeflux[glob_ind + 1] = ke * (psinp1mp1[glob_ind] - psinp1mp1[glob_ind + 1]) / dx;
+        }
+
+        if (j != 0){
+            qsflux[glob_ind] = ks * (psinp1mp1[glob_ind - N] - psinp1mp1[glob_ind]) / dy;
+
+            if (sbc[bj] == 0)
+                qsflux[glob_ind - N] = ks * (psinp1mp1[glob_ind - N] - psinp1mp1[glob_ind]) / dy;
+        }
+        if (j != M - 1) {
+            qnflux[glob_ind] = kn * (psinp1mp1[glob_ind] - psinp1mp1[glob_ind + N]) / dy;
+
+            if (nbc[bj] == 0)
+                qnflux[glob_ind + N] = kn * (psinp1mp1[glob_ind] - psinp1mp1[glob_ind + N]) / dy;
+        }
+
+        //Boundary condition: Only Neumann Boundary works & free bottom flow
+        if (k == 0){
+            qdflux[glob_ind] = bcqt[bk]; //qss[glob_ind];
+        }
+        if (k == P - 1){
+            if (bbc[bk] != 0)
+                quflux[glob_ind] = bcqb[bk];
+        }
+
+        if (i == N - 1){
+            if (ebc[bi] != 0)
+                qeflux[glob_ind] = bcqe[bi];
+        }
+        if (i == 0){
+            if (wbc[bi] != 0)
+                qwflux[glob_ind] = bcqw[bi];
+        }
+
+        if (j == M - 1) {
+            if (nbc[bj] != 0)
+                qnflux[glob_ind] = bcqn[bj];
+        }
+        if (j == 0){
+            if (sbc[bj] != 0)
+                qsflux[glob_ind] = bcqs[bj];
+        }
+
+        // 2. Diff in soil moisutre
+        dtheta[glob_ind] = thetanp1mp1[glob_ind] - thetan[glob_ind]; // [-]
+
+        // 3. Get transpiration
+        if (TR[id2d] > 0){
+            transp[glob_ind] = - TR[id2d] * sec_p_mm2dt_p_m * root[proc*globsize.z+k]; // [m] during the time step            
+        }
+        else {
+            transp[glob_ind] = 0;            
+        }
+
+
+        // 4. Soil storage changes
+        ssflux[glob_ind] = (psinp1mp1[glob_ind] - psin[glob_ind]) *(Ss / dt * thetanp1mp1[glob_ind] / poros) * dz; //[m/dtime]
+
+
+        // Update threads if vector is long
         tid += blockDim.x * gridDim.x;
     }
 }
@@ -465,6 +638,7 @@ void GatherFluxesDomain(ProjectClass *project, VerticalCanopyClass *vertcanopies
 
     MPI_Gather(vertcanopies->TR_can, 1, MPI_DOUBLE, subsurface_host->TR_root, 1, MPI_DOUBLE, 0, *cartComm);
     MPI_Gather(vertsoils->ppt_ground, 1, MPI_DOUBLE, subsurface_host->ppt_root, 1, MPI_DOUBLE, 0, *cartComm);
+    MPI_Gather(vertsoils->E_soil, 1, MPI_DOUBLE, subsurface_host->E_soil_root, 1, MPI_DOUBLE, 0, *cartComm);
 
     if (isroot)
     {
@@ -478,6 +652,10 @@ void GatherFluxesDomain(ProjectClass *project, VerticalCanopyClass *vertcanopies
         SendFluxDataToGrids<<<TSZ,BSZ>>>(subsurface_dev->ppt_ground, subsurface_dev->ppt_root,
                                          subsurface_dev->procmap, globsize);
 
+        SafeCudaCall( cudaMemcpy(subsurface_dev->E_soil_root, subsurface_host->E_soil_root, 
+                      procsize*sizeof(double), cudaMemcpyHostToDevice) );        
+        SendFluxDataToGrids<<<TSZ,BSZ>>>(subsurface_dev->E_soil, subsurface_dev->E_soil_root,
+                                         subsurface_dev->procmap, globsize);
         cudaCheckError("SendFluxDataToGrids");
     }
 
@@ -509,7 +687,10 @@ void SubsurfaceFlowModel(TimeForcingClass * &timeforcings, OverlandFlowClass * &
                          OverlandFlowClass * &overland_dev, SubsurfaceFlowClass * &subsurface_host,
                          SubsurfaceFlowClass * &subsurface_dev, cuspdev_diamat &a3d_cusp,
                          cuspdev_1d &psinp1mp1_cusp, cuspdev_1d &rhs3d_cusp, cuspdev_idoper &id3d,
-                         cuspdev_1d &deltam_cusp, thrustdev_iter &maxError, int rank, int procsize,
+                         cuspdev_1d &deltam_cusp, thrustdev_iter &maxError, 
+                         thrustdev &quflux_thrust, thrustdev &qdflux_thrust, thrustdev &qwflux_thrust, thrustdev &qeflux_thrust, thrustdev &qsflux_thrust, thrustdev &qnflux_thrust,
+                         thrustdev &dtheta_thrust, thrustdev &transp_thrust, thrustdev &evapo_thrust, thrustdev &ssflux_thrust,
+                         int rank, int procsize,
                          int3 globsize, int t, int num_steps)
 {
     int sizexy  = globsize.x * globsize.y;
@@ -528,7 +709,7 @@ void SubsurfaceFlowModel(TimeForcingClass * &timeforcings, OverlandFlowClass * &
 
     EstimateFluxes<<<TSZ,BSZ>>>(overland_dev->ph, overland_dev->hpoten, overland_dev->qcapa,
                   subsurface_dev->psinp1m, subsurface_dev->knp1m, subsurface_dev->ppt_ground, 
-                  0., globsize);
+                  subsurface_dev->E_soil, subsurface_dev->ksat, globsize);
     cudaCheckError("EstimateFluxes");
 
     while (runflag == 0 && niter < maxiter)
@@ -542,7 +723,9 @@ void SubsurfaceFlowModel(TimeForcingClass * &timeforcings, OverlandFlowClass * &
         // Boundary switching
         IdentifyTopBoundary<<<TSZ,BSZ>>>(overland_dev->hpoten, overland_dev->qcapa,
                            subsurface_dev->bct, subsurface_dev->bcqt,
-                           subsurface_dev->psinp1m, subsurface_dev->bcpsit, globsize );
+                           subsurface_dev->psinp1m, subsurface_dev->bcpsit,
+                           subsurface_dev->thetan, subsurface_dev->ksat,
+                           globsize );
         cudaCheckError("IdentifyTopBoundary");
 
         // Set A, b, and boundary conditions
@@ -610,7 +793,41 @@ void SubsurfaceFlowModel(TimeForcingClass * &timeforcings, OverlandFlowClass * &
     SubsurfaceEstimateInfiltrationPonding<<<TSZ,BSZ>>>(subsurface_dev->psinp1mp1, 
                                          subsurface_dev->knp1m, subsurface_dev->bcqt,
                                          subsurface_dev->qss, subsurface_dev->bcpsit, 
-                                         overland_dev->ph, subsurface_dev->bct, globsize);
+                                         overland_dev->ph, subsurface_dev->bct, overland_dev->hpoten, 
+                                         globsize);
+
+    WaterFluxEstimate<<<TSZ,BSZ>>>(subsurface_dev->knp1m, subsurface_dev->psinp1mp1, subsurface_dev->psin, subsurface_dev->thetanp1mp1, subsurface_dev->thetan, subsurface_dev->E_soil, subsurface_dev->TR, subsurface_dev->qss,
+                     subsurface_dev->bcqw, subsurface_dev->bcqe, subsurface_dev->bcqs, subsurface_dev->bcqn, subsurface_dev->bcqt, subsurface_dev->bcqb, 
+                     subsurface_dev->quflux, subsurface_dev->qdflux, subsurface_dev->qwflux, subsurface_dev->qeflux, subsurface_dev->qsflux, subsurface_dev->qnflux, 
+                     subsurface_dev->dtheta, subsurface_dev->transp, subsurface_dev->evapo, subsurface_dev->ssflux, 
+                     subsurface_dev->bcw, subsurface_dev->bce,
+                     subsurface_dev->bcs, subsurface_dev->bcn,
+                     subsurface_dev->bct, subsurface_dev->bcb,
+                     subsurface_dev->procmap, subsurface_dev->rda, globsize);
+
+    // Check the mass blance
+    double sum_qu, sum_qd, sum_qw, sum_qe, sum_qs, sum_qn;
+    double sum_ssflux, sum_tr, sum_dtheta;
+    double mb_subWater;
+    
+    sum_qu = thrust::reduce(quflux_thrust.begin(), quflux_thrust.end());
+    sum_qd = thrust::reduce(qdflux_thrust.begin(), qdflux_thrust.end());
+    sum_qw = thrust::reduce(qwflux_thrust.begin(), qwflux_thrust.end());
+    sum_qe = thrust::reduce(qeflux_thrust.begin(), qeflux_thrust.end());
+    sum_qs = thrust::reduce(qsflux_thrust.begin(), qsflux_thrust.end());
+    sum_qn = thrust::reduce(qnflux_thrust.begin(), qnflux_thrust.end());
+
+    sum_ssflux = thrust::reduce(ssflux_thrust.begin(), ssflux_thrust.end());
+    sum_tr = thrust::reduce(transp_thrust.begin(), transp_thrust.end());
+    sum_dtheta = thrust::reduce(dtheta_thrust.begin(), dtheta_thrust.end());
+
+    // Estimate mass balance for the subsurface soil water
+    mb_subWater = (sum_dtheta)* subsurface_host->dz + ((sum_qe - sum_qw) + (sum_qn - sum_qs) + (sum_qu - sum_qd)) * subsurface_host->dt - sum_tr  + sum_ssflux * subsurface_host->dt; // [m]
+    subsurface_host->mb_subsurfaceW [t] = mb_subWater;
+    //printf("Subsurface water balance = %f \n",mb_subWater);
+
+
+
     cudaCheckError("SubsurfaceEstimateInfiltrationPonding");
 
     SafeCudaCall( cudaMemcpy(overland_dev->waterdepth, overland_dev->ph, 
