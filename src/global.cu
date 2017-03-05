@@ -14,6 +14,13 @@
 #include "../include/cusplib.h"
 #include "../include/devconst.h"
 
+__device__ double mincomp(double a, double b) {
+    return (a > b) ? b : a;
+}
+
+__device__ double maxcomp(double a, double b) {
+    return (a < b) ? b : a;
+}
 
 /**
  * @brief      Inverse Genuchten conversion of soil moisture - pressure
@@ -164,14 +171,19 @@ void SubsurfaceSetBoundaryConditionType(int *west_bc, int *east_bc, int *south_b
  */
 __global__ 
 void EstimateFluxes(double *ph, double *hpoten, double *qcapa, double *psinp1m, double *knp1m,
-                    double *ppt, double et, int3 globsize)
+                    double *ppt, double *et, double *ksat, int3 globsize)
 {
     int tid = threadIdx.x + blockIdx.x * blockDim.x;
     int sizexy = globsize.x * globsize.y;
 
     while (tid < sizexy) {
-        hpoten[tid] = ph[tid] + ppt[tid] + et;
-        qcapa[tid] = -knp1m[tid]*(psinp1m[tid]-hpoten[tid]-0.5*dz) / (0.5*dz);
+        //hpoten[tid] = ph[tid] + ppt[tid] + et;
+        hpoten[tid] = ph[tid] + ppt[tid]/1000 - et[tid] * sec_p_mm2dt_p_m * dt;      // [m]
+        qcapa[tid] = -knp1m[tid]*((psinp1m[tid]-hpoten[tid]-0.5*dz) / (0.5*dz));
+
+        if (ph[tid] / dt > ksat[tid]) {
+            qcapa[tid] = maxcomp(qcapa[tid], ksat[tid]);
+        }
 
         // Update threads if vector is long
         tid += blockDim.x * gridDim.x;
@@ -193,7 +205,7 @@ void EstimateFluxes(double *ph, double *hpoten, double *qcapa, double *psinp1m, 
  */
 __global__ 
 void IdentifyTopBoundary(double *hpoten, double *qcapa, int *topbc, double *topqflux, 
-                         double *psinp1m, double *Psi_top, int3 globsize)
+                         double *psinp1m, double *Psi_top, double *thetan, double *ksat, int3 globsize)
 {
     int tid = threadIdx.x + blockIdx.x * blockDim.x;
     int sizex = globsize.x;
@@ -201,25 +213,43 @@ void IdentifyTopBoundary(double *hpoten, double *qcapa, int *topbc, double *topq
 
     while (tid < sizex * sizey)
     {
-        if (hpoten[tid] > 0.0)
-        {
-            if (hpoten[tid]/dt > qcapa[tid])
-            {
-                topbc[tid] = 0;
-                Psi_top[tid] = hpoten[tid];
-            } else {
+        // if (hpoten[tid] > 0.0)
+        // {
+        //     if (hpoten[tid]/dt > qcapa[tid])
+        //     {
+        //         topbc[tid] = 0;
+        //         Psi_top[tid] = hpoten[tid];
+        //     } else {
+        //         topbc[tid] = 1;
+        //         topqflux[tid] = hpoten[tid]/dt;
+        //     }
+        // } else {
+        //     if (psinp1m[tid] > air_dry) {
+        //         topbc[tid] = 1;
+        //         topqflux[tid] = hpoten[tid]/dt;
+        //     } else {
+        //         topbc[tid] = 0;
+        //         Psi_top[tid] = air_dry + 0.1;
+        //     }
+        // }
+
+        if (hpoten[tid] > 0.0){
+            if (hpoten[tid]/dt > qcapa[tid]) {
                 topbc[tid] = 1;
-                topqflux[tid] = hpoten[tid]/dt;
+                topqflux[tid] = qcapa[tid];
             }
-        } else {
-            if (psinp1m[tid] > air_dry) {
+            else {
                 topbc[tid] = 1;
-                topqflux[tid] = hpoten[tid]/dt;
-            } else {
-                topbc[tid] = 0;
-                Psi_top[tid] = air_dry + 0.1;
+                topqflux[tid] = hpoten[tid] / dt;
             }
+            topqflux[tid]= mincomp(topqflux[tid], (theta_S - thetan[tid]) * dz / dt);
+            topqflux[tid]= mincomp(topqflux[tid], ksat[tid]);
         }
+        else {
+            topbc[tid] = 1;
+            topqflux[tid] = hpoten[tid] / dt;
+        }
+
 
         // Update threads if vector is long
         tid += blockDim.x * gridDim.x;
