@@ -746,7 +746,7 @@ void ShortWaveradiation(
     // Convert Zenith in degree to radian
     zenrad = zendeg * pinum/180.0;
 
-    // DK: No reference supported
+    // No reference supported
     //if (zendeg > 89) 
     //{
     //    SWin = 0;
@@ -758,7 +758,7 @@ void ShortWaveradiation(
 
     // Diffuse fraction
     fdiff = Diffuse_Fraction(zendeg, doy, SWin);
-    // DK: No reference supported
+    // No reference supported
     //if (zendeg > 80)
     //    fdiff = 1;
 
