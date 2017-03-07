@@ -557,7 +557,7 @@ void LoadForcingData(FileNameClass *files, CanopyClass *canopies, TimeForcingCla
 
     for (int i = 0; i < num_steps; ++i)
     {
-        timeforcings->ppt[i] /= 1000.;
+        timeforcings->ppt[i]; // ppt in [mm] /= 1000.;
         pptsum += timeforcings->ppt[i];
         rgsum += timeforcings->rg[i];
         pasum += timeforcings->pa[i];
@@ -571,7 +571,8 @@ void LoadForcingData(FileNameClass *files, CanopyClass *canopies, TimeForcingCla
 
     if (isroot)
     {
-        printf("\t Total precipitation [mm]:           % 5.2f \n", pptsum * 1000.);
+        //printf("\t Total precipitation [mm]:           % 5.2f \n", pptsum * 1000.);
+        printf("\t Total precipitation [mm]:           % 5.2f \n", pptsum);
         printf("\t Mean global radiation [W/m^2]:      % 5.2f \n", rgsum/num_steps);
         printf("\t Mean air pressure [MPa]:            % 5.2f \n", pasum/num_steps);
         printf("\t Mean longwave downward [W/m^2]:     % 5.2f \n", lwdnsum/num_steps);
