@@ -84,6 +84,27 @@ __global__ void SetUpLinearSystemsOverland(double *a2d, double *rhs2d, double *w
         // Setup right hand side and boundary conditions
         rhs2d[tid] = waterelev[tid] + ppt + et + infil;
 
+        // Set the boundary condition
+        // At East boundary
+        if (i == sizex-1){
+            keast[tid] = 0;
+        }
+
+        // At Wets boundary
+        if (i == 0){
+            kwest[tid] = 0;
+        }
+
+        // At North boundary
+        if (j == sizey-1){
+            knorth[tid] = 0;
+        }
+
+        // At South boundary
+        if (j == 0){
+            ksouth[tid] = 0;
+        }
+
         // Setup Block matrices
         a2d[0*sizexy + tid] = dtody2 * ksouth[tid];
         a2d[1*sizexy + tid] = dtodx2 * kwest[tid];
@@ -96,29 +117,29 @@ __global__ void SetUpLinearSystemsOverland(double *a2d, double *rhs2d, double *w
         ///////////////////////////////////////////////////////
 
         // Inner bound (i, j > 0 and i or j equal 1)
-        if (j == 1)
-        {
-            a2d[0*sizexy + tid] = 0.0;
-            rhs2d[tid] += -dtody2 * ksouth[tid] * (ztopo[tid] + waterdepth);
-        }
+        // if (j == 1)
+        // {
+        //     a2d[0*sizexy + tid] = 0.0;
+        //     rhs2d[tid] += -dtody2 * ksouth[tid] * (ztopo[tid] + waterdepth);
+        // }
 
-        if (j == sizey-2)
-        {
-            a2d[4*sizexy + tid] = 0.0;
-            rhs2d[tid] += -dtody2 * knorth[tid] * (ztopo[tid] + waterdepth);
-        }
+        // if (j == sizey-2)
+        // {
+        //     a2d[4*sizexy + tid] = 0.0;
+        //     rhs2d[tid] += -dtody2 * knorth[tid] * (ztopo[tid] + waterdepth);
+        // }
 
-        if (i == 1)
-        {
-            a2d[1*sizexy + tid] = 0.0;
-            rhs2d[tid] += -dtodx2 * kwest[tid] * (ztopo[tid] + waterdepth);
-        }
+        // if (i == 1)
+        // {
+        //     a2d[1*sizexy + tid] = 0.0;
+        //     rhs2d[tid] += -dtodx2 * kwest[tid] * (ztopo[tid] + waterdepth);
+        // }
 
-        if (i == sizex-2)
-        {
-            a2d[3*sizexy + tid] = 0.0;
-            rhs2d[tid] += -dtodx2 * keast[tid] * (ztopo[tid] + waterdepth);
-        }
+        // if (i == sizex-2)
+        // {
+        //     a2d[3*sizexy + tid] = 0.0;
+        //     rhs2d[tid] += -dtodx2 * keast[tid] * (ztopo[tid] + waterdepth);
+        // }
 
         // Outer bound (i, j > 0 and i or j equal 1)
         if (j == 0)
@@ -127,7 +148,8 @@ __global__ void SetUpLinearSystemsOverland(double *a2d, double *rhs2d, double *w
                 a2d[k*sizexy + tid] = 0.0;
 
             a2d[2*sizexy + tid] = 1.0;
-            rhs2d[tid] = ztopo[tid] + waterdepth;
+            //rhs2d[tid] = ztopo[tid] + waterdepth;
+            rhs2d[tid] = waterelev[tid] + waterdepth;  
         }
 
         if (j == sizey-1)
@@ -136,7 +158,8 @@ __global__ void SetUpLinearSystemsOverland(double *a2d, double *rhs2d, double *w
                 a2d[k*sizexy + tid] = 0.0;
 
             a2d[2*sizexy + tid] = 1.0;
-            rhs2d[tid] = ztopo[tid] + waterdepth;
+            //rhs2d[tid] = ztopo[tid] + waterdepth;
+            rhs2d[tid] = waterelev[tid] + waterdepth;
         }
 
         if (i == 0)
@@ -145,7 +168,8 @@ __global__ void SetUpLinearSystemsOverland(double *a2d, double *rhs2d, double *w
                 a2d[k*sizexy + tid] = 0.0;
 
             a2d[2*sizexy + tid] = 1.0;
-            rhs2d[tid] = ztopo[tid] + waterdepth;
+            //rhs2d[tid] = ztopo[tid] + waterdepth;
+            rhs2d[tid] = waterelev[tid] + waterdepth;
         }
 
         if (i == sizex-1)
@@ -154,7 +178,8 @@ __global__ void SetUpLinearSystemsOverland(double *a2d, double *rhs2d, double *w
                 a2d[k*sizexy + tid] = 0.0;
 
             a2d[2*sizexy + tid] = 1.0;
-            rhs2d[tid] = ztopo[tid] + waterdepth;
+            //rhs2d[tid] = ztopo[tid] + waterdepth;
+            rhs2d[tid] = waterelev[tid] + waterdepth;
         }
 
         __syncthreads();    // All thread must sync at this point

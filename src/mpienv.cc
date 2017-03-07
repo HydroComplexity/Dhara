@@ -264,6 +264,8 @@ int SetTopologyNetwork(int rank, int procsize, ProjectClass * &project, mpiClass
     mpiobj->domain_size.x = sizex;
     mpiobj->domain_size.y = sizey;
     mpiobj->domain_size.z = NUM_SOIL_LAYERS;
+    mpiobj->offset.x = xoffset;
+    mpiobj->offset.y = yoffset;
     
     // Create a carthesian communicator
     MPI_Cart_create(MPI_COMM_WORLD, 2, dimsize, usePeriods, 1, &mpiobj->cartComm);

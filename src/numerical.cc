@@ -111,6 +111,10 @@ void AllocateMemoryFlowModel(TimeForcingClass *timeforcings,
     subsurface_host->thetaout   = new double[sizexyz];
     subsurface_host->TR_root    = new double[procsize];
     subsurface_host->ppt_root   = new double[procsize];
+    subsurface_host->E_soil_root= new double[procsize];
+
+    /* 1D temporal variable. */
+    subsurface_host->mb_subsurfaceW = new double[num_steps];
 
     /* If reach this point, print out info. */
     printf("\t Flow model - host memory . . . . . . . . . . . . . . . completed! \n");
@@ -161,8 +165,10 @@ void AllocateMemoryFlowModel(TimeForcingClass *timeforcings,
 
     SafeCudaCall(cudaMalloc((void**)&subsurface_dev->TR         , sizexy*sizeof(double)));
     SafeCudaCall(cudaMalloc((void**)&subsurface_dev->ppt_ground , sizexy*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->E_soil     , sizexy*sizeof(double)));
     SafeCudaCall(cudaMalloc((void**)&subsurface_dev->TR_root    , procsize*sizeof(double)));
     SafeCudaCall(cudaMalloc((void**)&subsurface_dev->ppt_root   , procsize*sizeof(double)));
+    SafeCudaCall(cudaMalloc((void**)&subsurface_dev->E_soil_root, procsize*sizeof(double)));
     SafeCudaCall(cudaMalloc((void**)&subsurface_dev->rda        , procsize*sizez*sizeof(double)));
 
     /* 3D spatial variables. */
@@ -458,6 +464,8 @@ void AllocateMemoryOutput(CanopyClass *canopies, SoilClass *soils, OutputClass *
     outmlcan->H_can      = new double[num_steps];
     outmlcan->TR_can     = new double[num_steps];
     outmlcan->Rnrad_can  = new double[num_steps];
+
+    outmlcan->mbw_can    = new double[num_steps];
 
     outmlcan->E_soil     = new double[num_steps];
     outmlcan->qss        = new double[num_steps];
