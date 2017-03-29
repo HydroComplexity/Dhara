@@ -8,6 +8,7 @@
         const char *mlcanoutput;
         const char *olfoutput;
         const char *ssfoutput;
+        const char *ssf1doutput;
         const char *statoutput;
         
         int co2elevation;
@@ -45,6 +46,7 @@
         int *ycounts;       
         int3 global_size;           // size of the global domain
         int3 domain_size;           // size of the local domains
+        int2 offset;                // offset of the local domains
         int2 topology_size;         // size of topology nodes (mpi)
         int2 topology_index;        // indices of topology nodes (mpi)
         MPI_Datatype blocktype;
@@ -173,10 +175,24 @@
         double *thetanp1mp1;    // theta at n+1,m+1
         double *thetaout;       // theta output
 
+        double *quflux;         // flux up [m/dtime] - go deeper the soil
+        double *qdflux;         // flux down [m/dtime]
+        double *qwflux;         // flux west [m/dtime]
+        double *qeflux;         // flux east [m/dtime]
+        double *qsflux;         // flux south [m/dtime]
+        double *qnflux;         // flux north [m/dtime]
+        double *dtheta;         // soil moisture difference
+        double *transp;         // transpiration [m/dtime]
+        double *evapo;          // evapotration [m/dtime]
+        double *ssflux;         // flux storage [m/dtime]
+        double *mb_subsurfaceW; // subsurface water balance
+
         double *TR;             // Transpiration entire domain
         double *TR_root;        // Transpiration gather MPI
         double *ppt_ground;     // Throughfall entire domain
         double *ppt_root;       // Throughfall gather MPI
+        double *E_soil;         // Evapotration entire domain
+        double *E_soil_root;    // Evapotration gather MPI
         double *rda;            // Root density from all process
         double *psi_col;        // column average
         double *theta_col;
@@ -216,6 +232,7 @@
         int SoilHeat;
         int Plotting;
         int ElevatedCO2;
+        int LWequation;               // Longwave equation 1: without atmospheric correction, 2: with
     };
 #endif
 

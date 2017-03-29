@@ -19,6 +19,9 @@
         double *T_surf;
         double *ppt_ground;
 
+        // Mass balance
+        double *mbw_can;
+
         // Canopy Profile
         double *An_sun;
         double *An_shade;

@@ -12,7 +12,7 @@
 
 #include "../include/main.h"
 
-
+ 
 
 ///////////////////////////////////////////////
 // MPI initialization and finalization       //
@@ -99,7 +99,6 @@ void PartitionDomainToProcess(int rank, int procsize, int *colx, int *xoffset, i
     MPI_Status status;
     MPI_Comm xcomm, ycomm;
 
-
     ////////////////////////////////////////////////
     // Broadcast globsize from MASTER rank to all //
     ////////////////////////////////////////////////
@@ -115,6 +114,7 @@ void PartitionDomainToProcess(int rank, int procsize, int *colx, int *xoffset, i
 
     int xcolor = rank / topolx;
     int ycolor = rank % topolx;
+
     MPI_Comm_split(*cartComm, xcolor, rank, &xcomm);
     MPI_Comm_split(*cartComm, ycolor, rank, &ycomm);
 
@@ -142,6 +142,9 @@ void PartitionDomainToProcess(int rank, int procsize, int *colx, int *xoffset, i
             if (i == 0)
             {
                 colx0 = *colx;
+
+                // count for offset in rank 0
+                *xoffset += *colx;
                 xdispls[i] = 0;
             } else {
                 dest = i;
@@ -149,11 +152,13 @@ void PartitionDomainToProcess(int rank, int procsize, int *colx, int *xoffset, i
                 MPI_Send(colx, 1, MPI_INT, dest, tag, xcomm);
                 *xoffset += *colx;
                 xdispls[i] = xdispls[i-1] + xcounts[i-1];
+                
             }
         }
         *xoffset = 0;
         *colx = colx0;
     }
+    MPI_Barrier(*cartComm);
 
     if (xcomm_rank != 0)
     {   // workers
@@ -162,9 +167,7 @@ void PartitionDomainToProcess(int rank, int procsize, int *colx, int *xoffset, i
         MPI_Recv(xoffset, 1 , MPI_INT, source, msgtype, xcomm, &status);
         MPI_Recv(colx, 1, MPI_INT, source, msgtype, xcomm, &status);
     }
-
     MPI_Barrier(*cartComm);
-
 
     ///////////////////////////////////////
     // Split by row (y-direction)        //
@@ -180,22 +183,28 @@ void PartitionDomainToProcess(int rank, int procsize, int *colx, int *xoffset, i
         {
             *rowy = (i < ycomm_size - extrarowy) ? averowy : averowy+1;
             ycounts[i] = *rowy;
+
+
             if (i == 0)
             {
                 rowy0 = *rowy;
+
+                // count for offset in rank 0
+                *yoffset += *rowy;
                 ydispls[i] = 0;
+
             } else {
                 dest = i;
                 MPI_Send(yoffset, 1, MPI_INT, dest, tag, ycomm);
                 MPI_Send(rowy, 1, MPI_INT, dest, tag, ycomm);
                 *yoffset += *rowy;
                 ydispls[i] = ydispls[i-1] + ycounts[i-1];
-
             }
-            *yoffset = 0;
-            *rowy = rowy0;
         }
+        *yoffset = 0;
+        *rowy = rowy0;
     }
+    MPI_Barrier(*cartComm);
 
     if (ycomm_rank != 0)
     {   // workers
@@ -255,6 +264,8 @@ int SetTopologyNetwork(int rank, int procsize, ProjectClass * &project, mpiClass
     mpiobj->domain_size.x = sizex;
     mpiobj->domain_size.y = sizey;
     mpiobj->domain_size.z = NUM_SOIL_LAYERS;
+    mpiobj->offset.x = xoffset;
+    mpiobj->offset.y = yoffset;
     
     // Create a carthesian communicator
     MPI_Cart_create(MPI_COMM_WORLD, 2, dimsize, usePeriods, 1, &mpiobj->cartComm);

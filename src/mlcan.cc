@@ -114,7 +114,7 @@ unsigned int CubicSolver (double *ce, double *roots )
     // discriminant is non-positive, three solutions found
     ret=3;
     complex<double> u(q,0),rt[3];
-    u=pow(-0.5*u-sqrt(0.25*u*u+p*p*p/27),1./3);
+    u=pow(-0.5*u-sqrt(0.25*u*u+p*p*p/27),1.0/3.0);
     rt[0]=u-p/(3.*u)-shift;
     complex<double> w(-0.5,sqrt(3.)/2);
     rt[1]=u*w-p/(3.*u*w)-shift;
@@ -746,18 +746,24 @@ void ShortWaveradiation(
     // Convert Zenith in degree to radian
     zenrad = zendeg * pinum/180.0;
 
-    if (zendeg > 89) 
-    {
-        SWin = 0;
-        PARin = 0;
-    }
+    // No reference supported
+    //if (zendeg > 89) 
+    //{
+    //    SWin = 0;
+    //    PARin = 0;
+    //}
 
     PARtop = SWin * 0.45 * Wm2toumol;
     NIRtop = SWin * 0.55;
 
     // Diffuse fraction
     fdiff = Diffuse_Fraction(zendeg, doy, SWin);
-    if (zendeg > 80)
+    // No reference supported
+    //if (zendeg > 80)
+    //    fdiff = 1;
+
+    // the maximum fdiff should be 1
+    if (fdiff > 1)
         fdiff = 1;
 
     PARtop_beam = PARtop * (1 - fdiff);
@@ -867,6 +873,43 @@ void ShortWaveradiation(
 
     PARabs_sun   = PARabs_sun.cwiseQuotient(LAIsun);
     PARabs_shade = PARabs_shade.cwiseQuotient(LAIshade);
+
+    // To prevent numerical error.
+    for (int i = 0; i<nl_can; i++) {
+        if (fsun[i] < 0.0001)
+            fsun[i] = 0;
+      
+        if (fshade[i] < 0.0001)
+            fshade[i] = 0;
+      
+        if (LAIsun[i] <= 0.0001) {
+            LAIsun[i] = 0;
+            PARabs_sun[i] = 0;
+        }
+
+        if (LAIshade[i] < 0.0001) {
+            LAIshade[i] = 0;
+            PARabs_shade[i] = 0;
+        }
+
+        if (SWabs_sun[i] < 0.0001)
+            SWabs_sun[i] = 0;
+
+        if (SWabs_shade[i] < 0.0001)
+            SWabs_shade[i] = 0;
+
+        if (PARabs_sun[i] < 0.0001)
+            PARabs_sun[i] = 0;
+
+        if (PARabs_shade[i] < 0.0001)
+            PARabs_shade[i] = 0;
+
+        if (NIRabs_sun[i] < 0.0001)
+            NIRabs_sun[i] = 0;
+      
+        if (NIRabs_shade[i] < 0.0001)
+            NIRabs_shade[i] = 0;
+    }
 }
 
 
@@ -992,7 +1035,7 @@ void LongWaveradiation(ForcingClass *forcings, CanopyClass *canopies,
     ConstantClass *constants, RadiationClass *radiation, Ref<VectorXd> LWabs_can,
     Ref<VectorXd> LWabs_sun, Ref<VectorXd> LWabs_shade, double *LWabs_soil,
     double *LWup, Ref<VectorXd> LWcan_emit, Ref<VectorXd> LWsun_emit,
-    Ref<VectorXd> LWshade_emit, double *LWemit_soil)
+    Ref<VectorXd> LWshade_emit, double *LWemit_soil, int LW_eq)
 {
     double LWin, LW_sky, LW_top, LWtot = 0.;
     double zendeg, zenrad, Tatop, eatop;
@@ -1035,8 +1078,19 @@ void LongWaveradiation(ForcingClass *forcings, CanopyClass *canopies,
     // Downward Longwave from sky
     if (isnan(LWin))
     {
-        epsa = 1.72 * pow(eatop / (Tatop + 273.15), 1.0/7.0);
-        LW_sky = epsa * boltz * pow(Tatop + 273.15, 4);
+        if (LW_eq == 0) {
+            epsa = 1.72 * pow(eatop / (Tatop + 273.15), 1.0/7.0);
+            LW_sky = epsa * boltz * pow(Tatop + 273.15, 4);
+        }
+        else {
+            // See http://www.met.wau.nl/Courses/Micrometcourse/Modules/Longwave/ModulePage3.html
+            double c1 = 0.53;
+            double c2 = 0.067;
+            double Lc = 60;
+            double e_atm;
+            e_atm = c1 + c2 * pow(eatop, 1.0/2.0);
+            LW_sky = e_atm * boltz * pow(Tatop + 273.15, 4) + Lc;
+        }
     } else {
         LW_sky = LWin;
     }
@@ -1165,21 +1219,36 @@ void photosynthesis_C3(PhotosynthesisClass *photosynthesis, VerticalCanopyClass 
         Jmax[i] = Jmax25_vec[i] * exp(17.57 - 43.54/(R*TlK[i]));
         J = (Q2 + Jmax[i] - sqrt((Q2+Jmax[i])*(Q2+Jmax[i]) - 4*thetaPSII*Q2*Jmax[i])) / (2*thetaPSII);
 
+        // Constraint for the negative phiPSIImax
+        if (phiPSIImax < 0){
+            phiPSIImax = 0;
+            J = 0;
+        }
+        if (thetaPSII < 0){
+            thetaPSII = 0;
+            J = 0;
+        }
+
         Wc[i] = (Vcmax[i] * Ci[i]) / (Ci[i] + Kc*(1+O/Ko));
         Wj[i] = (J * Ci[i]) / (4.5*Ci[i] + 10.5*gamstar[i]);
 
         // Limiting Rates
-        Jc = (1. - gamstar[i] / Ci[i]) * Wc[i];
-        Jj = (1. - gamstar[i] / Ci[i]) * Wj[i];
-        Js = Vcmax[i] / 2; 
+        Jc = (1. - gamstar[i] / Ci[i]) * Wc[i]; // Rubisco-Limited Rate [umol/m^2 leaf area/s] 
+        Jj = (1. - gamstar[i] / Ci[i]) * Wj[i]; // Light-Limited Rate [umol/m^2 leaf area/s] 
+        Js = Vcmax[i] / 2;                      // Sucrose-Limited Rate [umol/m^2 leaf area/s]
 
         // Solve quadratics from [Collatz et al, ] to account for co-limitation between rates
         tt = 0.98;
         bb = 0.96;
         Jp = ( (Jc+Jj) - sqrt( (-(Jc+Jj))*(-(Jc+Jj)) - 4*tt*Jc*Jj ) ) / (2*tt);
         Ph[i] = ( (Jp+Js) - sqrt( (-(Jp+Js))*(-(Jp+Js)) - 4*bb*Jp*Js ) ) / (2*bb);
+        
+        // Constrain for the interal CO2
+        if ((Ci[i] <= gamstar[i]) & (Qabs[i] >0)){
+            Ph[i] = Rd[i];
+        }
 
-        An[i] =  Ph[i] - Rd[i];    
+        An[i] =  Ph[i] - Rd[i];                 // Photosynthetic minus Leaf Respiration flux from ecosystem [umol CO2/ m^2 leaf / s] 
 
         if (Jc < Jj && Jc < Js) 
             Phtype[i] = 1;
@@ -1224,23 +1293,26 @@ void photosynthesis_C4(PhotosynthesisClass *photosynthesis, VerticalCanopyClass 
 
     for (int i=0; i<nl_can; i++)
     {
+        // Equation 5B in Appendix B, pp.537
         Vmaxs = Vz[i] * Vmax;
         Q10s  = pow( Q10, (Tl[i]-25) * 0.1 );
         VT    = (Vmaxs * Q10s) / ( (1 + exp(0.3*(13-Tl[i]))) * (1+exp(0.3*(Tl[i]-36))) );
         RT    = Rd * Q10s / ( 1 + exp( 1.3*(Tl[i]-55) ) );
         KT    = kk * Q10s;
 
+        // Equation 2B in Appendix B, pp.537
         aa    = theta;
         bb    = -( VT + al * Qabs[i] );
         cc    = VT * al * Qabs[i];
 
         M     = Polynomial_Root(aa, bb, cc);
 
+        // Equation 3B in Appendix B, pp.537
         aa    = beta;
         bb    = -(M + KT * Ci[i]);
         cc    = M * KT * Ci[i];
-        Ph[i] = Polynomial_Root(aa, bb, cc);
-        An[i] = Ph[i] - RT;
+        Ph[i] = Polynomial_Root(aa, bb, cc);    // leaf photosynthesis [umol/m^2 leaf area/s]
+        An[i] = Ph[i] - RT;                     // net leaf CO2 uptake rate [umol/m^2 leaf area/s]
     }
 }
 
@@ -1333,21 +1405,21 @@ void Leaf_Water_Potential(VerticalSoilClass *vertsoils, VerticalCanopyClass *ver
     VectorXd znc(nl_can);
 
     // Copy array structs to eigen vectors
-    TR_sun = Map<VectorXd>(vertcanopies->TR_sun, nl_can);
-    TR_shade = Map<VectorXd>(vertcanopies->TR_shade, nl_can);
-    znc = Map<VectorXd>(vertcanopies->znc, nl_can);
+    TR_sun = Map<VectorXd>(vertcanopies->TR_sun, nl_can);                             // transpiration PER UNIT LEAF AREA sunlit [mm/s/unit LAI] 
+    TR_shade = Map<VectorXd>(vertcanopies->TR_shade, nl_can);                         // transpiration PER UNIT LEAF AREA shade [mm/s/unit LAI] 
+    znc = Map<VectorXd>(vertcanopies->znc, nl_can);                                   // Height of canopy levels [m]
 
-    rpp_wgt = vertsoils->rpp_wgt[0];
-    Rp = stomaconduct->Rp;
-    grav = constants->grav;
-    dtime = constants->dtime;
-    mmH2OtoMPa = constants->mmH2OtoMPa;
+    rpp_wgt = vertsoils->rpp_wgt[0];                                                  // root pressure potential weighted by root distribution [mm]
+    Rp = stomaconduct->Rp;                                                            // plant resistance to water flow [MPa / m / s]
+    grav = constants->grav;                                                           // Gravity Acceleration [m / s^2]
+    dtime = constants->dtime;                                                         // Time Step [s]
+    mmH2OtoMPa = constants->mmH2OtoMPa;                                               // Conversion Factor from mmH2O to MPa
 
-    rho_kg = 1;
-    TR = TR_sun + TR_shade;
-    TR_m = TR / 1000.0;
-    rpp_wgt_MPa = rpp_wgt * mmH2OtoMPa;
-    psil_MPA = rpp_wgt_MPa*VectorXd::Ones(nl_can) - TR*Rp - (rho_kg*grav*znc)/1e6;
+    rho_kg = 1;                                                                       // [kg / m^3]
+    TR = TR_sun + TR_shade;                                                           // [W/LAI/s]
+    TR_m = TR / 1000.0;                                                               // [m/s/unit LAI]
+    rpp_wgt_MPa = rpp_wgt * mmH2OtoMPa;                                               // [MPa] 
+    psil_MPA = rpp_wgt_MPa*VectorXd::Ones(nl_can) - TR*Rp - (rho_kg*grav*znc)/1e6;    // Leaf Water Potential [MPa] 
 }
 
 
@@ -1619,12 +1691,12 @@ void LeafSolution(ForcingClass *forcings, CanopyClass *canopies, VerticalCanopyC
 
         if (sunlit == 1)
         {
-            Map<VectorXd>(vertcanopies->gsv_sun, nl_can) = gsv;
+            Map<VectorXd>(vertcanopies->gsv_sun, nl_can) = gsv;            // Stomatal Conductance [mol/m^2/s]
             Map<VectorXd>(vertcanopies->Ci_sun, nl_can) = Ci;
         }
         else
         {
-            Map<VectorXd>(vertcanopies->gsv_shade, nl_can) = gsv;
+            Map<VectorXd>(vertcanopies->gsv_shade, nl_can) = gsv;          // Stomatal Conductance [mol/m^2/s]
             Map<VectorXd>(vertcanopies->Ci_shade, nl_can) = Ci;
         }
 
@@ -1637,9 +1709,9 @@ void LeafSolution(ForcingClass *forcings, CanopyClass *canopies, VerticalCanopyC
         if (sunlit == 1)
             Map<VectorXd>(vertcanopies->TR_sun, nl_can) = LE_dry/Lv_g;    // [mm/s/LAI]
         else
-            Map<VectorXd>(vertcanopies->TR_shade, nl_can) = LE_dry/Lv_g; // [mm/s/LAI]
+            Map<VectorXd>(vertcanopies->TR_shade, nl_can) = LE_dry/Lv_g;  // [mm/s/LAI]
 
-        TR = LE_dry / Lv_g;                                              // [mm/s/LAI]
+        TR = LE_dry / Lv_g;                                               // [mm/s/LAI]
 
         // LEAF ENERGY BALANCE - WET LEAF FRACTION
         dry = 0;
@@ -1662,9 +1734,13 @@ void LeafSolution(ForcingClass *forcings, CanopyClass *canopies, VerticalCanopyC
             gsvdiff = gsv - gsv_prev;
 
             // Check for solution divergence
-            Ci_quot = (Ci-Ci_prev).cwiseQuotient(Ci_prev);
-            gsv_quot = (gsv-gsv_prev).cwiseQuotient(gsv_prev);
-            Tl_quot = (Tl-Tl).cwiseQuotient(Tl_prev);
+            //Ci_quot = (Ci-Ci_prev).cwiseQuotient(Ci_prev);
+            //gsv_quot = (gsv-gsv_prev).cwiseQuotient(gsv_prev);
+            //Tl_quot = (Tl-Tl).cwiseQuotient(Tl_prev);
+            // They should be the absolute value.
+            Ci_quot = (Ci - Ci_prev).cwiseQuotient(Ci_prev).cwiseAbs();
+            gsv_quot = (gsv - gsv_prev).cwiseQuotient(gsv_prev).cwiseAbs();
+            Tl_quot = (Tl - Tl).cwiseQuotient(Tl_prev).cwiseAbs();
 
             if (Ci_quot.maxCoeff() > maxchange || gsv_quot.maxCoeff() > maxchange ||
                 Tl_quot.maxCoeff() > maxchange)
@@ -1693,9 +1769,14 @@ void LeafSolution(ForcingClass *forcings, CanopyClass *canopies, VerticalCanopyC
 
         // Test convergence
         if (cnt > 0) {
-            Ci_quot = ((Ci-Ci_prev).cwiseAbs()).cwiseQuotient(Ci_prev);
-            gsv_quot = ((gsv-gsv_prev).cwiseAbs()).cwiseQuotient(gsv_prev);
-            Tl_quot = ((Tl-Tl_prev).cwiseAbs()).cwiseQuotient(Tl_prev);
+            //Ci_quot = ((Ci-Ci_prev).cwiseAbs()).cwiseQuotient(Ci_prev);
+            //gsv_quot = ((gsv-gsv_prev).cwiseAbs()).cwiseQuotient(gsv_prev);
+            //Tl_quot = ((Tl-Tl_prev).cwiseAbs()).cwiseQuotient(Tl_prev);
+
+            // They should be the absolute value.
+            Ci_quot = ((Ci - Ci_prev).cwiseQuotient(Ci_prev)).cwiseAbs();
+            gsv_quot = ((gsv - gsv_prev).cwiseQuotient(gsv_prev)).cwiseAbs();
+            Tl_quot = ((Tl - Tl_prev).cwiseQuotient(Tl_prev)).cwiseAbs();
 
             if (Ci_quot.maxCoeff() < 0.01 && gsv_quot.maxCoeff() < 0.01 &&
                 Tl_quot.maxCoeff() < 0.01)
@@ -1765,9 +1846,18 @@ void SEB_Remainder_return(double Ts, double Rabs, double Ta1, double Ts1, double
     *Hs = cp * rhoa * D * (Ts - Ta1);
     double esatTs = 0.611 * exp( 17.502 * Ts / (Ts + 240.97) );
     *RH = exp( psis1_MPa * Vw / R / (Ts + 273.15) );
+    // Constraint
+    if (*RH > 1){
+        *RH = 1;
+    }
+    if (*RH < 0){
+        *RH = 0;
+    }
     *LEs = Lv * rhoa * D * (0.622/pa) * (esatTs * (*RH) - ea1);
 
-    *Gs = TC1 * (Ts-Ts1) / dzs1;
+    // Typo in Drewry et al, 2009
+    //*Gs = TC1 * (Ts-Ts1) / dzs1;
+    *Gs = TC1 * (Ts - Ts1) / dzs1 / 2;
     *LWups = epss * boltz * pow(Ts + 273.15, 4);
     *remain = Rabs - *Hs - *LEs - *Gs - *LWups;
 }
@@ -1789,9 +1879,18 @@ double SEB_Remainder(double Ts, double Rabs, double Ta1, double Ts1, double ea1,
     double Hs = cp * rhoa * D * (Ts - Ta1);
     double esatTs = 0.611 * exp( 17.502 * Ts / (Ts + 240.97) );
     double RH = exp( psis1_MPa * Vw / R / (Ts + 273.15) );
+    // Constraint
+    if (RH > 1){
+        RH = 1;
+    }
+    if (RH < 0){
+        RH = 0;
+    }
     double LEs = Lv * rhoa * D * (0.622/pa) * (esatTs * RH - ea1);
 
-    double Gs = TC1 * (Ts-Ts1) / dzs1;
+    // Typo in Drewry et al, 2009
+    //double Gs = TC1 * (Ts-Ts1) / dzs1;
+    double Gs = TC1 * (Ts-Ts1) / dzs1 / 2;
     double LWups = epss * boltz * pow(Ts + 273.15, 4);
     double remain = Rabs - Hs - LEs - Gs - LWups;
     return remain;
@@ -1842,7 +1941,7 @@ void Soil_Surface_Fluxes(VerticalCanopyClass *vertcanopies, CanopyClass *canopie
     // Using Bisection method to find the root of Soil Energy Balance Eqn;
     // This function is equivalent to fzero used in Matlab
     *Tsurf = rtbis(SEB_Rem, Rabs, Ta1, Ts1, ea1, pa1, U1, z1, dzs1, psis1_MPa, vonk, z0, TC1,
-            epss, Ta1-100, Ta1+100, 1e-12);
+            epss, Ta1-50, Ta1+50, 1e-12);
 
     SEB_Remainder_return(*Tsurf, Rabs, Ta1, Ts1, ea1, pa1, U1, z1, dzs1, psis1_MPa, vonk, z0, TC1,
             epss, Hs, RH, LEs, Gs, LWups, &remain);
@@ -1873,6 +1972,9 @@ void Order_1_Closure_All(Ref<VectorXd> Ca_in, Ref<VectorXd> z_in, Ref<VectorXd> 
     VectorXd a1(ct_ind), a2(ct_ind), a3(ct_ind), a4(ct_ind);
     VectorXd aa(ct_ind), bb(ct_ind), cc(ct_ind), dd(ct_ind);
     VectorXd upd(ct_ind), dia(ct_ind), lod(ct_ind), co(ct_ind), Cn(ct_ind);
+
+    // Prevent numerical error in MLCan
+    VectorXd Conc_fixed(nl_can);
 
     for (int i=0; i<ct_ind; i++){
     Ca[i] = Ca_in[i];
@@ -1935,7 +2037,16 @@ void Order_1_Closure_All(Ref<VectorXd> Ca_in, Ref<VectorXd> z_in, Ref<VectorXd> 
         cnt += 1;
     }
 
-    Ca_in = Conc;
+    for (int i = 0; i<nl_can; i++){
+        if (i < ct_ind){
+            Conc_fixed[i] = Conc[i];
+        }
+        else {
+            Conc_fixed[i] = Conc[ct_ind - 1];
+        }
+    }
+    Ca_in = Conc_fixed;
+
     if (cnt >= max_iters)
         printf("*** Closure Max Iters!!!\n");
 }
@@ -1991,14 +2102,17 @@ void Micro_Environment(VerticalCanopyClass *vertcanopies, CanopyClass *canopies,
     Order_1_Closure_All(TAz, znc, Km, Sh, dzc, Sh_soil, hcan, nl_can);
 }
 
-
+// Fix water mass balance in canopy
 void Evap_Condensation_Adjust(VerticalCanopyClass *vertcanopies, CanopyClass *canopies,
                               VerticalSoilClass *vertsoils, Ref<VectorXd> Sh2o_prof,
-                              double *Sh2o_can, int nl_can)
+                              double *Sh2o_can, Ref<VectorXd> wetfrac, Ref<VectorXd> dryfrac, int nl_can)							  
 {
-    double Ffact, ppt_ground, drip;
+	double Ffact, ppt_ground;
     VectorXd znc(nl_can), H2oinc(nl_can), Smaxz(nl_can);
     VectorXd Ch2o_prof(nl_can), Evap_prof(nl_can);
+    
+    double dripout;
+    VectorXd dripv(nl_can);
 
     znc        = Map<VectorXd>(vertcanopies->znc, nl_can);
     Ch2o_prof  = Map<VectorXd>(vertcanopies->Ch2o_prof, nl_can);
@@ -2007,26 +2121,35 @@ void Evap_Condensation_Adjust(VerticalCanopyClass *vertcanopies, CanopyClass *ca
     Ffact      = canopies->Ffact;
     ppt_ground = *vertsoils->ppt_ground;
     H2oinc     = Ch2o_prof - Evap_prof;
-    drip       = 0;
+    
+    dripout = 0;
+    dripv = VectorXd::Zero(nl_can);
 
     for (int i=nl_can-1; i>=0; i--)
     {
-        Sh2o_prof[i] += H2oinc[i] + drip;
-        if (Sh2o_prof[i] < 0)
+        Sh2o_prof[i] += H2oinc[i] + dripv[i];
+        if (Sh2o_prof[i] < 0) 
         {
+            Evap_prof[i] += Sh2o_prof[i];
             Sh2o_prof[i] = 0;
-        } 
+        }
         else if (Sh2o_prof[i] >= Smaxz[i])
         {
-            drip = Sh2o_prof[i] - Smaxz[i];
+            if (i == 0)
+                dripout = Sh2o_prof[i] - Smaxz[i];
+            else
+                dripv[i - 1] = Sh2o_prof[i] - Smaxz[i];
             Sh2o_prof[i] = Smaxz[i];
         }
     }
 
+    Map<VectorXd>(vertcanopies->Evap_prof, nl_can) = Evap_prof;
     *Sh2o_can = Sh2o_prof.sum();
-    //ppt_ground = ppt_ground + drip;
-    //wetfrac = Ffact * (Sh2o_prof.cwiseQuotient(Smaxz));
-    //dryfrac = VectorXd::Ones(nl_can) - wetfrac;
+
+    ppt_ground = ppt_ground + dripout;
+    *vertsoils->ppt_ground = ppt_ground;                  // Rate of rainfall hit the ground [mm]
+    wetfrac = Ffact * (Sh2o_prof.cwiseQuotient(Smaxz));
+    dryfrac = VectorXd::Ones(nl_can) - wetfrac;
 }
 
 
@@ -2040,6 +2163,7 @@ void CanopyModel(ProjectClass *project, SwitchClass *Switches, ConstantClass *co
 {
     int converged_LW, cnt_LW, maxiters;
     int turb_on = Switches->Turbulence;
+    int LW_eq = Switches->LWequation;
     int nl_can  = canopies->nl_can;
     double ppt_ground, percdiff, Fc_soil, H_soil, LE_soil, G, RH_soil, T_surf;
     double LWout, LWabs_soil, LWemit_soil, Totabs_soil, Rnrad_soil, LWups;
@@ -2179,15 +2303,18 @@ void CanopyModel(ProjectClass *project, SwitchClass *Switches, ConstantClass *co
     // Longwave Convergence Loop
     converged_LW = 0;
     cnt_LW = 0;
-    maxiters = 20;
-    percdiff = 0.01;
+    
+    // The more iteration, the more unstable solution due to nonlinearity. 
+    // Or direct solution by inposing ground heat flux might help.
+    maxiters = 5;   //20;
+    percdiff = 0.5; //0.01;
 
     while (converged_LW == 0)
     {
         // LONGWAVE rADIATION ABSORPTION
         LongWaveradiation(forcings, canopies, vertcanopies, vertsoils,
             constants, radiation, LWabs_can, LWabs_sun, LWabs_shade, &LWabs_soil,
-            &LWout, LWemit_can, LWemit_sun, LWemit_shade, &LWemit_soil);
+            &LWout, LWemit_can, LWemit_sun, LWemit_shade, &LWemit_soil, LW_eq);
 
         // TOTAL ABSORBED rADIATION [W/m^2 ground]
         Totabs_sun = LWabs_sun + SWabs_sun;
@@ -2262,7 +2389,9 @@ void CanopyModel(ProjectClass *project, SwitchClass *Switches, ConstantClass *co
         if (cnt_LW > 1)
         {
             diffprof = LWabs_can - LWabs_prev;
-            percdiffprof = diffprof.cwiseQuotient(LWabs_prev);
+            // This should be a absolute value
+            //percdiffprof = diffprof.cwiseQuotient(LWabs_prev);
+            percdiffprof = diffprof.cwiseQuotient(LWabs_prev).cwiseAbs();     
             if (percdiffprof.maxCoeff() < percdiff)
                 converged_LW = 1;
         }
@@ -2286,7 +2415,18 @@ void CanopyModel(ProjectClass *project, SwitchClass *Switches, ConstantClass *co
     *vertcanopies->Evap_can = Evap_can;
     *vertcanopies->Ch2o_can = Ch2o_can;
 
-    Evap_Condensation_Adjust(vertcanopies, canopies, vertsoils, Sh2o_prof, &Sh2o_can, nl_can);
+    Evap_Condensation_Adjust(vertcanopies, canopies, vertsoils, Sh2o_prof, &Sh2o_can, wetfrac, dryfrac, nl_can);
+
+    *vertcanopies->Sh2o_can = Sh2o_can;
+
+    Ch2o_prof = Map<VectorXd>(vertcanopies->Ch2o_prof, nl_can);
+    Ch2o_can = Ch2o_prof.sum();                                  // Condensation water in the canopy [mm] 
+    *vertcanopies->Ch2o_can = Ch2o_can;
+
+    Evap_prof = Map<VectorXd>(vertcanopies->Evap_prof, nl_can);
+    Evap_can = Evap_prof.sum();                                  // Total canopy evaporation [mm] 
+    *vertcanopies->Evap_can = Evap_can;
+	//-------------------------------
 
     An_can    = (An_sun.cwiseProduct(LAIsun)+An_shade.cwiseProduct(LAIshade)).sum();
     LE_can    = (LE_sun.cwiseProduct(LAIsun)+LE_shade.cwiseProduct(LAIshade)).sum();
@@ -2299,11 +2439,13 @@ void CanopyModel(ProjectClass *project, SwitchClass *Switches, ConstantClass *co
     *vertcanopies->H_can     = H_can;
     *vertcanopies->TR_can    = TR_can;
     *vertcanopies->Rnrad_can = Rnrad_can;
+    //*vertsoils->E_soil       = max(*vertcanopies->LE_can/constants->Lv_g, 0.0); // Soil evaporation [mm/s]=[g/m^2/s]
+    *vertsoils->E_soil       = *vertcanopies->LE_can/constants->Lv_g; // Soil evaporation (positive) or condensation (negative) [mm/s]=[g/m^2/s]
 
     outmlcan->An_can[t]      = An_can;
     outmlcan->LE_can[t]      = LE_can;
     outmlcan->H_can[t]       = H_can;
-    outmlcan->TR_can[t]      = TR_can;
+    outmlcan->TR_can[t]      = TR_can;                                          // Transpiration 
     outmlcan->Rnrad_can[t]   = Rnrad_can;
 
     for (int i=0; i<nl_can; i++)
@@ -2320,6 +2462,17 @@ void CanopyModel(ProjectClass *project, SwitchClass *Switches, ConstantClass *co
         outmlcan->TR_shade[t*nl_can+i]  = TR_shade[i]*LAIshade[i];
         outmlcan->Evap_prof[t*nl_can+i] = Evap_prof[i];
     }
+
+    // Canopy water balance
+    if (t == 0) 
+    {
+        *vertcanopies->mbw_can = 0;
+    }
+    else {
+        *vertcanopies->mbw_can = (-Evap_can / dtime + Ch2o_can / dtime + forcings->ppt / dtime - *vertsoils->ppt_ground / dtime - (Sh2o_can - *vertcanopies->Sh2o_can_prev) / dtime) * dtime; // [mm]  
+    }
+    outmlcan->mbw_can[t] = *vertcanopies->mbw_can;
+    *vertcanopies->Sh2o_can_prev = Sh2o_can;
 }
 
 

@@ -27,7 +27,9 @@
 void ResizeCuspMemory(int rank, int3 globsize, cuspdev_diamat &a2d_cusp, cuspdev_1d &we_out_cusp,
                       cuspdev_1d &rhs2d_cusp, cuspdev_idoper &id2d, cuspdev_diamat &a3d_cusp,
                       cuspdev_1d &psinp1mp1_cusp, cuspdev_1d &rhs3d_cusp, cuspdev_idoper &id3d,
-                      cuspdev_1d &deltam_cusp, thrustdev &thetanp1mp1_thrust)
+                      cuspdev_1d &deltam_cusp, thrustdev &thetanp1mp1_thrust,
+                      thrustdev &quflux_thrust, thrustdev &qdflux_thrust, thrustdev &qwflux_thrust, thrustdev &qeflux_thrust, thrustdev &qsflux_thrust, thrustdev &qnflux_thrust,
+                      thrustdev &dtheta_thrust, thrustdev &transp_thrust, thrustdev &evapo_thrust, thrustdev &ssflux_thrust)
 {
     int globsize_xy  = globsize.x * globsize.y;
     int globsize_xyz = globsize.x * globsize.y * globsize.z;
@@ -50,6 +52,17 @@ void ResizeCuspMemory(int rank, int3 globsize, cuspdev_diamat &a2d_cusp, cuspdev
         thetanp1mp1_thrust.resize(globsize_xyz, 0.0);
         deltam_cusp.resize(globsize_xyz, 0.0);
         id3d.resize(a3d_cusp.num_rows, a3d_cusp.num_rows, 0.0);
+        
+        quflux_thrust.resize(globsize_xyz, 0.0);
+        qdflux_thrust.resize(globsize_xyz, 0.0);
+        qwflux_thrust.resize(globsize_xyz, 0.0);
+        qeflux_thrust.resize(globsize_xyz, 0.0);
+        qsflux_thrust.resize(globsize_xyz, 0.0);
+        qnflux_thrust.resize(globsize_xyz, 0.0);
+        dtheta_thrust.resize(globsize_xyz, 0.0);
+        transp_thrust.resize(globsize_xyz, 0.0);
+        evapo_thrust.resize(globsize_xyz, 0.0);
+        ssflux_thrust.resize(globsize_xyz, 0.0);        
 
 
         printf(" . . . . . . . . . . . . . . . . . . . . completed! \n");
@@ -80,7 +93,9 @@ void CastCuspToPlainMemory(TimeForcingClass * &timeforcings, OverlandFlowClass *
                            cuspdev_diamat &a2d_cusp, cuspdev_1d &we_out_cusp,
                            cuspdev_1d &rhs2d_cusp, cuspdev_diamat &a3d_cusp,
                            cuspdev_1d &psinp1mp1_cusp, cuspdev_1d &rhs3d_cusp,
-                           cuspdev_1d &deltam_cusp, thrustdev &thetanp1mp1_thrust)
+                           cuspdev_1d &deltam_cusp, thrustdev &thetanp1mp1_thrust,
+                           thrustdev &quflux_thrust, thrustdev &qdflux_thrust, thrustdev &qwflux_thrust, thrustdev &qeflux_thrust, thrustdev &qsflux_thrust, thrustdev &qnflux_thrust,
+                           thrustdev &dtheta_thrust, thrustdev &transp_thrust, thrustdev &evapo_thrust, thrustdev &ssflux_thrust)
 {
     if (rank == MPI_MASTER_RANK)
     {
@@ -97,6 +112,18 @@ void CastCuspToPlainMemory(TimeForcingClass * &timeforcings, OverlandFlowClass *
         subsurface_dev->rhs3d       = thrust::raw_pointer_cast(&rhs3d_cusp[0]);
         subsurface_dev->deltam      = thrust::raw_pointer_cast(&deltam_cusp[0]);
         subsurface_dev->thetanp1mp1 = thrust::raw_pointer_cast(&thetanp1mp1_thrust[0]);
+
+        subsurface_dev->quflux = thrust::raw_pointer_cast(&quflux_thrust[0]);
+        subsurface_dev->qdflux = thrust::raw_pointer_cast(&qdflux_thrust[0]);
+        subsurface_dev->qwflux = thrust::raw_pointer_cast(&qwflux_thrust[0]);
+        subsurface_dev->qeflux = thrust::raw_pointer_cast(&qeflux_thrust[0]);
+        subsurface_dev->qsflux = thrust::raw_pointer_cast(&qsflux_thrust[0]);
+        subsurface_dev->qnflux = thrust::raw_pointer_cast(&qnflux_thrust[0]);
+        subsurface_dev->dtheta = thrust::raw_pointer_cast(&dtheta_thrust[0]);
+        subsurface_dev->transp = thrust::raw_pointer_cast(&transp_thrust[0]);
+        subsurface_dev->evapo = thrust::raw_pointer_cast(&evapo_thrust[0]);
+        subsurface_dev->ssflux = thrust::raw_pointer_cast(&ssflux_thrust[0]);
+        
 
         printf(" . . . . . . . . . . . . . . . . . . completed! \n");
         printf("-------------------- \n");
@@ -372,17 +399,23 @@ void RunCoupledFlowModel(TimeForcingClass *timeforcings, OverlandFlowClass *over
     thrustdev_iter maxError;                                // iterator error
     cuspdev_1d we_out_cusp, rhs2d_cusp;                     // 1d array - for 2d model
     cuspdev_1d psinp1mp1_cusp, rhs3d_cusp, deltam_cusp;     // 1d array - for 3d model
-    thrustdev thetanp1mp1_thrust;                           // 1d thrust array
+    thrustdev thetanp1mp1_thrust,
+        quflux_thrust, qdflux_thrust, qwflux_thrust, qeflux_thrust, qsflux_thrust, qnflux_thrust,
+        dtheta_thrust, transp_thrust, evapo_thrust, ssflux_thrust;  // 1d thrust array
                                                             // All: see definitions in cusplib.h
                                                             // cusp is based on thrust
 
     // Process CUSP memory.
     ResizeCuspMemory(rank, globsize, a2d_cusp, we_out_cusp, rhs2d_cusp, id2d, a3d_cusp,
-                     psinp1mp1_cusp, rhs3d_cusp, id3d, deltam_cusp, thetanp1mp1_thrust );
+                     psinp1mp1_cusp, rhs3d_cusp, id3d, deltam_cusp, thetanp1mp1_thrust,
+                     quflux_thrust, qdflux_thrust, qwflux_thrust, qeflux_thrust, qsflux_thrust, qnflux_thrust,
+                     dtheta_thrust, transp_thrust, evapo_thrust, ssflux_thrust);
 
     CastCuspToPlainMemory(timeforcings, overland_dev, subsurface_dev, rank, globsize, a2d_cusp,
                           we_out_cusp, rhs2d_cusp, a3d_cusp, psinp1mp1_cusp, rhs3d_cusp,
-                          deltam_cusp, thetanp1mp1_thrust );
+                          deltam_cusp, thetanp1mp1_thrust,
+                          quflux_thrust, qdflux_thrust, qwflux_thrust, qeflux_thrust, qsflux_thrust, qnflux_thrust,
+                          dtheta_thrust, transp_thrust, evapo_thrust, ssflux_thrust);
 
     // Initialization for flow model
     PreRunningFlowModel(project, subsurface_dev, rank, procsize, globsize, cartComm);
@@ -403,6 +436,8 @@ void RunCoupledFlowModel(TimeForcingClass *timeforcings, OverlandFlowClass *over
 
         MPI_Barrier(*cartComm);              // Synchronize all MPIs
 
+        
+
         // Gather transpiration to master
         GatherFluxesDomain(project, vertcanopies, vertsoils, subsurface_host, subsurface_dev, rank,
                            procsize, globsize, domsize, topolsize, topolindex, cartComm);
@@ -414,7 +449,10 @@ void RunCoupledFlowModel(TimeForcingClass *timeforcings, OverlandFlowClass *over
         {
             SubsurfaceFlowModel(timeforcings, overland_host, overland_dev, subsurface_host,
                                 subsurface_dev, a3d_cusp, psinp1mp1_cusp, rhs3d_cusp, id3d,
-                                deltam_cusp, maxError, rank, procsize, globsize, t, num_steps);
+                                deltam_cusp, maxError, 
+                                quflux_thrust, qdflux_thrust, qwflux_thrust, qeflux_thrust, qsflux_thrust, qnflux_thrust,
+                                dtheta_thrust, transp_thrust, evapo_thrust, ssflux_thrust,
+                                rank, procsize, globsize, t, num_steps);
 
             OverlandFlowModel(timeforcings, overland_dev, subsurface_dev, a2d_cusp, we_out_cusp,
                               rhs2d_cusp, id2d, rank, procsize, globsize, t, num_steps);
