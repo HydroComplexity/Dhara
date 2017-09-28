@@ -1483,7 +1483,7 @@ void LEB_Quartic(CanopyClass *canopies, VerticalCanopyClass *vertcanopies,
                  int nl_can, int dry)
 {
     double epsv, LWfact, Hfact, LEfact, Lv, boltz, cp;
-    double c1, c2, c3, c4, c5, aa, bb, dd, ee, estarTl, Me, minval = 0.0;
+    double c1, c2, c3, c4, c5, aa, bb, dd, ee, estarTl, Me, maxval = 0.0;
     double a1, ce[4], roots[4];
     VectorXd taud(nl_can), eaz(nl_can), Taz(nl_can), Paz(nl_can);
     VectorXd An(nl_can), Rabs(nl_can), LAIfrac(nl_can), leaffrac(nl_can);
@@ -1590,7 +1590,7 @@ void LEB_Quartic(CanopyClass *canopies, VerticalCanopyClass *vertcanopies,
                 if (roots[j] > 0)
                 {
                     ind += 1;
-                    minval = roots[j];
+                    maxval = roots[j];
                 }
             }
 
@@ -1601,16 +1601,16 @@ void LEB_Quartic(CanopyClass *canopies, VerticalCanopyClass *vertcanopies,
             }
             else
             {
-                // Find smallest positive
+                // Find largest positive
                 for (int j=0; j<num_real; j++)
                 {
-                    if (minval > roots[j] && roots[j] > 0)
+                    if (maxval < roots[j] && roots[j] > 0)
                     {
-                        minval = roots[j];
+                        maxval = roots[j];
                         ind = j;
                     }
                 }
-                Tl[i] = minval;
+                Tl[i] = maxval;
             }
         }
 
