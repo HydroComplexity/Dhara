@@ -1604,7 +1604,7 @@ void LEB_Quartic(CanopyClass *canopies, VerticalCanopyClass *vertcanopies,
                 // Find largest positive
                 for (int j=0; j<num_real; j++)
                 {
-                    if (maxval < roots[j] && roots[j] > 0)
+                    if (maxval > roots[j] && roots[j] > 0)
                     {
                         maxval = roots[j];
                         ind = j;
