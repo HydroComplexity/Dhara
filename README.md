@@ -43,7 +43,8 @@ See our tutorials [here](https://github.com/HydroComplexity/Dhara/blob/master/do
 
 ## Citation
 If you use Dhara model, please use the following citations:
-* Le, P.V.V. and Kumar, P. (submitted). Interaction between ecohydrologic dynamics and microtopographic variability under climate change. *Water Resources Research*.
+* Le, P. V. V., & Kumar, P. (2017). Interaction between ecohydrologic dynamics and microtopographic variability under climate change. *Water Resources Research*, 53, 8383–8403. https://doi.org/10.1002/2017WR020377.
+* Woo, D. K. & Kumar, P. (2017). Role of micro-topographic variability on the distribution of inorganic soil-nitrogen age in intensively managed landscape. *Water Resources Research*, 53, 8404–8422. https://doi.org/10.1002/2017WR021053
 * Le, P.V.V., Kumar, P., Valocchi, A.J., and Dang, H.-V. (2015): GPU-based high-performance computing for integrated surface–sub-surface flow modeling. *Environmental Modelling & Software*. doi: 10.1016/j.envsoft.2015.07.015
 * Drewry, D.T., P. Kumar, S. Long, C. Bernacchi, X.-Z. Liang, and M. Sivapalan (2010), Ecohydrological responses of dense canopies to environmental variability: 1. Interplay between vertical structure and photosynthetic pathway, *J. Geophys. Res.*, 115, G04022, doi:10.1029/2010JG001340.
 
