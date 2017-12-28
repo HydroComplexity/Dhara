@@ -50,7 +50,7 @@ void SetInitialConditionsHost(TimeForcingClass *timeforcings, FileNameClass *fil
     }
 
     // Soil moisture and hydraulic conductivity
-    double ksat = 5e-3;
+    double ksat = 0.0025;//5e-3; // [m/dtime]
     for (int k = 0; k < sizez; k++)
     {
         for (int i = 0; i < sizexy; i++)

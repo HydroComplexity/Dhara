@@ -129,6 +129,7 @@ void LoadConfigMLCanModel(ProjectClass *project, FileNameClass *files, SwitchCla
     switches->RootConductivity        = GetOptionToInt("ROOT_CONDUCTIVITY");
     switches->RootHydrauConduct       = GetOptionToInt("ROOT_HYDRAUCONDUCT");
     switches->SoilHeat                = GetOptionToInt("SOIL_HEAT_MODEL");
+    switches->LWequation              = GetOptionToInt("LONGWAVE_EQUATION");
 
     // CONSTANTS . . . . . . . . .
     constants->umoltoWm2   = GetOptionToDouble("UMOL_TO_WM2");
@@ -483,12 +484,13 @@ void ParsingCommandsAndConfigurations(int argc, char **argv, const char * &file_
         mpiobj->global_size.y = dim_topography[0];
         mpiobj->global_size.z = NUM_SOIL_LAYERS;
 
-        project->saveolf    = GetOptionToInt("SAVE_OVERLAND");
-        project->savessf    = GetOptionToInt("SAVE_SUBSURFACE");
-        project->savestat   = GetOptionToInt("SAVE_STATISTICS");
-        project->olfoutput  = GetOptionToChar("OUTPUT_NAME_OVERLAND");
-        project->ssfoutput  = GetOptionToChar("OUTPUT_NAME_SUBSURFACE");
-        project->statoutput = GetOptionToChar("OUTPUT_NAME_STATISTICS");
+        project->saveolf     = GetOptionToInt("SAVE_OVERLAND");
+        project->savessf     = GetOptionToInt("SAVE_SUBSURFACE");
+        project->savestat    = GetOptionToInt("SAVE_STATISTICS");
+        project->olfoutput   = GetOptionToChar("OUTPUT_NAME_OVERLAND");
+        project->ssfoutput   = GetOptionToChar("OUTPUT_NAME_SUBSURFACE");
+        project->ssf1doutput = GetOptionToChar("OUTPUT_NAME_SUBSURFACE_1D");
+        project->statoutput  = GetOptionToChar("OUTPUT_NAME_STATISTICS");
     }
 
     if (isroot)
@@ -555,7 +557,7 @@ void LoadForcingData(FileNameClass *files, CanopyClass *canopies, TimeForcingCla
 
     for (int i = 0; i < num_steps; ++i)
     {
-        timeforcings->ppt[i] /= 1000.;
+        timeforcings->ppt[i]; // ppt in [mm] /= 1000.;
         pptsum += timeforcings->ppt[i];
         rgsum += timeforcings->rg[i];
         pasum += timeforcings->pa[i];
@@ -569,7 +571,8 @@ void LoadForcingData(FileNameClass *files, CanopyClass *canopies, TimeForcingCla
 
     if (isroot)
     {
-        printf("\t Total precipitation [mm]:           % 5.2f \n", pptsum * 1000.);
+        //printf("\t Total precipitation [mm]:           % 5.2f \n", pptsum * 1000.);
+        printf("\t Total precipitation [mm]:           % 5.2f \n", pptsum);
         printf("\t Mean global radiation [W/m^2]:      % 5.2f \n", rgsum/num_steps);
         printf("\t Mean air pressure [MPa]:            % 5.2f \n", pasum/num_steps);
         printf("\t Mean longwave downward [W/m^2]:     % 5.2f \n", lwdnsum/num_steps);
@@ -939,6 +942,8 @@ void SaveMLCanResults(ProjectClass *project, OutputClass *outmlcan, CanopyClass 
     SaveOutput1D(file_mlcan, "H_can", outmlcan->H_can, NC_DOUBLE, dim1Dname, num_steps, 1);
     SaveOutput1D(file_mlcan, "TR_can", outmlcan->TR_can, NC_DOUBLE, dim1Dname, num_steps, 1);
     SaveOutput1D(file_mlcan, "Rnrad_can", outmlcan->Rnrad_can, NC_DOUBLE, dim1Dname, num_steps, 1);
+    SaveOutput1D(file_mlcan, "mbw_can", outmlcan->mbw_can, NC_DOUBLE, dim1Dname, num_steps, 1);
+    
 }
 
 
@@ -961,7 +966,7 @@ void  SaveResultEntirePeriod(ProjectClass *project, CanopyClass *canopies,
     int isroot = rank == MPI_MASTER_RANK;
     int num_steps = project->num_steps;
     int sizez = globsize.z;
-    char file2D[64];
+    char file1D[64], file2D[64], dim1Dname[64];
 
     // Save MLCan model on all processes
     if (project->savemlcan)
@@ -972,9 +977,14 @@ void  SaveResultEntirePeriod(ProjectClass *project, CanopyClass *canopies,
     {
         if (project->savestat)
         {
+            snprintf(file1D, sizeof(char) * 64, "%s/%s.nc", project->folderoutput,
+                                                            project->ssf1doutput);
+            snprintf(dim1Dname, sizeof(char) * 64, "time_series");
+            SaveOutput1D(file1D, "mb_subsurfaceW", subsurface_host->mb_subsurfaceW, NC_DOUBLE, dim1Dname, num_steps, 0);
+
+
             snprintf(file2D, sizeof(char) * 64, "%s/%s.nc", project->folderoutput,
                                                             project->statoutput);
-
             SaveOutput2D(file2D, "pressure_mean", subsurface_host->psi_col, NC_DOUBLE, sizez,
                          num_steps, 0);
             SaveOutput2D(file2D, "moisture_mean", subsurface_host->theta_col, NC_DOUBLE, sizez,

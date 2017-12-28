@@ -14,11 +14,13 @@
         double *Evap_can;
         double *Ch2o_can;
         double *Sh2o_can;
+        double *Sh2o_can_prev;
         double *An_can;
         double *LE_can;
         double *H_can;
         double *TR_can;
         double *Rnrad_can;
+        double *mbw_can;        
         double *zhc;
         double *znc;
         double *LAD;
@@ -108,12 +110,14 @@
             Evap_can         = new double[1];
             Ch2o_can         = new double[1];
             Sh2o_can         = new double[1];
+            Sh2o_can_prev    = new double[1];
             NIRout           = new double[1];
             An_can           = new double[1];
             LE_can           = new double[1];
             H_can            = new double[1];
             TR_can           = new double[1];
             Rnrad_can        = new double[1];
+            mbw_can          = new double[1];
             zhc              = new double[size];
             znc              = new double[size];
             LAD              = new double[size];

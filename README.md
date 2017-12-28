@@ -17,9 +17,9 @@ Visit [http://hydrocomplexity.github.io/Dhara](http://hydrocomplexity.github.io/
 
 The following packages are required to compile and run DHARA
 ```
-* mpich or openmpi
-* CUDA (5.0 or later)
-* netcdf4
+mpich or openmpi
+CUDA (5.0 or later)
+netcdf4
 ```
 
 
@@ -37,9 +37,15 @@ $ make
 ```
 
 ## Documentation
+Dhara model is developed based on a set of following research work: [Drewry et al. 2010a](http://onlinelibrary.wiley.com/doi/10.1029/2010JG001340/abstract), [Drewry et al. 2010b](http://onlinelibrary.wiley.com/doi/10.1029/2010JG001341/abstract), [Le et al. 2011](http://www.pnas.org/content/108/37/15085.abstract), [Quijano et al. 2012](http://onlinelibrary.wiley.com/doi/10.1029/2011WR011416/abstract), [Le et al. 2015](http://www.sciencedirect.com/science/article/pii/S1364815215300207).
 
 See our tutorials [here](https://github.com/HydroComplexity/Dhara/blob/master/docs/notebooks/Dhara_model.ipynb) to learn about DHARA and run examples.
 
+## Citation
+If you use Dhara model, please use the following citations:
+* Le, P.V.V. and Kumar, P. (submitted). Interaction between ecohydrologic dynamics and microtopographic variability under climate change. *Water Resources Research*.
+* Le, P.V.V., Kumar, P., Valocchi, A.J., and Dang, H.-V. (2015): GPU-based high-performance computing for integrated surface–sub-surface flow modeling. *Environmental Modelling & Software*. doi: 10.1016/j.envsoft.2015.07.015
+* Drewry, D.T., P. Kumar, S. Long, C. Bernacchi, X.-Z. Liang, and M. Sivapalan (2010), Ecohydrological responses of dense canopies to environmental variability: 1. Interplay between vertical structure and photosynthetic pathway, *J. Geophys. Res.*, 115, G04022, doi:10.1029/2010JG001340.
 
 ## License
 This software is freeware and is released under restricted licences. See LICENSE.txt for more information. 
