@@ -3,8 +3,8 @@
 // All rights reserved.
 //
 // Distributed Hydrologicc and Regional Analysis (DHARA) Model
-// DHARA model is made available as a restricted, non-exclusive, 
-// non-transferable license for education and research purpose only, 
+// DHARA model is made available as a restricted, non-exclusive,
+// non-transferable license for education and research purpose only,
 // and not for commercial use. See the LICENSE.txt for more details.
 //
 // Author: levuvietphong@gmail.com (Phong Le)
@@ -115,7 +115,7 @@ __global__ void SetUpLinearSystemsOverland(double *a2d, double *rhs2d, double *w
         ///////////////////////////////////////////////////////
         // We need to modify matrix A & rhs2d for BCs        //
         ///////////////////////////////////////////////////////
-
+        // test
         // Inner bound (i, j > 0 and i or j equal 1)
         // if (j == 1)
         // {
@@ -149,7 +149,7 @@ __global__ void SetUpLinearSystemsOverland(double *a2d, double *rhs2d, double *w
 
             a2d[2*sizexy + tid] = 1.0;
             //rhs2d[tid] = ztopo[tid] + waterdepth;
-            rhs2d[tid] = waterelev[tid] + waterdepth;  
+            rhs2d[tid] = waterelev[tid] + waterdepth;
         }
 
         if (j == sizey-1)
@@ -371,7 +371,7 @@ __global__ void UpdateKOverland(double *Hs, double *h, double *mann, double *kw,
 __global__ void WaterDepthOverland(double *waterelev, double *waterdepth, double *ztopo, int size)
 {
     int tid = threadIdx.x + blockIdx.x * blockDim.x;
-    
+
     while (tid < size)
     {
         // Transfer data and memory . . .
@@ -395,14 +395,14 @@ void OverlandFlowModel(TimeForcingClass * &timeforcings, OverlandFlowClass * &ov
                           overland_dev->ztopo, sizexy);
     cudaCheckError("WaterElevationOverland");
 
-    UpdateKOverland<<<TSZ, BSZ>>>(overland_dev->waterelev, overland_dev->waterdepth, 
+    UpdateKOverland<<<TSZ, BSZ>>>(overland_dev->waterelev, overland_dev->waterdepth,
                    overland_dev->mann, overland_dev->kw, overland_dev->ke, overland_dev->ks,
                    overland_dev->kn, globsize);
     cudaCheckError("UpdateKOverland");
 
-    SetUpLinearSystemsOverland<<<TSZ, BSZ>>>(overland_dev->a2d, overland_dev->rhs2d, 
+    SetUpLinearSystemsOverland<<<TSZ, BSZ>>>(overland_dev->a2d, overland_dev->rhs2d,
                               overland_dev->waterelev, overland_dev->ztopo, overland_dev->kw,
-                              overland_dev->ke, overland_dev->ks, overland_dev->kn, 
+                              overland_dev->ke, overland_dev->ks, overland_dev->kn,
                               0., 0., 0., globsize);
     cudaCheckError("SetUpLinearSystemsOverland");
 
